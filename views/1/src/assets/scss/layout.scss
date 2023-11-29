@@ -1,0 +1,51 @@
+.ant-layout-header {
+  line-height: unset !important;
+  background: var(--bg-base) !important;
+  height: unset !important;
+}
+.ant-layout-content {
+  //   padding-top: 50px;
+  background: var(--bg-base) !important;
+}
+.ant-layout-footer {
+  background: var(--bg-base) !important;
+}
+
+.ant-menu {
+  background-color: transparent !important;
+}
+.ant-menu-title-content {
+  font-family: 'Inter' !important;
+  color: var(--text-link) !important;
+  &::after {
+    display: none !important;
+  }
+}
+.ant-menu-item:hover .ant-menu-title-content {
+  opacity: 0.8 !important;
+}
+.ant-menu-item::after {
+  display: none !important;
+}
+.ant-form-item-label label {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: var(--text-link) !important;
+}
+input[type='search']::-ms-clear {
+  display: none;
+  width: 0;
+  height: 0;
+}
+input[type='search']::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+/* clears the ‘X’ from Chrome */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  display: none;
+}

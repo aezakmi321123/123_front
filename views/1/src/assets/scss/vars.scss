@@ -1,0 +1,46 @@
+$gutters: 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80;
+:root {
+  --font-family: 'Roboto', sans-serif;
+  --bg-base: #030217;
+  --bg-primary: #1d262c;
+  --bg-secondary: #242d33;
+  --bg-select: #242336;
+  --bg-select-options: #242336;
+  --bg-input: #1e1e35;
+  --border-input: #383853;
+  --border-input-focused: #0c72d8;
+  --bg-tag: #ffdf41;
+  --text-link: #c2beda;
+  --text-primary: #ececf1;
+  --text-tertiary: #6b8199;
+  --text-quaternary: #54546c;
+  --text-black: #000000;
+  --button-primary: #27273f;
+  --button-primary-blue: #5d9ffa;
+  --button-secondary: #4040f2;
+  --icon-primary: #838b91;
+  --icon-blue: #5d9ffa;
+  --icon-green: #57d982;
+  --divider-grey: #323e47;
+  --divider-blue: #5d9ffa;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --overlay-05: rgba(255, 255, 255, 0.05);
+  --overlay-10: rgba(255, 255, 255, 0.1);
+  --overlay-dark-15: rgba(97, 97, 97, 0.15);
+  --overlay-dark-25: rgba(97, 97, 97, 0.25);
+  --icon-hover: #cccccc;
+  --icon-pressed: #838b91;
+
+  @each $gutter in $gutters {
+    $index: index($gutters, $gutter);
+    --gutter-#{$index}: #{calc($gutter / 16)}rem;
+  }
+}
+@mixin mq($size, $prop: max-width) {
+  @media screen and ($prop: $size) {
+    @content;
+  }
+}
