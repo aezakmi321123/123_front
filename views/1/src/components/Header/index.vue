@@ -322,6 +322,8 @@ export default {
 .main-header {
   position: sticky;
   top: 0;
+  background: var(--bg-base);
+  z-index: 1;
 }
 .header {
   z-index: 1;

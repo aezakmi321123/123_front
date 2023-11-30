@@ -45,7 +45,6 @@
 }
 html,
 body {
-  overflow-x: hidden;
   width: 100% !important;
   position: relative;
   background: var(--bg-base);
@@ -95,4 +94,13 @@ a {
   button {
     background-color: #f9f9f9;
   }
+}
+
+// utility styles
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.mb-0{
+  margin-bottom: 0 !important;
 }
