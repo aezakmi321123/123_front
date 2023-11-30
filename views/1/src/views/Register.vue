@@ -1,7 +1,10 @@
 <template>
   <div class="container auth">
-    <a-row :gutter="[100, 0]">
-      <a-col :span="12">
+    <a-row
+      :gutter="[100, 0]"
+      :justify="{ xs: 'center', sm: 'center', md: 'center' }"
+    >
+      <a-col :xs="20" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">{{ t('sign_up.register') }}</h2>
           <div class="auth__card-registered">
@@ -43,8 +46,8 @@
               ></CInput>
             </a-form-item>
             <a-form-item label="Captcha">
-              <a-row>
-                <a-col :span="12">
+              <a-row :gutter="[{ sm: 20 }, { sm: 20 }]">
+                <a-col :xs="24" :sm="14" :md="12">
                   <VueClientRecaptcha
                     hide-lines
                     custom-text-color="#c2beda"
@@ -62,7 +65,7 @@
                     </template>
                   </VueClientRecaptcha>
                 </a-col>
-                <a-col :span="12">
+                <a-col :xs="24" :sm="10" :md="12">
                   <a-form-item
                     name="captcha"
                     :rules="[
@@ -88,7 +91,7 @@
           </a-form>
         </div>
       </a-col>
-      <a-col :span="12">
+      <a-col :xs="0" :lg="10" :xl="12">
         <div class="auth__image">
           <img :style="{ width: '100%' }" src="wow.png" />
         </div>

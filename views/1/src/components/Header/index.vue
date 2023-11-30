@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-header">
     <div class="header__mobile">
       <div class="header__mobile-image">
         <a @click="goToMainPage"><img src="/mainLogo.svg" /></a>
@@ -11,50 +11,119 @@
         />
       </div>
     </div>
-    <div :class="['header container', { open: openMobile }]">
-      <CloseOutlined
-        :style="{ fontSize: '30px' }"
-        class="header__close"
-        @click="openMobile = false"
-      />
-
-      <a class="header__logo"
-        ><img src="/mainLogo.svg" @click="goToMainPage"
-      /></a>
-      <div mode="horizontal" class="header__list">
-        <a key="1" class="header__list-item" @click="goToMainPage"
-          >{{ t('header.homepage') }}
-        </a>
-        <a key="2" class="header__list-item">{{ t('header.news') }}</a>
-        <a key="3" class="header__list-item">{{
-          t('header.top_directions')
-        }}</a>
-        <a key="4" class="header__list-item">{{ t('header.about_us') }}</a>
-      </div>
-      <div v-if="!authStore.isLoggedIn" class="header__buttons">
-        <CSelect :value="lang" :options="languages" @change="changeLang" />
-        <router-link to="/login"
-          ><CButton type="primary">{{
-            t('header.signin')
-          }}</CButton></router-link
-        >
-        <router-link to="/register"
-          ><CButton type="primary">{{
-            t('header.signup')
-          }}</CButton></router-link
-        >
-      </div>
-      <div v-else class="header__right">
-        <CSelect :value="lang" :options="languages" @change="changeLang" />
-        <div class="header__buttons" @click="drawer = true">
-          <UserOutlined :style="{ fontSize: '20px' }" />
-          <a>{{ authStore.user.fullName }}</a>
-          <CaretDownFilled />
-          <!-- <LogoutOutlined :style="{ fontSize: '20px' }" @click="logout" /> -->
+    <div>
+      <div :class="['header container show-desktop', { open: openMobile }]">
+        <a class="header__logo"
+          ><img src="/mainLogo.svg" @click="goToMainPage"
+        /></a>
+        <div mode="horizontal" class="header__list">
+          <a key="1" class="header__list-item" @click="goToMainPage"
+            >{{ t('header.homepage') }}
+          </a>
+          <a key="2" class="header__list-item">{{ t('header.news') }}</a>
+          <a key="3" class="header__list-item">{{
+            t('header.top_directions')
+          }}</a>
+          <a key="4" class="header__list-item">{{ t('header.about_us') }}</a>
+        </div>
+        <div v-if="!authStore.isLoggedIn" class="header__buttons">
+          <CSelect :value="lang" :options="languages" @change="changeLang" />
+          <router-link to="/login"
+            ><CButton type="primary">{{
+              t('header.signin')
+            }}</CButton></router-link
+          >
+          <router-link to="/register"
+            ><CButton type="primary">{{
+              t('header.signup')
+            }}</CButton></router-link
+          >
+        </div>
+        <div v-else class="header__right">
+          <CSelect :value="lang" :options="languages" @change="changeLang" />
+          <div class="header__buttons" @click="drawer = true">
+            <UserOutlined :style="{ fontSize: '20px' }" />
+            <a>{{ authStore.user.fullName }}</a>
+            <CaretDownFilled />
+            <!-- <LogoutOutlined :style="{ fontSize: '20px' }" @click="logout" /> -->
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <CDrawer v-model:open="openMobile">
+    <div class="drawer__body">
+      <div v-if="authStore.isLoggedIn" class="drawer__user">
+        <UserOutlined :style="{ fontSize: '40px' }" />
+        <span>{{ authStore.user.fullName }}</span>
+      </div>
+      <div v-if="authStore.isLoggedIn" class="drawer__verified">
+        <CTag color="error"
+          >Verified
+          <template #icon>
+            <CloseOutlined />
+          </template>
+        </CTag>
+        <CTag color="error"
+          >Premium
+          <template #icon>
+            <CloseOutlined />
+          </template>
+        </CTag>
+      </div>
+      <div class="drawer__list">
+        <div v-if="authStore.isLoggedIn" class="drawer__item">
+          <WalletOutlined />
+          <span @click="goTo('Wallets')">Wallet</span>
+        </div>
+        <div v-if="!authStore.isLoggedIn" class="header__buttons">
+          <router-link to="/login"
+            ><CButton type="primary">{{
+              t('header.signin')
+            }}</CButton></router-link
+          >
+          <router-link to="/register"
+            ><CButton type="primary">{{
+              t('header.signup')
+            }}</CButton></router-link
+          >
+        </div>
+        <div
+          v-if="authStore.isLoggedIn"
+          class="drawer__item"
+          @click="goTo('settings')"
+        >
+          <SettingOutlined />
+          <span>Settings</span>
+        </div>
+        <div v-if="authStore.isLoggedIn" class="drawer__item">
+          <HistoryOutlined />
+          <span>History</span>
+        </div>
+        <div class="drawer__item">
+          <HomeOutlined />
+          <span>{{ t('header.homepage') }}</span>
+        </div>
+        <div class="drawer__item">
+          <FileSearchOutlined />
+          <span>{{ t('header.news') }}</span>
+        </div>
+        <div class="drawer__item">
+          <QuestionOutlined />
+          <span>{{ t('header.about_us') }}</span>
+        </div>
+        <div
+          v-if="authStore.isLoggedIn"
+          class="drawer__item logout"
+          @click="logout"
+        >
+          <LogoutOutlined />
+          <span>LogOut</span>
+        </div>
+        <CSelect :value="lang" :options="languages" @change="changeLang" />
+      </div>
+    </div>
+  </CDrawer>
   <div v-if="authStore.isLoggedIn">
     <CDrawer v-model:open="drawer">
       <div class="drawer__body">
@@ -102,9 +171,12 @@
 import {
   CaretDownFilled,
   CloseOutlined,
+  FileSearchOutlined,
   HistoryOutlined,
+  HomeOutlined,
   LogoutOutlined,
   MenuOutlined,
+  QuestionOutlined,
   SettingOutlined,
   UserOutlined,
   WalletOutlined,
@@ -131,7 +203,10 @@ export default {
     WalletOutlined,
     SettingOutlined,
     HistoryOutlined,
+    HomeOutlined,
     CTag,
+    FileSearchOutlined,
+    QuestionOutlined,
   },
   setup() {
     const { t, locale } = useI18n();
@@ -185,6 +260,12 @@ export default {
 };
 </script>
 <style lang="scss">
+.show-mobile {
+  display: none;
+}
+.show-desktop {
+  display: block;
+}
 .drawer {
   &__body {
     display: flex;
@@ -238,6 +319,10 @@ export default {
     padding: 0 10%;
   }
 }
+.main-header {
+  position: sticky;
+  top: 0;
+}
 .header {
   z-index: 1;
   display: flex;
@@ -245,11 +330,6 @@ export default {
   cursor: pointer;
   height: 100px !important;
   align-items: center;
-  &__close {
-    display: none;
-    height: 20px;
-    width: 20px;
-  }
   &__right {
     display: flex;
   }
@@ -290,48 +370,11 @@ export default {
   }
 }
 @include mq(992px, max-width) {
-  .header {
-    position: fixed;
+  .show-mobile {
+    display: block;
+  }
+  .show-desktop {
     display: none;
-    width: 60%;
-    bottom: 0;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    justify-content: flex-start;
-    height: 100vh !important;
-    background-color: var(--bg-base);
-    &.open {
-      display: block;
-    }
-    &__close {
-      display: block;
-      position: absolute;
-      top: 20px;
-      cursor: pointer;
-      right: 20px;
-    }
-    &__logo {
-      margin-right: 90px;
-    }
-    &__logo img {
-      display: none;
-    }
-    &__list {
-      margin-top: 60px;
-      align-items: center;
-      flex-direction: column;
-    }
-    &__list-item {
-      font-size: 20px;
-    }
-    &__buttons {
-      margin-top: 50px;
-      justify-content: center;
-    }
-    &__lang {
-      display: none;
-    }
   }
 }
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div class="container auth">
-    <a-row :gutter="[100, 0]">
-      <a-col :span="12">
+    <a-row
+      :gutter="[100, 0]"
+      :justify="{ xs: 'center', sm: 'center', md: 'center' }"
+    >
+      <a-col :xs="20" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">Reset password</h2>
           <div class="auth__card-registered">
@@ -26,7 +29,7 @@
           </a-form>
         </div>
       </a-col>
-      <a-col :span="12">
+      <a-col :xs="0" :lg="10" :xl="12">
         <div class="auth__image">
           <img :style="{ width: '100%' }" src="wow.png" />
         </div>
