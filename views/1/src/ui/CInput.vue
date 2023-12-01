@@ -5,8 +5,14 @@
     v-bind="$attrs"
     :controls="false"
   >
-    <slot name="prefix" />
-    <slot name="suffix" />
+    <template #prefix>
+      <slot name="prefix"></slot>
+    </template>
+
+    <!-- Default slot for input content -->
+    <template #suffix>
+      <slot name="suffix"></slot>
+    </template>
     <slot />
   </a-input>
 </template>
@@ -23,6 +29,10 @@
   &::placeholder {
     color: var(--text-link);
     opacity: 0.8;
+  }
+
+  & .ant-input {
+    background-color: var(--bg-input) !important;
   }
 }
 .ant-input-status-error {

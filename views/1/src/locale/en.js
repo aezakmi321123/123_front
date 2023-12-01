@@ -59,8 +59,27 @@ export default {
     description:
       'Send the exact amount to the specified address. After payment has been made, you will be navigated back or see success modal',
     cryptoAmount: 'Amount in Crypto',
-    totalAmountReceived: 'Total amount received',
+    totalAmountReceived: 'Total Amount Received',
     walletAddress: 'Wallet Address',
-    network: 'network',
+    network: 'Network',
+    copied: "Copied",
+    error: 'Something went wrong, try again later!',
+    paymentInfo: 'Payment Info',
+    domain: 'Domain:',
+    paymentNumber: 'Payment ID:',
+    total: 'Total:',
+    toPay: 'To Pay:',
+    commission: 'Commission:',
+    invoiceExpiresIn: 'Invoice Expires In:',
+    expired: 'expired',
+    'status': 'Status:'
   },
+  ui: {
+    copyableInput: {
+      tooltip: "copy",
+    }
+  },
+  apiErrors: {
+    common: 'Something went wrong!'
+  }
 };

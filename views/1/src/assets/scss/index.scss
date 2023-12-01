@@ -101,6 +101,26 @@ a {
   color: var(--text-primary) !important;
 }
 
-.mb-0{
+.text-orange{
+  color: var(--text-warning)
+}
+
+.text-red {
+  color: var(--text-danger)
+}
+
+.text-green {
+  color: var(--text-success)
+}
+
+.mb-0 {
   margin-bottom: 0 !important;
+}
+
+.fw-semi-bold {
+  font-weight: 500;
+}
+
+.fw-bold {
+ font-weight: 700;
 }

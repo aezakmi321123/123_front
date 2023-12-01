@@ -1,4 +1,6 @@
 $gutters: 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80;
+$fss: 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80;
+
 :root {
   --font-family: 'Roboto', sans-serif;
   --bg-base: #030217;
@@ -7,6 +9,7 @@ $gutters: 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80;
   --bg-select: #242336;
   --bg-select-options: #242336;
   --bg-input: #1e1e35;
+  --bg-purple: #8057F5;
   --border-input: #383853;
   --border-input-focused: #0c72d8;
   --bg-tag: #ffdf41;
@@ -15,6 +18,9 @@ $gutters: 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80;
   --text-tertiary: #6b8199;
   --text-quaternary: #54546c;
   --text-black: #000000;
+  --text-warning: #ff9156;
+  --text-danger: #b10003;
+  --text-success: #11f65d;
   --button-primary: #27273f;
   --button-primary-blue: #5d9ffa;
   --button-secondary: #4040f2;
@@ -37,6 +43,11 @@ $gutters: 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80;
   @each $gutter in $gutters {
     $index: index($gutters, $gutter);
     --gutter-#{$index}: #{calc($gutter / 16)}rem;
+  }
+
+  @each $fs in $fss {
+    $index: index($fss, $fs);
+    --fs-#{$index}: #{calc($fs / 16)}rem;
   }
 }
 @mixin mq($size, $prop: max-width) {

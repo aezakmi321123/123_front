@@ -12,11 +12,14 @@ client.defaults.headers['Content-Type'] = 'application/json';
 client.defaults.headers['Access-Control-Allow-Origin'] = '*';
 client.interceptors.response.use(
   response => response,
-  error => {
+  async error => {
     const auth = useAuthStore();
     if (error.response.status === 401 && auth.isLoggedIn) {
-      return auth.refreshTokens();
+      await auth.refreshTokens()
+      return client(error.config)
     }
+
+    return error
   },
 );
 
@@ -67,4 +70,9 @@ export default {
       return call('GET', '/coins', params);
     },
   },
+  payment: {
+    getPayment(id) {
+      return call('GET', `/payments/${id}`);
+    },
+  }
 };

@@ -9,15 +9,13 @@ export const useAuthStore = defineStore('auth', {
     isLoggedIn: false,
   }),
   actions: {
-    refreshTokens() {
-      setTimeout(async () => {
-        try {
-          const data = await rest.auth.refreshTokens();
-          if (!data) this.logOut();
-        } catch (e) {
-          console.log(e);
-        }
-      }, 1000);
+    async refreshTokens() {
+      try {
+        const data = await rest.auth.refreshTokens();
+        if (!data) await this.logOut();
+      } catch (e) {
+        console.log(e);
+      }
     },
     async signUp(params) {
       try {

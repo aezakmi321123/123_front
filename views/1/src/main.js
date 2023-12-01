@@ -11,7 +11,7 @@ import VueClickAway from 'vue3-click-away';
 
 import en from './locale/en';
 import ru from './locale/ru';
-const i18n = createI18n({
+const i18nInstance = createI18n({
   locale: 'en', // set locale
   fallbackLocale: 'en', // set fallback locale
   legacy: false,
@@ -27,7 +27,7 @@ import router from './router';
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedState);
 const app = createApp(App);
-app.use(i18n);
+app.use(i18nInstance);
 app.use(router);
 app.use(pinia);
 pinia.use(({ store }) => {
@@ -38,3 +38,5 @@ app.use(Antd);
 app.use(CryptoIcon);
 app.use(VueClickAway);
 app.mount('#app');
+
+export const i18n = i18nInstance.global;

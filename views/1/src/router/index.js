@@ -72,7 +72,7 @@ const routes = [
     name: 'Payment',
     component: Payment,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
 ];
