@@ -5,10 +5,7 @@
         <a @click="goToMainPage"><img src="/mainLogo.svg" /></a>
       </div>
       <div class="header__mobile-menu">
-        <MenuOutlined
-          :style="{ fontSize: '30px' }"
-          @click="openMobile = true"
-        />
+        <MenuOutlined :style="{ fontSize: '30px' }" @click="drawer = true" />
       </div>
     </div>
     <div>
@@ -51,30 +48,29 @@
       </div>
     </div>
   </div>
-  <CDrawer v-model:open="openMobile">
+  <CDrawer v-model:open="drawer">
     <div class="drawer__body">
       <div v-if="authStore.isLoggedIn" class="drawer__user">
-        <UserOutlined :style="{ fontSize: '40px' }" />
+        <UserOutlined :style="{ fontSize: '100px' }" />
         <span>{{ authStore.user.fullName }}</span>
       </div>
       <div v-if="authStore.isLoggedIn" class="drawer__verified">
-        <CTag color="error"
-          >Verified
-          <template #icon>
-            <CloseOutlined />
-          </template>
-        </CTag>
-        <CTag color="error"
-          >Premium
-          <template #icon>
-            <CloseOutlined />
-          </template>
-        </CTag>
+        <a-tag
+          :bordered="false"
+          :color="authStore.user.emailConfirmed ? 'success' : 'error'"
+          >{{
+            t(
+              `header.${
+                authStore.user.emailConfirmed ? 'verified' : 'no_verified'
+              }`,
+            )
+          }}
+        </a-tag>
       </div>
       <div class="drawer__list">
         <div v-if="authStore.isLoggedIn" class="drawer__item">
           <WalletOutlined />
-          <span @click="goTo('Wallets')">Wallet</span>
+          <span @click="goTo('Wallets')">{{ t('header.wallet') }}</span>
         </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
           <router-link to="/login"
@@ -94,21 +90,21 @@
           @click="goTo('settings')"
         >
           <SettingOutlined />
-          <span>Settings</span>
+          <span>{{ t('header.settings') }}</span>
         </div>
         <div v-if="authStore.isLoggedIn" class="drawer__item">
           <HistoryOutlined />
-          <span>History</span>
+          <span>{{ t('header.history') }}</span>
         </div>
-        <div class="drawer__item">
+        <div class="drawer__item show-mobile">
           <HomeOutlined />
           <span>{{ t('header.homepage') }}</span>
         </div>
-        <div class="drawer__item">
+        <div class="drawer__item show-mobile">
           <FileSearchOutlined />
           <span>{{ t('header.news') }}</span>
         </div>
-        <div class="drawer__item">
+        <div class="drawer__item show-mobile">
           <QuestionOutlined />
           <span>{{ t('header.about_us') }}</span>
         </div>
@@ -118,59 +114,21 @@
           @click="logout"
         >
           <LogoutOutlined />
-          <span>LogOut</span>
+          <span>{{ t('header.logout') }}</span>
         </div>
-        <CSelect :value="lang" :options="languages" @change="changeLang" />
+        <CSelect
+          class="show-mobile"
+          :value="lang"
+          :options="languages"
+          @change="changeLang"
+        />
       </div>
     </div>
   </CDrawer>
-  <div v-if="authStore.isLoggedIn">
-    <CDrawer v-model:open="drawer">
-      <div class="drawer__body">
-        <div class="drawer__user">
-          <UserOutlined :style="{ fontSize: '40px' }" />
-          <span>{{ authStore.user.fullName }}</span>
-        </div>
-        <div class="drawer__verified">
-          <CTag color="error"
-            >Verified
-            <template #icon>
-              <CloseOutlined />
-            </template>
-          </CTag>
-          <CTag color="error"
-            >Premium
-            <template #icon>
-              <CloseOutlined />
-            </template>
-          </CTag>
-        </div>
-        <div class="drawer__list">
-          <div class="drawer__item">
-            <WalletOutlined />
-            <span @click="goTo('Wallets')">Wallet</span>
-          </div>
-          <div class="drawer__item" @click="goTo('settings')">
-            <SettingOutlined />
-            <span>Settings</span>
-          </div>
-          <div class="drawer__item">
-            <HistoryOutlined />
-            <span>History</span>
-          </div>
-          <div class="drawer__item logout" @click="logout">
-            <LogoutOutlined />
-            <span>LogOut</span>
-          </div>
-        </div>
-      </div>
-    </CDrawer>
-  </div>
 </template>
 <script>
 import {
   CaretDownFilled,
-  CloseOutlined,
   FileSearchOutlined,
   HistoryOutlined,
   HomeOutlined,
@@ -189,12 +147,10 @@ import { useAuthStore } from '../../modules/auth.js';
 import CButton from '../../ui/CButton.vue';
 import CDrawer from '../../ui/CDrawer.vue';
 import CSelect from '../../ui/CSelect.vue';
-import CTag from '../../ui/CTag.vue';
 export default {
   components: {
     CButton,
     MenuOutlined,
-    CloseOutlined,
     LogoutOutlined,
     UserOutlined,
     CaretDownFilled,
@@ -204,7 +160,6 @@ export default {
     SettingOutlined,
     HistoryOutlined,
     HomeOutlined,
-    CTag,
     FileSearchOutlined,
     QuestionOutlined,
   },
@@ -261,7 +216,7 @@ export default {
 </script>
 <style lang="scss">
 .show-mobile {
-  display: none;
+  display: none !important;
 }
 .show-desktop {
   display: block;
@@ -373,7 +328,7 @@ export default {
 }
 @include mq(992px, max-width) {
   .show-mobile {
-    display: block;
+    display: flex !important;
   }
   .show-desktop {
     display: none;

@@ -1,4 +1,9 @@
 export default {
+  btns: {
+    submit: 'Submit',
+    cancel: 'Cancel',
+    update: 'Update',
+  },
   header: {
     news: 'News',
     homepage: 'Homepage',
@@ -6,6 +11,12 @@ export default {
     about_us: 'About Us',
     signin: 'Sign in',
     signup: 'Sign up',
+    settings: 'Settings',
+    history: 'History',
+    logout: 'Log Out',
+    verified: 'Email verified',
+    no_verified: 'Email not verified',
+    wallet: 'Wallet',
   },
   main: {
     label: `${import.meta.env.VITE_BASE_EXCHANGE_NAME} Cryptocurrency Exchange`,
@@ -53,6 +64,16 @@ export default {
     sign_up: 'Sign up',
     password: 'Password',
   },
+  settings: {
+    title: 'User Settings',
+    name: 'Full Name',
+    city: 'City',
+    country: 'Country',
+    phone: 'Phone',
+    update: 'Update',
+    confirmed: 'Email Confirmed',
+    confirm_btn: 'Confirm Email',
+  },
   payment: {
     back: 'Back',
     title: 'Payment details',
@@ -62,7 +83,7 @@ export default {
     totalAmountReceived: 'Total Amount Received',
     walletAddress: 'Wallet Address',
     network: 'Network',
-    copied: "Copied",
+    copied: 'Copied',
     error: 'Something went wrong, try again later!',
     paymentInfo: 'Payment Info',
     domain: 'Domain:',
@@ -72,14 +93,14 @@ export default {
     commission: 'Commission:',
     invoiceExpiresIn: 'Invoice Expires In:',
     expired: 'expired',
-    'status': 'Status:'
+    status: 'Status:',
   },
   ui: {
     copyableInput: {
-      tooltip: "copy",
-    }
+      tooltip: 'copy',
+    },
   },
   apiErrors: {
-    common: 'Something went wrong!'
-  }
+    common: 'Something went wrong!',
+  },
 };

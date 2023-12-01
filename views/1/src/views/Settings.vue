@@ -1,92 +1,99 @@
 <template>
-  <div class="container settings">
-    <h2>User Settings</h2>
-    <a-form layout="vertical" :model="formState" @finish="onFinish">
-      <a-row justify="space-between" :gutter="[20, 20]">
-        <a-col :lg="12">
-          <a-form-item
-            label="Full Name"
-            :name="['email']"
-            :rules="[{ type: 'email', required: true }]"
-          >
-            <CInput v-model:value="formState.fullName" />
-          </a-form-item>
-        </a-col>
-        <a-col :lg="12">
-          <a-form-item
-            label="Email"
-            :name="['email']"
-            :rules="[{ type: 'email', required: true }]"
-          >
-            <CInput v-model:value="formState.email" readonly />
-          </a-form-item>
-        </a-col>
-        <a-col :lg="12">
-          <a-form-item label="City">
-            <CInput v-model:value="formState.city" />
-          </a-form-item>
-        </a-col>
-        <a-col :lg="12">
-          <a-form-item label="Country">
-            <CInput v-model:value="formState.country" />
-          </a-form-item>
-        </a-col>
-        <a-col :lg="12">
-          <a-form-item label="Phone">
-            <CInput v-model:value="formState.phone" />
-          </a-form-item>
-        </a-col>
-      </a-row>
-      <CButton class="settings__submit" html-type="submit" type="secondary"
-        >Update</CButton
+  <div class="container">
+    <div class="settings">
+      <h2>{{ t('settings.title') }}</h2>
+      <a-form layout="vertical" :model="formState" @finish="onFinish">
+        <a-row :justify="'space-between'" :gutter="[20, 20]">
+          <a-col :lg="12">
+            <a-form-item :label="t('settings.name')">
+              <CInput v-model:value="formState.fullName" />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="12" :md="10">
+            <a-form-item
+              label="Email"
+              :name="['email']"
+              :rules="[{ type: 'email', required: true }]"
+            >
+              <CInput v-model:value="formState.email" readonly />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="12" :md="10">
+            <a-form-item :label="t('settings.city')">
+              <CInput v-model:value="formState.city" />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="12" :md="10">
+            <a-form-item :label="t('settings.country')">
+              <CInput v-model:value="formState.country" />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="12" :md="10">
+            <a-form-item :label="t('settings.phone')">
+              <CInput v-model:value="formState.phone" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+        <CButton class="settings__submit" html-type="submit" type="secondary">{{
+          t('btns.update')
+        }}</CButton>
+      </a-form>
+      <CButton
+        v-if="!authStore.user.emailConfirmed"
+        class="settings__submit"
+        type="primary"
+        @click="emailModal = true"
+        >{{ t('settings.confirm_btn') }}</CButton
       >
-    </a-form>
-    <CButton
-      v-if="!authStore.user.emailConfirmed"
-      class="settings__submit"
-      type="primary"
-      @click="emailModal = true"
-      >Confirm Email</CButton
-    >
-    <CTag v-else color="cyan" class="settings__submit">Email Confirmed </CTag>
-    <CModal v-model:open="emailModal" centered>
-      <div class="modal">
-        <div class="modal__body">
-          <CInputNumber v-model:value="code" placeholder="Enter Code" />
-          <CButton type="secondary" :loading="sendLoading" @click="confirmEmail"
-            >Send Code</CButton
-          >
+      <a-tag v-else :bordered="false" color="success" class="settings__submit"
+        >{{ t('settings.confirmed') }}
+      </a-tag>
+      <CModal v-model:open="emailModal" centered>
+        <div class="modal">
+          <div class="modal__body">
+            <CInputNumber v-model:value="code" placeholder="Enter Code" />
+            <CButton
+              type="secondary"
+              :loading="sendLoading"
+              @click="confirmEmail"
+              >Send Code</CButton
+            >
+          </div>
+          <div class="modal__footer">
+            <CButton type="primary" @click="emailModal = false">{{
+              t('btns.cancel')
+            }}</CButton>
+            <CButton type="secondary" @click="confirmEmailCode">{{
+              t('btns.submit')
+            }}</CButton>
+          </div>
         </div>
-        <div class="modal__footer">
-          <CButton type="primary" @click="emailModal = false">Cancel</CButton>
-          <CButton type="secondary" @click="confirmEmailCode">Sumbit</CButton>
-        </div>
-      </div>
-    </CModal>
+      </CModal>
+    </div>
   </div>
 </template>
 <script>
 import { cloneDeep } from 'lodash-es';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '../modules/auth.js';
 import CButton from '../ui/CButton.vue';
 import CInput from '../ui/CInput.vue';
 import CInputNumber from '../ui/CInputNumber.vue';
 import CModal from '../ui/CModal.vue';
-import CTag from '../ui/CTag.vue';
 export default {
   components: {
     CInput,
     CButton,
     CModal,
     CInputNumber,
-    CTag,
   },
   setup() {
     const emailModal = ref(false);
     const authStore = useAuthStore();
     const code = ref();
+    const { t } = useI18n();
     const sendLoading = ref(false);
     const formState = ref(cloneDeep(authStore.user));
     // console.log(formState.value);
@@ -123,6 +130,7 @@ export default {
       sendLoading,
       code,
       confirmEmailCode,
+      t,
     };
   },
 };

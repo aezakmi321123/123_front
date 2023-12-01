@@ -18,18 +18,21 @@
 </template>
 <style lang="scss">
 .c-input {
+  .ant-input {
+    color: var(--text-primary) !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    &::placeholder {
+      color: var(--text-link);
+      opacity: 0.8;
+    }
+  }
   padding-left: 10px !important;
   border: 1px solid var(--border-input) !important;
   height: 50px !important;
-  font-size: 24px !important;
-  font-weight: 700 !important;
   background-color: var(--bg-input) !important;
   color: var(--text-primary) !important;
   border-radius: 4px !important;
-  &::placeholder {
-    color: var(--text-link);
-    opacity: 0.8;
-  }
 
   & .ant-input {
     background-color: var(--bg-input) !important;

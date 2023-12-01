@@ -1,11 +1,22 @@
 export default {
+  btns: {
+    submit: 'Отправить',
+    cancel: 'Отмена',
+    update: 'Обновить',
+  },
   header: {
     news: 'Новости',
     homepage: 'Главная страница',
     top_directions: 'Лучшие направления',
     about_us: 'О нас',
-    signin: 'Вход',
-    signup: 'Регистрация',
+    signin: 'Войти',
+    signup: 'Зарегистрироваться',
+    settings: 'Настройки',
+    history: 'История',
+    logout: 'Выйти',
+    verified: 'Email подтвержден',
+    no_verified: 'Email не подтвержден',
+    wallet: 'Кошелек',
   },
   main: {
     label: `Криптовалютная биржа ${import.meta.env.VITE_BASE_EXCHANGE_NAME}`,
@@ -45,5 +56,15 @@ export default {
     full_name: 'Полное имя',
     sign_up: 'Зарегистрироваться',
     password: 'Пароль',
+  },
+  settings: {
+    title: 'Настройки пользователя',
+    name: 'Полное имя',
+    city: 'Город',
+    country: 'Страна',
+    phone: 'Телефон',
+    update: 'Обновить',
+    confirmed: 'Электронная почта подтверждена',
+    confirm_btn: 'Подтвердить Email',
   },
 };
