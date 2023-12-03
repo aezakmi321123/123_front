@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', {
         if (!data) await this.logOut();
       } catch (e) {
         console.log(e);
+        await this.logOut();
       }
     },
     async signUp(params) {

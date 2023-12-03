@@ -79,8 +79,8 @@ export default {
     title: 'Payment details',
     description:
       'Send the exact amount to the specified address. After payment has been made, you will be navigated back or see success modal',
-    cryptoAmount: 'Amount in Crypto',
-    totalAmountReceived: 'Total Amount Received',
+    cryptoAmount: 'Full Amount',
+    totalAmountReceived: 'Amount Received',
     walletAddress: 'Wallet Address',
     network: 'Network',
     copied: 'Copied',
@@ -94,6 +94,10 @@ export default {
     invoiceExpiresIn: 'Invoice Expires In:',
     expired: 'expired',
     status: 'Status:',
+    rejectedPaymentTitle: 'Payment Timeout: Action Required',
+    rejectedPaymentDescription: 'Oops! Your payment attempt has hit a time snag. Time has expired, and the transaction couldn\'t go through. No worries, though – a quick chat with our support team will get things back on track. Reach out to us, and we\'ll ensure your payment sails smoothly through the waves of technical troubles. Let\'s resolve this together!',
+    successPaymentTitle: 'Payment Succeed',
+    successPaymentDescription: 'Thank you for your payment. Your transaction was successful, and your order has been confirmed. If you have any questions or concerns, please contact our customer support.'
   },
   ui: {
     copyableInput: {

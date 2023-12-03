@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <a-row gutter="30">
-      <a-col :span="16">
+    <a-row :gutter="[30, 30]">
+      <a-col :lg="{order: 0, span: 16}" :order="1">
         <a-flex class="payment__left-side" vertical>
           <a-spin :spinning="payment.isLoading" size="large" wrapper-class-name="payment__preloader">
             <a-flex class="payment__left-side-inner" gap="25" vertical>
-              <StatusPending/>
+              <BackButton v-if="screens.lg" />
+              <component :is="payment.currentComponent" />
             </a-flex>
           </a-spin>
         </a-flex>
@@ -16,28 +17,30 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue';
+import { Grid } from 'ant-design-vue';
+import { computed, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
+import BackButton from "../components/Payment/BackButton.vue";
 import RightSide from "../components/Payment/PaymentInfo.vue";
 import StatusPending from "../components/Payment/StatusPending.vue";
+import StatusRejected from "../components/Payment/StatusRejected.vue";
+import StatusSuccess from "../components/Payment/StatusSuccess.vue";
+import { PAYMENT_STATUSES } from "../data/constants.js";
 import { usePaymentStore } from "../modules/payment.js";
+import CButton from "../ui/CButton.vue";
 
 export default {
   name: 'Payment',
-  components: { StatusPending, RightSide },
+  components: { BackButton, CButton, StatusPending, StatusRejected, StatusSuccess, RightSide },
   setup() {
     const { t } = useI18n();
     const paymentData = usePaymentStore()
     const { params } = useRoute()
 
-    const values = ref({
-      cryptoAmount: '6 BTC',
-      totalAmountReceived: '0 BTC',
-      walletAddress: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-      network: 'BTC',
-    });
+    const router = useRouter();
 
     onMounted(() => {
       const { id } = params
@@ -45,9 +48,22 @@ export default {
       paymentData.getPayment(id)
     })
 
-    const payment = computed(() => ({ ...paymentData.payment, isLoading: paymentData.isLoading }))
+    const statusComponentMap = {
+      [PAYMENT_STATUSES.PENDING]: StatusPending,
+      [PAYMENT_STATUSES.REJECTED]: StatusRejected,
+      [PAYMENT_STATUSES.SUCCESSFUL]: StatusSuccess,
+    }
 
-    return { t, values, payment };
+    const payment = computed(() => ({
+      ...paymentData.payment,
+      isLoading: paymentData.isLoading,
+      currentComponent: statusComponentMap[/*paymentData.payment?.status ||*/ PAYMENT_STATUSES.PENDING]
+    }))
+
+    const useBreakpoint = Grid.useBreakpoint;
+    const screens = useBreakpoint();
+
+    return { t, payment, router, screens };
   },
 };
 </script>

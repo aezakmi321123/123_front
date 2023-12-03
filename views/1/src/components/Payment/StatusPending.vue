@@ -1,13 +1,10 @@
 <template>
-  <CButton size="medium" class="payment__back-button" type="primary" @click="router.go(-1)">{{
-      t('payment.back')
-    }}</CButton>
-  <a-flex justify="space-between" gap="10">
-    <a-flex class="payment__qr-code">
+  <a-flex :vertical="!screens.md" justify="space-between" gap="10">
+    <a-flex class="payment__qr-code w-fc m-auto">
       <a-qrcode size="120" color="#fff" :value="payment?.address || ''" />
     </a-flex>
     <a-flex vertical>
-      <a-typography-title :level="2" class="text-primary mb-0">{{ t('payment.title') }}</a-typography-title>
+      <a-typography-title :level="2" :class="{'text-primary': true,  'mb-0': true, 'text-center': !screens.md }">{{ t('payment.title') }}</a-typography-title>
       <a-typography-text class="text-primary">{{ t('payment.description') }}</a-typography-text>
     </a-flex>
   </a-flex>
@@ -40,24 +37,25 @@
 </template>
 
 <script>
+import { Grid } from "ant-design-vue";
 import { computed, defineComponent } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
 
 import { cMessage } from "../../heplers/message.js";
 import { usePaymentStore } from "../../modules/payment.js";
-import CButton from "../../ui/CButton.vue";
 import CCopyableInput from "../../ui/CCopyableInput.vue";
 
 export default defineComponent({
   name: "StatusPending",
-  components: { CButton, CCopyableInput },
+  components: {  CCopyableInput },
   setup() {
     const { t } = useI18n();
-    const router = useRouter();
     const paymentData = usePaymentStore()
 
     const payment = computed(() => paymentData.payment)
+
+    const useBreakpoint = Grid.useBreakpoint;
+    const screens = useBreakpoint();
 
     const shortAddress = (address) => {
       if(!address) return
@@ -68,16 +66,15 @@ export default defineComponent({
       try {
         await navigator.clipboard.writeText(value)
 
-        cMessage('success', this.t('payment.copied'))
+        cMessage('success', t('payment.copied'))
 
       }catch (e){
-        cMessage('error', this.t('payment.error'))
+        cMessage('error', t('payment.error'))
         console.error('Unable to copy to clipboard', e);
       }
-
     }
 
-    return { t, payment, router, shortAddress, onCopy };
+    return { t, payment, shortAddress, onCopy, screens };
   },
 
 })
@@ -85,12 +82,6 @@ export default defineComponent({
 
 <style lang="scss">
 .payment {
-  &__back-button {
-    width: fit-content;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
   &__qr-code {
     border-radius: 6px;
     border: 1px solid var(--border-input);

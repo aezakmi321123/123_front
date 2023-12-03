@@ -33,13 +33,43 @@ export default {
 
 <style lang="scss">
 .copyable-input {
-  height: 40px !important;
+  height: auto !important;
+
+  @media screen and (max-width: 767px) {
+    display: flex;
+    flex-wrap: wrap;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 767px) {
+    flex-wrap: nowrap;
+    height: 40px !important;
+  }
 
   & .ant-input-prefix {
     font-size: 14px;
-    margin-right: 10px;
-    border-right: 1px solid var(--text-primary);
-    padding-right: 10px;
+
+    @media screen and (min-width: 767px) {
+      margin-right: 10px;
+      border-right: 1px solid var(--text-primary);
+      padding-right: 10px;
+    }
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  & .ant-input-suffix {
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 10px;
+    }
   }
 
   & .ant-input {

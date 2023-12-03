@@ -1,9 +1,10 @@
 <template>
-    <a-col :span="8">
+    <a-col :lg="8" :span="24">
         <a-flex class="payment__right-side" vertical>
           <a-spin :spinning="payment.isLoading" size="large" wrapper-class-name="payment-info__preloader">
-          <a-flex>
+          <a-flex justify="space-between">
             <a-typography-title :level="3" class="text-primary mb-0">{{appName}}</a-typography-title>
+            <BackButton v-if="!screens.lg && !screens.xl" />
           </a-flex>
           <a-divider class="payment__divider text-primary">{{$t('payment.paymentInfo')}}</a-divider>
           <a-flex>
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+  import { Grid } from "ant-design-vue";
   import moment from 'moment';
   import { computed, onBeforeUnmount, onMounted, ref } from "vue";
   import { useI18n } from "vue-i18n";
@@ -51,9 +53,11 @@
 
   import { PAYMENT_STATUSES } from "../../data/constants.js";
   import { usePaymentStore } from "../../modules/payment.js";
+  import BackButton from "./BackButton.vue";
 
   export default  {
     name: "PaymentInfo",
+    components: { BackButton },
     setup(){
       const { t } = useI18n()
       const { params } = useRoute()
@@ -109,7 +113,10 @@
         clearInterval(timer.value)
       })
 
-      return { t, payment, appName, commission, time, statusColor }
+      const useBreakpoint = Grid.useBreakpoint;
+      const screens = useBreakpoint();
+
+      return { t, payment, appName, commission, time, statusColor, screens }
     }
   }
 </script>
