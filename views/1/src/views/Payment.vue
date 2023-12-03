@@ -39,8 +39,13 @@ export default {
     const { t } = useI18n();
     const paymentData = usePaymentStore()
     const { params } = useRoute()
-
     const router = useRouter();
+    const statusComponentMap = {
+      [PAYMENT_STATUSES.PENDING]: StatusPending,
+      [PAYMENT_STATUSES.REJECTED]: StatusRejected,
+      [PAYMENT_STATUSES.SUCCESSFUL]: StatusSuccess,
+    }
+    const screens = Grid.useBreakpoint();
 
     onMounted(() => {
       const { id } = params
@@ -48,20 +53,11 @@ export default {
       paymentData.getPayment(id)
     })
 
-    const statusComponentMap = {
-      [PAYMENT_STATUSES.PENDING]: StatusPending,
-      [PAYMENT_STATUSES.REJECTED]: StatusRejected,
-      [PAYMENT_STATUSES.SUCCESSFUL]: StatusSuccess,
-    }
-
     const payment = computed(() => ({
       ...paymentData.payment,
       isLoading: paymentData.isLoading,
       currentComponent: statusComponentMap[/*paymentData.payment?.status ||*/ PAYMENT_STATUSES.PENDING]
     }))
-
-    const useBreakpoint = Grid.useBreakpoint;
-    const screens = useBreakpoint();
 
     return { t, payment, router, screens };
   },

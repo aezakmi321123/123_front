@@ -72,6 +72,8 @@
           return { ...paymentData.payment, isLoading: paymentData.isLoading }
       })
 
+      const screens = Grid.useBreakpoint();
+
       const calculateRemainingTime = async () => {
         const milDiff = moment(payment.value.expirationDate).diff(moment())
 
@@ -112,9 +114,6 @@
       onBeforeUnmount(() => {
         clearInterval(timer.value)
       })
-
-      const useBreakpoint = Grid.useBreakpoint;
-      const screens = useBreakpoint();
 
       return { t, payment, appName, commission, time, statusColor, screens }
     }

@@ -51,11 +51,8 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const paymentData = usePaymentStore()
-
     const payment = computed(() => paymentData.payment)
-
-    const useBreakpoint = Grid.useBreakpoint;
-    const screens = useBreakpoint();
+    const screens = Grid.useBreakpoint();
 
     const shortAddress = (address) => {
       if(!address) return
