@@ -46,7 +46,16 @@
 }
 .container {
   // margin: 0 auto;
-  padding: 0 10%;
+  padding: 0 12%;
+  @include mq(2000px, min-width) {
+    padding: 0 20%;
+  }
+  @include mq(1200px, max-width) {
+    padding: 0 6%;
+  }
+  @include mq(500px, max-width) {
+    padding: 0 2%;
+  }
   // max-width: 1150px;
   // @include mq(1200px, max-width) {
   //   max-width: 950px;
@@ -70,12 +79,24 @@ h1 {
   font-size: 46px;
   line-height: 120%;
   color: var(--text-primary);
+  @include mq(500px, max-width) {
+    font-size: 36px;
+  }
+  @include mq(360px, max-width) {
+    font-size: 28px;
+  }
 }
 h2 {
   font-style: normal;
   font-size: 34px;
   line-height: 160%;
   font-weight: 500;
+  @include mq(500px, max-width) {
+    font-size: 26px;
+  }
+  @include mq(360px, max-width) {
+    font-size: 20px;
+  }
 }
 p {
   padding: 0 !important;
@@ -150,4 +171,3 @@ a {
 .w-fc {
   width: fit-content;
 }
-

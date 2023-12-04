@@ -1,5 +1,5 @@
 <template>
-  <a-drawer :width="360" class="c-drawer" v-bind="$attrs">
+  <a-drawer :width="320" class="c-drawer" v-bind="$attrs">
     <slot />
     <slot name="footer" />
   </a-drawer>

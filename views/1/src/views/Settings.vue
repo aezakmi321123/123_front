@@ -4,12 +4,12 @@
       <h2>{{ t('settings.title') }}</h2>
       <a-form layout="vertical" :model="formState" @finish="onFinish">
         <a-row :justify="'space-between'" :gutter="[20, 20]">
-          <a-col :lg="12">
+          <a-col :md="12" :xs="24">
             <a-form-item :label="t('settings.name')">
               <CInput v-model:value="formState.fullName" />
             </a-form-item>
           </a-col>
-          <a-col :lg="12" :md="10">
+          <a-col :md="12" :xs="24">
             <a-form-item
               label="Email"
               :name="['email']"
@@ -18,17 +18,17 @@
               <CInput v-model:value="formState.email" readonly />
             </a-form-item>
           </a-col>
-          <a-col :lg="12" :md="10">
+          <a-col :md="12" :xs="24">
             <a-form-item :label="t('settings.city')">
               <CInput v-model:value="formState.city" />
             </a-form-item>
           </a-col>
-          <a-col :lg="12" :md="10">
+          <a-col :md="12" :xs="24">
             <a-form-item :label="t('settings.country')">
               <CInput v-model:value="formState.country" />
             </a-form-item>
           </a-col>
-          <a-col :lg="12" :md="10">
+          <a-col :md="12" :xs="24">
             <a-form-item :label="t('settings.phone')">
               <CInput v-model:value="formState.phone" />
             </a-form-item>

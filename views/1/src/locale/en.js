@@ -95,9 +95,11 @@ export default {
     expired: 'expired',
     status: 'Status:',
     rejectedPaymentTitle: 'Payment Timeout: Action Required',
-    rejectedPaymentDescription: 'Oops! Your payment attempt has hit a time snag. Time has expired, and the transaction couldn\'t go through. No worries, though – a quick chat with our support team will get things back on track. Reach out to us, and we\'ll ensure your payment sails smoothly through the waves of technical troubles. Let\'s resolve this together!',
+    rejectedPaymentDescription:
+      "Oops! Your payment attempt has hit a time snag. Time has expired, and the transaction couldn't go through. No worries, though – a quick chat with our support team will get things back on track. Reach out to us, and we'll ensure your payment sails smoothly through the waves of technical troubles. Let's resolve this together!",
     successPaymentTitle: 'Payment Succeed',
-    successPaymentDescription: 'Thank you for your payment. Your transaction was successful, and your order has been confirmed. If you have any questions or concerns, please contact our customer support.'
+    successPaymentDescription:
+      'Thank you for your payment. Your transaction was successful, and your order has been confirmed. If you have any questions or concerns, please contact our customer support.',
   },
   ui: {
     copyableInput: {
@@ -106,5 +108,23 @@ export default {
   },
   apiErrors: {
     common: 'Something went wrong!',
+  },
+  wallets: {
+    search: 'Search wallets..',
+    hide_zero: 'Hide zero balances',
+    name: 'Name',
+    qty: 'QTY',
+    rate: '24H %',
+    currency: 'Currency:',
+    deposit: 'Amount to deposit:',
+    get_address: 'Get Address',
+    withdraw: 'Withdraw',
+    dep: 'Deposit',
+    w_amount: 'Amount to withdraw:',
+    a_withdraw: 'Address to withdraw:',
+    total_balance: 'Total balance:',
+    fee: 'Display amount with fee: {fee}. Fee: {fee}',
+    sending: 'I’m sending:',
+    receive: 'I’ll receive:',
   },
 };

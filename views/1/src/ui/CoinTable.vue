@@ -1,26 +1,32 @@
 <template>
   <div class="wallet_table">
-    <div class="wallet_table__filters">
-      <div class="wallet_table__search">
-        <CInput v-model:value="search" placeholder="Search wallets...">
+    <a-row class="wallet_table__filters">
+      <a-col class="wallet_table__search">
+        <CInput v-model:value="search" :placeholder="t('wallets.search')">
           <template #prefix>
             <SearchOutlined
               :style="{ fontSize: '20px', color: 'var(--text-link)' }"
             />
           </template>
         </CInput>
-      </div>
-      <div class="wallet-table__switch">
-        <div>Hide zero balances</div>
+      </a-col>
+      <a-col class="wallet-table__switch">
+        <div>{{ t('wallets.hide_zero') }}</div>
         <CSwitch v-model:checked="hideBalances" />
-      </div>
-    </div>
-    <a-table :data-source="source" :columns="columns" :pagination="false">
+      </a-col>
+    </a-row>
+    <a-table
+      :data-source="source"
+      :columns="columns"
+      :pagination="false"
+      row-key="id"
+      :custom-row="customRow"
+    >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
           <div class="d-flex">
             <CryptoIcon :size="24" :name="record.abbr.toLowerCase()" />
-            <a> {{ record.name }} </a>
+            <div>{{ record.name }}</div>
           </div>
         </template>
       </template>
@@ -29,7 +35,8 @@
 </template>
 <script>
 import { SearchOutlined } from '@ant-design/icons-vue';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '../modules/auth.js';
 import CInput from '../ui/CInput.vue';
@@ -40,7 +47,9 @@ export default {
     CSwitch,
     SearchOutlined,
   },
-  setup() {
+  emits: ['pushCoin'],
+  setup(_, { emit }) {
+    const { t } = useI18n();
     const authStore = useAuthStore();
     const hideBalances = ref(false);
     const search = ref('');
@@ -58,24 +67,41 @@ export default {
     });
     const columns = [
       {
-        title: 'Name',
+        title: t('wallets.name'),
         dataIndex: 'name',
       },
       {
-        title: 'QTY',
+        title: t('wallets.qty'),
         className: 'column-money',
         dataIndex: 'coinQuantity',
       },
       {
-        title: 'Address',
+        title: t('wallets.rate'),
         dataIndex: 'address',
       },
     ];
+    const rowSelect = e => {
+      console.log(e);
+    };
+    const customRow = record => {
+      return {
+        onClick: () => {
+          emit('pushCoin', record);
+        },
+      };
+    };
+    onMounted(() => {
+      if (source.value.length) emit('pushCoin', source.value[0]);
+    });
+
     return {
       columns,
       source,
       search,
       hideBalances,
+      customRow,
+      rowSelect,
+      t,
     };
   },
 };
@@ -133,5 +159,14 @@ export default {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+:where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
+  .ant-table-tbody
+  > tr.ant-table-placeholder:hover
+  > td {
+  background: var(--bg-input);
+}
+.ant-empty-normal {
+  color: var(--text-link);
 }
 </style>

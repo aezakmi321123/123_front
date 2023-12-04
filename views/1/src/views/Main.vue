@@ -80,7 +80,7 @@
         </a-row>
       </div>
       <div class="main__page-potential">
-        <a-row justify="center">
+        <a-row :justify="{ xs: 'center' }">
           <a-col :xs="20" :lg="12">
             <div class="potential">
               <div class="potential__title">{{ t('main.potential') }}</div>
@@ -90,10 +90,8 @@
             </div>
           </a-col>
 
-          <a-col :xs="0" :lg="12">
-            <div class="image">
-              <img height="530" width="510" src="crypto-planet.png" />
-            </div>
+          <a-col :xs="0" :lg="8">
+            <img height="530" width="510" src="crypto-planet.png" />
           </a-col>
         </a-row>
       </div>
@@ -101,13 +99,13 @@
         <div class="partners">
           <h2>Our partners</h2>
           <a-row justify="center">
-            <a-col :xs="12" :md="8">
+            <a-col :xs="20" :sm="12" :md="8">
               <img src="Bestchange.svg" />
             </a-col>
-            <a-col :xs="12" :md="8">
+            <a-col :xs="20" :sm="12" :md="8">
               <img src="AMLBot.svg" />
             </a-col>
-            <a-col :xs="12" :md="8">
+            <a-col :xs="20" :sm="12" :md="8">
               <img src="PerfectMoney.svg" />
             </a-col>
           </a-row>
