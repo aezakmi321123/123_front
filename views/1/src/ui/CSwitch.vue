@@ -5,4 +5,7 @@
 .ant-switch {
   background-color: var(--bg-input) !important;
 }
+.ant-switch[aria-checked='true'] {
+  background-color: var(--button-secondary) !important;
+}
 </style>
