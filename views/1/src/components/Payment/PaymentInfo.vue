@@ -77,7 +77,7 @@
       const calculateRemainingTime = async () => {
         const milDiff = moment(payment.value.expirationDate).diff(moment())
 
-        if(milDiff <= 0){
+        if(milDiff <= 0 || payment.value.status === PAYMENT_STATUSES.SUCCESSFUL){
           clearInterval(timer);
           time.value = t('payment.expired');
           return

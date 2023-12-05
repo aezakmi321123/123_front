@@ -6,7 +6,7 @@
         :md="{ span: 24, justify: 'center' }"
         :order="1"
       >
-        <CoinTable @push-coin="getCoin" />
+        <CoinTable :coin="coin" @push-coin="getCoin" />
       </a-col>
       <a-col :lg="8" :md="24">
         <TransferCard :coin="coin" />

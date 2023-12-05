@@ -21,13 +21,18 @@
       :pagination="false"
       row-key="id"
       :custom-row="customRow"
+      :row-class-name="customRowClassName"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
-          <div class="d-flex">
-            <CryptoIcon :size="24" :name="record.abbr.toLowerCase()" />
-            <div>{{ record.name }}</div>
-          </div>
+          <a-flex gap="10" align="center">
+            <CryptoIcon :size="40" :name="record.abbr.toLowerCase()" />
+            <a-flex vertical>
+              <div>{{ record.abbr }}</div>
+              <div>{{ record.name }}</div>
+            </a-flex>
+
+          </a-flex>
         </template>
       </template>
     </a-table>
@@ -35,7 +40,8 @@
 </template>
 <script>
 import { SearchOutlined } from '@ant-design/icons-vue';
-import { computed, onMounted, ref } from 'vue';
+import { isEmpty } from "lodash";
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '../modules/auth.js';
@@ -47,8 +53,14 @@ export default {
     CSwitch,
     SearchOutlined,
   },
+  props: {
+    coin: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   emits: ['pushCoin'],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const { t } = useI18n();
     const authStore = useAuthStore();
     const hideBalances = ref(false);
@@ -58,6 +70,7 @@ export default {
       const dataWithNoZeroBalances = hideBalances.value
         ? dataSource.value.filter(({ coinQuantity }) => +coinQuantity > 0)
         : dataSource.value;
+
       return dataWithNoZeroBalances.filter(({ abbr, name }) => {
         const newSearch = search.value.toLowerCase();
         const newName = name.toLowerCase();
@@ -90,9 +103,14 @@ export default {
         },
       };
     };
-    onMounted(() => {
-      if (source.value.length) emit('pushCoin', source.value[0]);
-    });
+    const customRowClassName = (record) => {
+      return props.coin?.abbr === record.abbr ? 'active' : ''
+    }
+    watch(dataSource, () => {
+      if (source.value.length && isEmpty(props.coin)) {
+        emit('pushCoin', source.value[0])
+      }
+    }, { deep: true, immediate: true });
 
     return {
       columns,
@@ -102,6 +120,7 @@ export default {
       customRow,
       rowSelect,
       t,
+      customRowClassName
     };
   },
 };
@@ -155,16 +174,11 @@ export default {
 .ant-table {
   background: var(--bg-input) !important;
 }
-.d-flex {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
 :where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
   .ant-table-tbody
-  > tr.ant-table-placeholder:hover
+  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
   > td {
-  background: var(--bg-input);
+  background: var(--bg-select);
 }
 .ant-empty-normal {
   color: var(--text-link);

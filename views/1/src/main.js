@@ -31,9 +31,10 @@ app.use(i18nInstance);
 app.use(router);
 app.use(pinia);
 pinia.use(({ store }) => {
-  store.router = markRaw(router);
+  store.$router = markRaw(router);
 });
 
+app.use(router)
 app.use(Antd);
 app.use(CryptoIcon);
 app.use(VueClickAway);

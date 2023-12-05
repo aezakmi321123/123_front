@@ -41,10 +41,11 @@
 .ant-input-status-error {
   border-color: #ff4d4f !important;
 }
-.ant-input-focused {
+.ant-input-affix-wrapper {
+  border: 1px solid rgba(0,0,0,0) !important;
+}
+.ant-input-focused, .ant-input-affix-wrapper-focused{
   box-shadow: unset !important;
-  &.ant-input {
-    border: 1px solid var(--border-input-focused) !important;
-  }
+  border: 1px solid var(--border-input-focused) !important;
 }
 </style>

@@ -1,6 +1,5 @@
 import { isEmpty } from "lodash";
 import { defineStore } from 'pinia';
-import { useRouter } from "vue-router";
 
 import { cMessage } from '../heplers/message';
 import { i18n } from "../main.js";
@@ -15,16 +14,28 @@ export const usePaymentStore = defineStore('payment', {
             try {
                 this.isLoading = true
 
-                const router = useRouter()
-
                 const { data } = await rest.payment.getPayment(id);
 
                if (isEmpty(data)){
-                   router.push('/')
+                   this.$router.push('/')
                    return
                }
 
                 this.payment = data;
+            } catch (e) {
+                cMessage('error', i18n.t('apiErrors.common'))
+                console.log(e);
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        async generatePayment(params) {
+            try {
+                this.isLoading = true
+
+                const { data } = await rest.payment.generatePayment(params);
+
+                this.$router.push(`/payment/${data.id}`)
             } catch (e) {
                 cMessage('error', i18n.t('apiErrors.common'))
                 console.log(e);

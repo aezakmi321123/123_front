@@ -74,5 +74,13 @@ export default {
     getPayment(id) {
       return call('GET', `/payments/${id}`);
     },
+    generatePayment(params) {
+      return call('POST', '/payments/generatePayment', params);
+    },
+  },
+  withdraw: {
+    generateWithdraw(params) {
+      return call('POST', '/withdrawals/generateWithdrawal', params);
+    }
   }
 };

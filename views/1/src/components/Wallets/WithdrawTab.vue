@@ -1,0 +1,153 @@
+<template>
+  <a-form layout="vertical" :model="withdrawForm" @finish="onFinish">
+    <a-form-item name="withdrawCurrency" :label="t('wallets.currency')">
+      <CAutocomplete
+          class="select1"
+          :options="options"
+          :value="withdrawForm.withdrawCurrency"
+          @change="changeCoin"
+      />
+    </a-form-item>
+    <a-form-item name="withdrawAmount" :label="t('wallets.w_amount')">
+      <CInputNumber v-model:value="withdrawForm.withdrawAmount" type="number" />
+    </a-form-item>
+    <a-form-item name="withdrawAddress" :label="t('wallets.a_withdraw')">
+      <CInput v-model:value="withdrawForm.withdrawAddress" />
+    </a-form-item>
+    <div class="info-group">
+      <div class="info">
+        <div class="info-title">{{ t('wallets.total_balance') }}</div>
+        <div class="info-title">
+          {{ `${withdrawForm.withdrawCurrency?.coinQuantity} ${withdrawForm.withdrawCurrency?.abbr}` }}
+        </div>
+      </div>
+      <div class="info">
+        <div class="wallet-table__switch">
+          <CSwitch v-model:checked="withdrawForm.showFee" />
+          <div>
+            <p>
+              {{
+                t('wallets.fee', {
+                  fee: `${calculatedAmountWithFee} ${withdrawForm.withdrawCurrency?.abbr}`,
+                })
+              }}
+            </p>
+            <p>
+              {{
+                t('wallets.feeAmount', {
+                  fee: `${calculatedFee} ${withdrawForm.withdrawCurrency?.abbr}`,
+                })
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="info">
+        <div class="info-title">{{ t('wallets.sending') }}</div>
+        <div class="info-title">
+          {{
+            `${(withdrawForm.showFee ? calculatedAmountWithFee : withdrawForm.withdrawAmount) || ''} ${
+                withdrawForm.withdrawCurrency?.abbr
+            }`
+          }}
+        </div>
+      </div>
+      <div class="info">
+        <div class="info-title">{{ t('wallets.receive') }}</div>
+        <div class="info-title">
+          {{
+            `${(withdrawForm.showFee ? withdrawForm.withdrawAmount : withdrawForm.withdrawAmount - parseFloat(calculatedFee) ) || ''} ${
+                withdrawForm.withdrawCurrency?.abbr
+            }`
+          }}
+        </div>
+      </div>
+    </div>
+    <a-form-item>
+      <CButton type="secondary" :disabled="!withdrawForm.withdrawAmount || !withdrawForm.withdrawAddress || !withdrawForm.withdrawCurrency || withdraw.isLoading" block html-type="submit">
+          {{ t('wallets.withdraw') }}
+      </CButton>
+    </a-form-item>
+  </a-form>
+</template>
+
+<script>
+  import { computed, ref, watch } from "vue";
+  import { useI18n } from "vue-i18n";
+
+  import { useAuthStore } from "../../modules/auth.js";
+  import { useWithdrawStore } from "../../modules/withdraw.js";
+  import CAutocomplete from "../../ui/CAutocomplete.vue";
+  import CButton from "../../ui/CButton.vue";
+  import CInput from "../../ui/CInput.vue";
+  import CInputNumber from "../../ui/CInputNumber.vue";
+  import CSwitch from "../../ui/CSwitch.vue";
+
+  export default {
+    components: { CAutocomplete, CInputNumber, CInput, CSwitch, CButton },
+    props: {
+      coin: {
+        type: Object,
+        default: () => ({}),
+      },
+    },
+    setup(props) {
+      const { t } = useI18n();
+      const authStore = useAuthStore();
+      const withdraw = useWithdrawStore();
+      const commission = import.meta.env.VITE_BASE_COMMISSION
+
+      const mapValue = el => ({ label: el.name, value: el.abbr, ...el });
+      const withdrawForm = ref({
+        withdrawCurrency: undefined,
+        withdrawAmount: 0,
+        withdrawAddress: '',
+        showFee: false
+      });
+      const options = computed(() =>
+          authStore.user.coins.map(mapValue),
+      );
+      const changeCoin = e => {
+        withdrawForm.value.withdrawCurrency = options.value.find(({ abbr }) => abbr === e) || e
+      };
+      watch(
+          () => props.coin,
+          e => {
+            withdrawForm.value.withdrawCurrency = mapValue(e);
+          },
+          { deep: true, immediate: true },
+      );
+
+      const calculatedFee = computed(() => {
+        return (withdrawForm.value.withdrawAmount  * commission / 100).toFixed(6)
+      })
+      const calculatedAmountWithFee = computed(() => {
+        return parseFloat(calculatedFee.value) + withdrawForm.value.withdrawAmount
+      })
+
+      const onFinish = async (values) => {
+        const { withdrawAmount, withdrawCurrency, withdrawAddress } = values
+
+        await withdraw.generateWithdraw({
+          currency: withdrawCurrency.abbr,
+          amount: withdrawAmount.toString(),
+          address: withdrawAddress
+        })
+      }
+
+      return {
+        options,
+        withdrawForm,
+        changeCoin,
+        t,
+        onFinish,
+        calculatedFee,
+        calculatedAmountWithFee,
+        commission,
+        withdraw
+      };
+    },
+  }
+</script>
+
+<style lang="scss"></style>

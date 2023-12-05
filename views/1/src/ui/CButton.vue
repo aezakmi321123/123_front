@@ -14,6 +14,12 @@
   &:focus {
     outline: unset;
   }
+  &[disabled]{
+    background: var(--text-quaternary);
+    pointer-events: none;
+    cursor: auto;
+    box-shadow: none;
+  }
 }
 .ant-btn-secondary {
   color: var(--text-primary);

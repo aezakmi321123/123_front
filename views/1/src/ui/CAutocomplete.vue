@@ -1,7 +1,7 @@
 <template>
   <a-auto-complete
     style="width: 100%"
-    default-active-first-option
+    filter-option
     class="c-autocomplete"
     v-bind="$attrs"
   >

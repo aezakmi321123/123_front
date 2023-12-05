@@ -123,8 +123,11 @@ export default {
     w_amount: 'Amount to withdraw:',
     a_withdraw: 'Address to withdraw:',
     total_balance: 'Total balance:',
-    fee: 'Display amount with fee: {fee}. Fee: {fee}',
+    fee: 'Display amount with fee: {fee}.',
+    feeAmount: 'Fee: {fee}',
     sending: 'I’m sending:',
     receive: 'I’ll receive:',
+    withdrawSuccess: "Congratulations! Your withdrawal order has been successfully attached. We understand the importance of your request, and we're working diligently to process it promptly.  If you encounter any unexpected challenges or have questions, our dedicated support team is here to assist you.",
+    incorrectAddress: "Incorrect address"
   },
 };
