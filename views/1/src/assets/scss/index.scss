@@ -18,6 +18,10 @@
   -webkit-text-size-adjust: 100%;
   outline: none !important;
 }
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
 .ant-tag {
   padding: 4px 10px;
   border-radius: 10px;
