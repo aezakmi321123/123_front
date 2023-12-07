@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async refreshTokens() {
       try {
-        const data = await rest.auth.refreshTokens();
+        const { data } = await rest.auth.refreshTokens();
         if (!data) await this.logOut();
       } catch (e) {
         console.log(e);
