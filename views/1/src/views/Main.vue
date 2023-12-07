@@ -188,6 +188,7 @@ export default {
   }
   &-partners {
     text-align: center;
+    padding-bottom: 50px;
     .partners {
       display: flex;
       flex-direction: column;

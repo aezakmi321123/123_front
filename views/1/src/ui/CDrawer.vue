@@ -23,6 +23,6 @@
 }
 
 .c-drawer {
-  background: var(--bg-input) !important;
+  background: #15142b !important;
 }
 </style>

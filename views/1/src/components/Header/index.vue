@@ -17,10 +17,12 @@
           <a key="1" class="header__list-item" @click="goToMainPage"
             >{{ t('header.homepage') }}
           </a>
-          <a key="2" class="header__list-item">{{ t('header.news') }}</a>
-          <a key="3" class="header__list-item">{{
-            t('header.top_directions')
-          }}</a>
+          <a key="2" class="header__list-item" @click="goTo('terms')"
+            >Terms of use</a
+          >
+          <a key="3" class="header__list-item" @click="goTo('privacy')"
+            >Privacy</a
+          >
           <a key="4" class="header__list-item">{{ t('header.about_us') }}</a>
         </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
@@ -70,7 +72,7 @@
       <div class="drawer__list">
         <div v-if="authStore.isLoggedIn" class="drawer__item">
           <WalletOutlined />
-          <span @click="goTo('Wallets')">{{ t('header.wallet') }}</span>
+          <span @click="goTo('wallets')">{{ t('header.wallet') }}</span>
         </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
           <router-link to="/login"

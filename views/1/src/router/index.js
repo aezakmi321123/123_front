@@ -9,7 +9,8 @@ const EMailSend = () => import('../views/EmailSend.vue');
 const ForgotPassword = () => import('../views/ForgotPassword.vue');
 const Wallets = () => import('../views/Wallets.vue');
 const Payment = () => import('../views/Payment.vue');
-
+const Privacy = () => import('../views/Privacy.vue');
+const Terms = () => import('../views/Terms.vue');
 const routes = [
   {
     path: '/',
@@ -73,6 +74,22 @@ const routes = [
     component: Payment,
     meta: {
       requiresAuth: true,
+    },
+  },
+  {
+    path: '/privacy',
+    name: 'Privacy',
+    component: Privacy,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/terms',
+    name: 'Terms',
+    component: Terms,
+    meta: {
+      requiresAuth: false,
     },
   },
 ];
