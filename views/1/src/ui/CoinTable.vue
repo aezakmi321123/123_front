@@ -106,7 +106,7 @@ export default {
     const customRowClassName = (record) => {
       return props.coin?.abbr === record.abbr ? 'active' : ''
     }
-    watch(dataSource, () => {
+    watch(source, () => {
       if (source.value.length && isEmpty(props.coin)) {
         emit('pushCoin', source.value[0])
       }

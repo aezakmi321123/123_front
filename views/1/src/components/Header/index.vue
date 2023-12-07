@@ -278,7 +278,7 @@ export default {
   position: sticky;
   top: 0;
   background: var(--bg-base);
-  z-index: 1;
+  z-index: 99;
 }
 .header {
   z-index: 1;

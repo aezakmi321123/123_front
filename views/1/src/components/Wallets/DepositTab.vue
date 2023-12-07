@@ -1,5 +1,12 @@
 <template>
   <a-form :model="depositForm" layout="vertical" @finish="onFinish">
+    <a-form-item v-if="depositForm.depositNetworks.length" name="withdrawNetwork">
+      <CRadioGroup v-model:value="depositForm.depositNetwork">
+        <CRadioButton v-for="network in depositForm.depositNetworks" :key="network" :value="network">
+          {{network}}
+        </CRadioButton>
+      </CRadioGroup>
+    </a-form-item>
     <a-form-item name="depositCurrency" :label="t('wallets.currency')">
       <CAutocomplete
           class="select1"
@@ -29,9 +36,11 @@
   import CAutocomplete from "../../ui/CAutocomplete.vue";
   import CButton from "../../ui/CButton.vue";
   import CInputNumber from "../../ui/CInputNumber.vue";
+  import CRadioButton from "../../ui/CRadioButton.vue";
+  import CRadioGroup from "../../ui/CRadioGroup.vue";
 
   export default {
-    components: { CAutocomplete, CInputNumber, CButton },
+    components: { CRadioButton, CRadioGroup, CAutocomplete, CInputNumber, CButton },
     props: {
       coin: {
         type: Object,
@@ -44,7 +53,13 @@
       const payment = usePaymentStore()
 
       const mapValue = el => ({ label: el.name, value: el.abbr, ...el });
-      const depositForm = ref({ depositCurrency: undefined, depositAmount: 0 });
+      const depositForm = ref({
+        depositCurrency: undefined,
+        depositAmount: 0,
+        depositNetwork: '',
+        depositNetworks: [],
+      });
+      const mapNetworks = networks => networks?.map(({ name }) => name) || []
       const options = computed(() =>
           authStore.user.coins.map(value => mapValue(value)),
       );
@@ -54,18 +69,23 @@
       watch(
           () => props.coin,
           e => {
+            const transformedNetworks = mapNetworks(e.networks)
+
             depositForm.value.depositCurrency = mapValue(e);
+            depositForm.value.depositNetwork = transformedNetworks?.[0];
+            depositForm.value.depositNetworks = transformedNetworks
           },
           { deep: true, immediate: true },
       );
 
 
       const onFinish = async (values) => {
-        const { depositAmount, depositCurrency } = values
+        const { depositAmount, depositCurrency, depositNetwork } = values
 
         await payment.generatePayment({
           currency: depositCurrency.abbr,
-          fullAmount: depositAmount.toString()
+          fullAmount: depositAmount.toString(),
+          network: depositNetwork
         })
       }
 

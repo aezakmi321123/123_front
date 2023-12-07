@@ -1,5 +1,12 @@
 <template>
   <a-form layout="vertical" :model="withdrawForm" @finish="onFinish">
+    <a-form-item v-if="withdrawForm.withdrawNetworks.length" name="withdrawNetwork">
+      <CRadioGroup v-model:value="withdrawForm.withdrawNetwork">
+        <CRadioButton v-for="network in withdrawForm.withdrawNetworks" :key="network" :value="network">
+          {{network}}
+        </CRadioButton>
+      </CRadioGroup>
+    </a-form-item>
     <a-form-item name="withdrawCurrency" :label="t('wallets.currency')">
       <CAutocomplete
           class="select1"
@@ -81,10 +88,13 @@
   import CButton from "../../ui/CButton.vue";
   import CInput from "../../ui/CInput.vue";
   import CInputNumber from "../../ui/CInputNumber.vue";
+  import CRadioButton from "../../ui/CRadioButton.vue";
+  import CRadioGroup from "../../ui/CRadioGroup.vue";
   import CSwitch from "../../ui/CSwitch.vue";
 
   export default {
-    components: { CAutocomplete, CInputNumber, CInput, CSwitch, CButton },
+    components: { CAutocomplete, CInputNumber, CInput, CSwitch, CButton, CRadioButton,
+      CRadioGroup },
     props: {
       coin: {
         type: Object,
@@ -98,10 +108,13 @@
       const commission = import.meta.env.VITE_BASE_COMMISSION
 
       const mapValue = el => ({ label: el.name, value: el.abbr, ...el });
+      const mapNetworks = networks => networks?.map(({ name }) => name) || []
       const withdrawForm = ref({
         withdrawCurrency: undefined,
         withdrawAmount: 0,
         withdrawAddress: '',
+        withdrawNetwork: '',
+        withdrawNetworks: [],
         showFee: false
       });
       const options = computed(() =>
@@ -113,7 +126,11 @@
       watch(
           () => props.coin,
           e => {
+            const transformedNetworks = mapNetworks(e.networks)
+
             withdrawForm.value.withdrawCurrency = mapValue(e);
+            withdrawForm.value.withdrawNetwork = transformedNetworks?.[0];
+            withdrawForm.value.withdrawNetworks = transformedNetworks
           },
           { deep: true, immediate: true },
       );
@@ -126,12 +143,13 @@
       })
 
       const onFinish = async (values) => {
-        const { withdrawAmount, withdrawCurrency, withdrawAddress } = values
+        const { withdrawAmount, withdrawCurrency, withdrawAddress, withdrawNetwork } = values
 
         await withdraw.generateWithdraw({
           currency: withdrawCurrency.abbr,
           amount: withdrawAmount.toString(),
-          address: withdrawAddress
+          address: withdrawAddress,
+          network: withdrawNetwork
         })
       }
 
@@ -150,4 +168,5 @@
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>
