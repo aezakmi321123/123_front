@@ -2,25 +2,30 @@
   <div class="transfer-card">
     <a-tabs v-model:activeKey="activeKey" size="large" type="card" class="wallets__tabs">
       <a-tab-pane key="1" :tab="t('wallets.dep')" class="wallets__tab">
-        <div class="transfer-card__content-wrapper">
-          <DepositTab :coin="coin"/>
-        </div>
+        <a-spin :spinning="isUserLoading" size="large">
+          <div class="transfer-card__content-wrapper">
+            <DepositTab :coin="coin"/>
+          </div>
+        </a-spin>
       </a-tab-pane>
       <a-tab-pane key="2" :tab="t('wallets.withdraw')" class="wallets__tab">
-        <div class="transfer-card__content-wrapper">
-          <WithdrawTab :coin="coin" />
-        </div>
+        <a-spin :spinning="isUserLoading">
+          <div class="transfer-card__content-wrapper">
+            <WithdrawTab :coin="coin" />
+          </div>
+        </a-spin>
       </a-tab-pane>
     </a-tabs>
   </div>
 
 </template>
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import DepositTab from "../components/Wallets/DepositTab.vue";
 import WithdrawTab from "../components/Wallets/WithdrawTab.vue";
+import { useAuthStore } from "../modules/auth.js";
 
 export default {
   components: {
@@ -36,10 +41,13 @@ export default {
   setup() {
     const activeKey = ref('1');
     const { t } = useI18n();
+    const auth = useAuthStore();
+    const isUserLoading = computed(() => auth.isLoading);
 
     return {
       activeKey,
       t,
+      isUserLoading
     };
   },
 };
@@ -92,7 +100,8 @@ export default {
   }
 }
 .transfer-card {
-
+  position: sticky;
+  top: 120px;
   background: radial-gradient(100% 100% at 0% 0%, #21213d 0%, #101024 100%);
   border-radius: 14px;
 
@@ -104,12 +113,15 @@ export default {
 .wallets {
   &__tabs {
 
-    & .ant-tabs-nav-wrap {
-      border-radius: 14px 14px 0 0;
-      background: var(--button-primary) !important;
+    & .ant-tabs-nav {
+      margin-bottom: 0;
+      & .ant-tabs-nav-wrap {
+        border-radius: 14px 14px 0 0;
+        background: var(--button-primary) !important;
 
-      & .ant-tabs-nav-list {
-        width: 100% !important;
+        & .ant-tabs-nav-list {
+          width: 100% !important;
+        }
       }
     }
 

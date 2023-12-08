@@ -1,60 +1,54 @@
 import { defineStore } from 'pinia';
 
+import { socket } from "../data/socket.js";
 // import { cMessage } from '../heplers/message';
 import rest from '../rest';
+
+const websocketUrl = 'wss://stream.binance.com:9443/ws'
 export const useWalletStore = defineStore('wallet', {
   state: () => ({
+    isLoading: false,
     coins: [],
+    wsData: {
+      isConnected: false,
+      coins: {}
+    }
   }),
   actions: {
     async getCoins() {
+      this.isLoading = true
       try {
         const { data } = await rest.wallet.getCoins();
         this.coins = data;
       } catch (e) {
         // console.log(e);
+      }finally {
+        this.isLoading = false
       }
     },
-    // async signIn(params) {
-    //   try {
-    //     const { data } = await rest.auth.login(params);
-    //     cMessage('success', 'success');
-    //     this.user = data;
-    //     this.isLoggedIn = true;
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // async logOut() {
-    //   try {
-    //     await rest.auth.logout();
-    //     this.isLoggedIn = false;
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // async updateUser(data) {
-    //   try {
-    //     await rest.auth.updateUser(data);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // async confirmEmail(params) {
-    //   try {
-    //     const { data } = await rest.auth.confirmEmail(params);
-    //     cMessage('success', data.message);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
-    // async confirmEmailCode(params) {
-    //   try {
-    //     await rest.auth.confirmEmailCode(params);
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // },
+    bindEvents() {
+      socket.init(websocketUrl)
+
+      socket.addEventListener("open", () => {
+        this.wsData.isConnected = true;
+        const params = this.coins.filter(({ abbr }) => abbr.toLowerCase() !== 'usdt').map(({ abbr }) => `${abbr?.toLowerCase()}usdt@ticker`)
+
+        socket.send(JSON.stringify({ method: "SUBSCRIBE", params, id: 1 }))
+      });
+      socket.addEventListener("close", () => {
+        this.wsData.isConnected = false;
+      });
+      socket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.e === '24hrTicker') {
+          this.wsData.coins = { ...this.wsData.coins, [data.s.slice(0, -4)]: { ...data } }
+        }
+      });
+    },
+    disconnect(){
+      socket.close()
+    }
   },
-  persist: true,
+  persist: false,
 });

@@ -116,24 +116,16 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-// import { useAuthStore } from '../modules/auth.js';
-import { useWalletStore } from '../modules/wallet.js';
 import ExchangeCard from '../ui/ExchangeCard.vue';
 export default {
   components: {
     ExchangeCard,
   },
   setup() {
-    const wallet = useWalletStore();
-    // const auth = useAuthStore();
     const { t } = useI18n();
-    onMounted(() => {
-      // auth.refreshTokens();
-      wallet.getCoins();
-    });
+
     return {
       t,
     };

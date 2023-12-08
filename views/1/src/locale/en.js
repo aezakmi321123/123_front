@@ -115,6 +115,8 @@ export default {
     name: 'Name',
     qty: 'QTY',
     rate: '24H %',
+    quantityInUsdt: "USD",
+    direction: "Direction",
     currency: 'Currency:',
     deposit: 'Amount to deposit:',
     get_address: 'Get Address',

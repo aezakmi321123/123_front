@@ -22,6 +22,7 @@
       row-key="id"
       :custom-row="customRow"
       :row-class-name="customRowClassName"
+      :loading="isUserLoading"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
@@ -31,20 +32,36 @@
               <div>{{ record.abbr }}</div>
               <div>{{ record.name }}</div>
             </a-flex>
-
           </a-flex>
+        </template>
+        <template v-if="column.dataIndex === 'rate'">
+          <a-typography-paragraph :class="getCoinData(record).class">
+            {{getCoinData(record).value}}
+          </a-typography-paragraph>
+        </template>
+        <template v-if="column.dataIndex === 'quantityInUsdt'">
+          <a-typography-paragraph :class="getCoinData(record).class">
+            {{getCoinData(record).price}}
+          </a-typography-paragraph>
+        </template>
+        <template v-if="column.dataIndex === 'direction'">
+          <a-typography-paragraph :class="getCoinData(record).class">
+            <ArrowUpOutlined v-if="getCoinData(record).icon === 'up'" />
+            <ArrowDownOutlined v-if="getCoinData(record).icon === 'down'" />
+          </a-typography-paragraph>
         </template>
       </template>
     </a-table>
   </div>
 </template>
 <script>
-import { SearchOutlined } from '@ant-design/icons-vue';
+import { ArrowDownOutlined,ArrowUpOutlined, SearchOutlined } from '@ant-design/icons-vue';
 import { isEmpty } from "lodash";
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '../modules/auth.js';
+import { useWalletStore } from "../modules/wallet.js";
 import CInput from '../ui/CInput.vue';
 import CSwitch from '../ui/CSwitch.vue';
 export default {
@@ -52,6 +69,8 @@ export default {
     CInput,
     CSwitch,
     SearchOutlined,
+    ArrowUpOutlined,
+    ArrowDownOutlined
   },
   props: {
     coin: {
@@ -63,9 +82,11 @@ export default {
   setup(props, { emit }) {
     const { t } = useI18n();
     const authStore = useAuthStore();
+    const walletsStore = useWalletStore()
     const hideBalances = ref(false);
     const search = ref('');
-    const dataSource = ref(authStore.user.coins);
+    const dataSource = computed(() => authStore.user.coins);
+    const isUserLoading = computed(() => authStore.isLoading)
     const source = computed(() => {
       const dataWithNoZeroBalances = hideBalances.value
         ? dataSource.value.filter(({ coinQuantity }) => +coinQuantity > 0)
@@ -89,8 +110,16 @@ export default {
         dataIndex: 'coinQuantity',
       },
       {
+        title: t('wallets.quantityInUsdt'),
+        dataIndex: 'quantityInUsdt',
+      },
+      {
         title: t('wallets.rate'),
-        dataIndex: 'address',
+        dataIndex: 'rate',
+      },
+      {
+        title: t('wallets.direction'),
+        dataIndex: 'direction',
       },
     ];
     const rowSelect = e => {
@@ -111,6 +140,35 @@ export default {
         emit('pushCoin', source.value[0])
       }
     }, { deep: true, immediate: true });
+    const socketCoinsData = computed(() => walletsStore.wsData.coins)
+
+    const getCoinData = (record) => {
+      if(record.abbr === 'USDT'){
+        return {
+          value: 1,
+          class: 'text-primary',
+          price: (parseFloat(record.coinQuantity) || 0).toFixed(6),
+          icon: null
+        }
+      }
+
+      const currentData = socketCoinsData.value[record.abbr]
+      const price = (parseFloat(currentData?.c || 0) * parseFloat(record.coinQuantity)).toFixed(6)
+
+      return currentData?.P?.indexOf?.('-') ?
+          {
+            value: `+${currentData?.P}`,
+            class: 'text-green',
+            price,
+            icon: 'up'
+          }
+      :   {
+            value:  `-${currentData?.P}`,
+            class: 'text-red',
+            price,
+            icon: 'down'
+      }
+    }
 
     return {
       columns,
@@ -120,7 +178,10 @@ export default {
       customRow,
       rowSelect,
       t,
-      customRowClassName
+      customRowClassName,
+      isUserLoading,
+      socketCoinsData,
+      getCoinData
     };
   },
 };

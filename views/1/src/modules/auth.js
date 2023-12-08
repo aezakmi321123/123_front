@@ -7,6 +7,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
     isLoggedIn: false,
+    isLoading: false,
   }),
   actions: {
     async refreshTokens() {
@@ -55,6 +56,7 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     async getUser() {
+      this.isLoading = true
       if (!this.isLoggedIn) return;
       try {
         const { data } = await rest.auth.getUser(this.user.id);
@@ -62,6 +64,8 @@ export const useAuthStore = defineStore('auth', {
         this.user = data;
       } catch (e) {
         console.log(e);
+      } finally {
+        this.isLoading = false
       }
     },
     async confirmEmail(params) {

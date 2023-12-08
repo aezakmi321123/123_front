@@ -65,6 +65,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
+  margin-top: 50px;
   border-top: 1px solid var(--bg-input);
 }
 .reserved {

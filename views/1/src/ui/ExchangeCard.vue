@@ -1,38 +1,44 @@
 <template>
-  <div class="exchange__card">
-    <div class="exchange__card-send">
-      <div class="title">{{ t('main.send') }}</div>
-      <div class="select">
-        <CAutocomplete v-model:value="valueSend" :options="options">
-        </CAutocomplete>
+  <div>
+      <div class="exchange__card">
+        <div class="exchange__card-send">
+          <div class="title">{{ t('main.send') }}</div>
+          <a-spin :spinning="isWalletLoading">
+            <div class="select">
+              <CAutocomplete v-model:value="valueSend" :options="options">
+              </CAutocomplete>
+            </div>
+            <CInputNumber />
+          </a-spin>
+        </div>
+        <div class="exchange__card-swap">
+          <div class="img">
+            <img height="20" width="20" src="replace.svg" />
+          </div>
+        </div>
+        <div class="exchange__card-receive">
+          <div class="title">{{ t('main.receive') }}</div>
+          <a-spin :spinning="isWalletLoading">
+            <div class="select">
+              <CAutocomplete v-model:value="valueReceive" :options="options" />
+            </div>
+            <CInputNumber />
+          </a-spin>
+        </div>
+        <div class="exchange__card-rate">
+          <div>Exchange rate: 1 BUSD = 1.00328489 USD</div>
+          <div>Reserve: 10968899.999337 USD</div>
+        </div>
+        <div class="exchange__card-exchnage">
+          <CButton size="large" type="secondary" block>{{
+              t('main.exchange')
+            }}</CButton>
+        </div>
       </div>
-      <CInputNumber />
-    </div>
-    <div class="exchange__card-swap">
-      <div class="img">
-        <img height="20" width="20" src="replace.svg" />
-      </div>
-    </div>
-    <div class="exchange__card-receive">
-      <div class="title">{{ t('main.receive') }}</div>
-      <div class="select">
-        <CAutocomplete v-model:value="valueReceive" :options="options" />
-      </div>
-      <CInputNumber />
-    </div>
-    <div class="exchange__card-rate">
-      <div>Exchange rate: 1 BUSD = 1.00328489 USD</div>
-      <div>Reserve: 10968899.999337 USD</div>
-    </div>
-    <div class="exchange__card-exchnage">
-      <CButton size="large" type="secondary" block>{{
-        t('main.exchange')
-      }}</CButton>
-    </div>
   </div>
 </template>
 <script>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useWalletStore } from '../modules/wallet.js';
@@ -48,15 +54,17 @@ export default {
   setup() {
     const wallet = useWalletStore();
     const { t } = useI18n();
-    const mapValue = ({ abbr, name }) => ({ label: name, value: abbr });
-    const valueSend = ref(mapValue(wallet.coins[0]));
-    const valueReceive = ref(mapValue(wallet.coins[1]));
+    const mapValue = ({ abbr, name } = { abbr: '', name: '' }) => ({ label: name, value: abbr });
+    const valueSend = computed(() => mapValue(wallet.coins[0]));
+    const valueReceive = computed(() => mapValue(wallet.coins[1]));
     const options = computed(() => wallet.coins.map(value => mapValue(value)));
+    const isWalletLoading  = computed(() => wallet.isLoading)
     return {
       options,
       valueSend,
       t,
       valueReceive,
+      isWalletLoading
     };
   },
 };
