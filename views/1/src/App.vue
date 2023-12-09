@@ -42,5 +42,6 @@ export default {
 <style lang="scss">
 main {
   margin-top: 50px;
+  width: 100%;
 }
 </style>

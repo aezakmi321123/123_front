@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a-row :gutter="[50, 20]">
+    <a-row :gutter="[{ sm: 10, md: 50  }, { sm: 20 }]">
       <a-col
         :lg="{ order: 0, span: 16 }"
         :md="{ span: 24, justify: 'center' }"
@@ -8,7 +8,7 @@
       >
         <CoinTable :coin="coin" @push-coin="getCoin" />
       </a-col>
-      <a-col :lg="8" :md="24">
+      <a-col :lg="8" :span="24">
         <TransferCard :coin="coin" />
       </a-col>
     </a-row>
@@ -23,7 +23,7 @@ import TransferCard from '../ui/TransferCard.vue';
 export default {
   components: {
     CoinTable,
-    TransferCard,
+    TransferCard
   },
   setup() {
     const coin = ref(null);

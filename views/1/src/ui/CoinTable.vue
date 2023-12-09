@@ -23,6 +23,7 @@
       :custom-row="customRow"
       :row-class-name="customRowClassName"
       :loading="isUserLoading"
+      :scroll="{x: true}"
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
@@ -30,22 +31,28 @@
             <CryptoIcon :size="40" :name="record.abbr.toLowerCase()" />
             <a-flex vertical>
               <div>{{ record.abbr }}</div>
-              <div>{{ record.name }}</div>
+              <div class="text-nowrap">{{ record.name }}</div>
             </a-flex>
           </a-flex>
         </template>
-        <template v-if="column.dataIndex === 'rate'">
-          <a-typography-paragraph :class="getCoinData(record).class">
-            {{getCoinData(record).value}}
+        <template v-if="column.dataIndex === 'coinQuantity'">
+          <a-flex vertical>
+            <a-typography-paragraph class="text-nowrap text-primary mb-0">{{ record.coinQuantity }}</a-typography-paragraph>
+            <a-typography-paragraph class="text-nowrap text-grey mb-0">{{ getCoinData(record).price }}$</a-typography-paragraph>
+          </a-flex>
+        </template>
+        <template v-if="column.dataIndex === 'change'">
+          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0">
+            {{getCoinData(record).change}}
           </a-typography-paragraph>
         </template>
-        <template v-if="column.dataIndex === 'quantityInUsdt'">
-          <a-typography-paragraph :class="getCoinData(record).class">
-            {{getCoinData(record).price}}
+        <template v-if="column.dataIndex === 'rate'">
+          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0">
+            {{getCoinData(record).rate}}
           </a-typography-paragraph>
         </template>
         <template v-if="column.dataIndex === 'direction'">
-          <a-typography-paragraph :class="getCoinData(record).class">
+          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0">
             <ArrowUpOutlined v-if="getCoinData(record).icon === 'up'" />
             <ArrowDownOutlined v-if="getCoinData(record).icon === 'down'" />
           </a-typography-paragraph>
@@ -110,12 +117,14 @@ export default {
         dataIndex: 'coinQuantity',
       },
       {
-        title: t('wallets.quantityInUsdt'),
-        dataIndex: 'quantityInUsdt',
-      },
-      {
         title: t('wallets.rate'),
         dataIndex: 'rate',
+        className: 'column-rate',
+      },
+      {
+        title: t('wallets.change'),
+        dataIndex: 'change',
+        className: 'column-change',
       },
       {
         title: t('wallets.direction'),
@@ -145,10 +154,11 @@ export default {
     const getCoinData = (record) => {
       if(record.abbr === 'USDT'){
         return {
-          value: 1,
+          change: "0%",
           class: 'text-primary',
           price: (parseFloat(record.coinQuantity) || 0).toFixed(6),
-          icon: null
+          icon: null,
+          rate: 1,
         }
       }
 
@@ -157,15 +167,17 @@ export default {
 
       return currentData?.P?.indexOf?.('-') ?
           {
-            value: `+${currentData?.P}`,
+            change: `+${currentData?.P}%`,
             class: 'text-green',
             price,
+            rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'up'
           }
       :   {
-            value:  `-${currentData?.P}`,
+            change:  `${currentData?.P}%`,
             class: 'text-red',
             price,
+            rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'down'
       }
     }
@@ -191,6 +203,18 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  & .column-money {
+    width: 250px;
+  }
+
+  & .column-rate {
+    width: 200px;
+  }
+
+  & .column-change {
+    width: 250px;
+  }
 }
 .wallet_table__filters {
   display: flex;

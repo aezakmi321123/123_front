@@ -60,10 +60,6 @@
   @include mq(500px, max-width) {
     padding: 0 2%;
   }
-  // max-width: 1150px;
-  // @include mq(1200px, max-width) {
-  //   max-width: 950px;
-  // }
 }
 * {
   box-sizing: border-box;
@@ -117,6 +113,7 @@ a {
 #app {
   display: grid;
   grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
   min-height: 100vh;
   background-position: top center;
   background-repeat: no-repeat;
@@ -152,8 +149,16 @@ a {
   color: var(--text-success);
 }
 
+.text-grey {
+  color: var(--text-tertiary);
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-nowrap {
+  white-space: nowrap;
 }
 
 .mb-0 {

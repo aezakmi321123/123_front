@@ -44,7 +44,7 @@ export const useAuthStore = defineStore('auth', {
       } finally {
         this.isLoggedIn = false;
         this.user = null;
-        this.router.push({ path: '/' });
+        this.$router.push({ path: '/' });
       }
     },
     async updateUser(data) {
