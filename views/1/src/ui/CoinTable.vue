@@ -42,17 +42,17 @@
           </a-flex>
         </template>
         <template v-if="column.dataIndex === 'change'">
-          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0">
+          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0 text-nowrap">
             {{getCoinData(record).change}}
           </a-typography-paragraph>
         </template>
         <template v-if="column.dataIndex === 'rate'">
-          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0">
+          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0 text-nowrap">
             {{getCoinData(record).rate}}
           </a-typography-paragraph>
         </template>
         <template v-if="column.dataIndex === 'direction'">
-          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0">
+          <a-typography-paragraph :class="getCoinData(record).class" class="mb-0 text-nowrap">
             <ArrowUpOutlined v-if="getCoinData(record).icon === 'up'" />
             <ArrowDownOutlined v-if="getCoinData(record).icon === 'down'" />
           </a-typography-paragraph>

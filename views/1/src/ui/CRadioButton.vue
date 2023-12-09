@@ -12,7 +12,7 @@
 
 <style lang="scss">
 .radio-button {
-  width: 25%;
+  min-width: 25%;
   display: flex;
   flex-shrink: 0;
   background: var(--bg-base) !important;

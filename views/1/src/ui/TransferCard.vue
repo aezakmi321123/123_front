@@ -1,6 +1,6 @@
 <template>
   <div class="transfer-card">
-    <a-tabs v-model:activeKey="activeKey" size="large" type="card" class="wallets__tabs">
+    <a-tabs v-model:activeKey="activeKey" centered size="large" type="card" class="wallets__tabs">
       <a-tab-pane key="1" :tab="t('wallets.dep')" class="wallets__tab">
         <a-spin :spinning="isUserLoading" size="large">
           <div class="transfer-card__content-wrapper">
@@ -118,10 +118,6 @@ export default {
       & .ant-tabs-nav-wrap {
         border-radius: 14px 14px 0 0;
         background: var(--button-primary) !important;
-
-        & .ant-tabs-nav-list {
-          width: 100% !important;
-        }
       }
     }
 

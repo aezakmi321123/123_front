@@ -2,7 +2,7 @@
   <a-form :model="depositForm" layout="vertical" @finish="onFinish">
     <a-form-item v-if="depositForm.depositNetworks.length" name="withdrawNetwork">
       <CRadioGroup v-model:value="depositForm.depositNetwork">
-        <CRadioButton v-for="network in depositForm.depositNetworks" :key="network" :value="network">
+        <CRadioButton v-for="network in depositForm.depositNetworks" :key="network" class="text-nowrap" :value="network">
           {{network}}
         </CRadioButton>
       </CRadioGroup>
