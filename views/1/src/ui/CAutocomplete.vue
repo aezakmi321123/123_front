@@ -1,10 +1,5 @@
 <template>
-  <a-auto-complete
-    style="width: 100%"
-    filter-option
-    class="c-autocomplete"
-    v-bind="$attrs"
-  >
+  <a-auto-complete style="width: 100%" class="c-autocomplete" v-bind="$attrs">
     <template #option="{ value }">
       <div class="aligned">
         <CryptoIcon :size="24" :name="value.toLowerCase()" />
