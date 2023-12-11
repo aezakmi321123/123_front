@@ -11,6 +11,7 @@ const Wallets = () => import('../views/Wallets.vue');
 const Payment = () => import('../views/Payment.vue');
 const Privacy = () => import('../views/Privacy.vue');
 const Terms = () => import('../views/Terms.vue');
+const About = () => import('../views/About.vue');
 const routes = [
   {
     path: '/',
@@ -88,6 +89,14 @@ const routes = [
     path: '/terms',
     name: 'Terms',
     component: Terms,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About,
     meta: {
       requiresAuth: false,
     },

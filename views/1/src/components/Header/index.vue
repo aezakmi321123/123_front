@@ -23,7 +23,9 @@
           <a key="3" class="header__list-item" @click="goTo('privacy')"
             >Privacy</a
           >
-          <a key="4" class="header__list-item">{{ t('header.about_us') }}</a>
+          <a key="4" class="header__list-item" @click="goTo('about')">{{
+            t('header.about_us')
+          }}</a>
         </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
           <CSelect :value="lang" :options="languages" @change="changeLang" />
@@ -108,7 +110,7 @@
         </div>
         <div class="drawer__item show-mobile">
           <QuestionOutlined />
-          <span>{{ t('header.about_us') }}</span>
+          <span @click="goTo('privacy')">{{ t('header.about_us') }}</span>
         </div>
         <div
           v-if="authStore.isLoggedIn"

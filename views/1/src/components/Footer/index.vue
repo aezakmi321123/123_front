@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="footer">
-      <a-row :gutter="[80, 40]" justify="center">
+      <a-row :gutter="[{ xs: 0, sm: 80 }, 40]" justify="center">
         <a-col>
           <a-flex vertical gap="large">
             <a-col>
@@ -73,7 +73,7 @@ export default {
   text-align: center;
 }
 .footer {
-  padding: 70px 0;
+  margin: 70px 0;
   span {
     color: var(--text-link);
     display: flex;

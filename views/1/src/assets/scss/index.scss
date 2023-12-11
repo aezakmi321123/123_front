@@ -22,6 +22,16 @@
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
 }
+.ant-timeline {
+  color: var(--text-primary);
+  font-size: 20px !important;
+}
+.ant-timeline-item-tail {
+  border-inline-start: 2px solid var(--text-link) !important;
+}
+.ant-timeline-item-content {
+  font-size: 16px;
+}
 .ant-tag {
   padding: 4px 10px;
   border-radius: 10px;
@@ -59,6 +69,9 @@
   }
   @include mq(500px, max-width) {
     padding: 0 2%;
+  }
+  @include mq(320px, max-width) {
+    padding: 0 10px;
   }
 }
 * {

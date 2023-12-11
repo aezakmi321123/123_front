@@ -115,8 +115,8 @@ export default {
     name: 'Name',
     qty: 'QTY (usd)',
     change: '24H %',
-    rate: "Rate",
-    direction: "Direction",
+    rate: 'Rate',
+    direction: 'Direction',
     currency: 'Currency:',
     deposit: 'Amount to deposit:',
     get_address: 'Get Address',
@@ -455,4 +455,54 @@ export default {
     You agree to defend, indemnify and hold harmless Payward (and each of our officers, directors, members, employees, agents and affiliates) from any claim, demand, action, damage, loss, cost or expense, including without limitation reasonable attorneysʼ fees, arising out or relating to (a) your use of, or conduct in connection with, our Services; (b) any Feedback you provide; (c) your violation of these Terms; or (d) your violation of any rights of any other person or entity. If you are obligated to indemnify us, we will have the right, in our sole discretion, to control any action or proceeding (at our expense) and determine whether we wish to settle it. Miscellaneous Entire Agreement; Order of Precedence. These Terms contain the entire agreement, and supersede all prior and contemporaneous understandings between the parties regarding the Services. These Terms do not alter the terms or conditions of any other electronic or written agreement you may have with Payward for the Services or for any other Payward product or service or otherwise. In the event of any conflict between these Terms and any other agreement you may have with Payward, the terms of that other agreement will control only if these Terms are specifically identified and declared to be overridden by such other agreement. Amendment. We reserve the right to make changes or modifications to these Terms from time to time, in our sole discretion. If we make changes to these Terms, we will provide you with notice of such changes, such as by sending an email, providing notice on the homepage of the Site and/or by posting the amended Terms via the applicable Payward websites and mobile applications and updating the "Last Updated" date at the top of these Terms. The amended Terms will be deemed effective immediately upon posting for any new users of the Services. In all other cases, the amended Terms will become effective for preexisting users upon the earlier of either: (i) the date users click or press a button to accept such changes, or (ii) continued use of our Services 30 days after Payward provides notice of such changes. Any amended Terms will apply prospectively to use of the Services after such changes become effective. If you do not agree to any amended Terms, you must discontinue using our Services and contact us to terminate your account. Waiver. Our failure or delay in exercising any right, power or privilege under these Terms shall not operate as a waiver thereof. Severability. The invalidity or unenforceability of any of these Terms shall not affect the validity or enforceability of any other of these Terms, all of which shall remain in full force and effect. Force Majeure Events. Payward shall not be liable for (1) any inaccuracy, error, delay in, or omission of (i) any information, or (ii) the transmission or delivery of information; (2) any loss or damage arising from any event beyond Payward's reasonable control, including but not limited to flood, extraordinary weather conditions, earthquake, or other act of God, fire, war, insurrection, riot, labor dispute, accident, action of government, communications, power failure, or equipment or software malfunction or any other cause beyond Payward's reasonable control (each, a "Force Majeure Event"). Assignment. You may not assign or transfer any of your rights or obligations under these Terms without prior written consent from Payward, including by operation of law or in connection with any change of control. Payward may assign or transfer any or all of its rights under these Terms, in whole or in part, without obtaining your consent or approval. Headings. Headings of sections are for convenience only and shall not be used to limit or construe such sections.
     </p>\n
   `,
+  about: {
+    title: `What is ${import.meta.env.VITE_BASE_EXCHANGE_NAME}?`,
+    paragraph: `Our company begins its history from July 2017, when it was developed and registered by our founder - Benjamin Esch and his team. Our company has come a long way from a simple exchange platform to a complex mechanism, which works smoothly. We have changed the perception of many people about cryptocurrency and its use. We introduced lots of interesting and useful technologies, which are helping us to protect your funds, and helping you to invest your funds with maximum benefit. World's first we created system, which helps you to buy, sell, transfer your funds inside our exchange in few seconds, you don't need to wait blockchain confirmation any more. In our Exchange your funds This one, and lots of another features makes trading in Exchange very comfortable, useful and profitable. After making a deposit, your funds constantly are stored on the permanent wallet, no matter what manipulations you do with them. They are assigned to you in the internal system of our site, so you shouldn't pay a commission on the blockchain network during transfer, trading and other transactions. We are interested in cryptocurrencies and we believe they will change the world and become the main currency in the future. We believe that cryptocurrencies will continue to grow and develop tirelessly, so we offer to invest in them right now, because even a very small investment changes the world.`,
+    history: 'Our History',
+    desc_history: `${
+      import.meta.env.VITE_BASE_EXCHANGE_NAME
+    } is a user-friendly and reliable service for cryptocurrency exchanges. Our platform is free from sign-up and supports more than 500 crypto and fiat currencies.`,
+    time1_l: 'Creation',
+    time1_p:
+      'Our developer was really interested in cryptocurrencies. At this time he realised, that he want to create the best platform for trading and cryptocurrency storage.',
+    time2_l: 'Team gathering',
+    time2_p:
+      'Developer started collecting the team to make his vision come true.',
+    time3_l: 'Work started',
+    time3_p:
+      'Developer with his friends started their huge work in creating platform.',
+    time4_l: 'We have opened',
+    time4_p: `The ${
+      import.meta.env.VITE_BASE_EXCHANGE_NAME
+    } Exchange was officially registered as a platform for trading and storage of cryptocurrency.`,
+    time5_l: `${import.meta.env.VITE_BASE_EXCHANGE_NAME} codes`,
+    time5_p: `${
+      import.meta.env.VITE_BASE_EXCHANGE_NAME
+    } codes section has been created.`,
+    time6_l: 'Verification',
+    time6_p: 'A verification procedure was introduced.',
+    time7_l: 'Binary options',
+    time7_p: 'Binary options have been added to the trading section.',
+    time8_l: 'Staking Service',
+    time8_p: 'Staking Service have been added.',
+    choose_l: `Why choose ${import.meta.env.VITE_BASE_EXCHANGE_NAME} ?`,
+    choose_p:
+      'We have served one million users and provided fast, secure, and professional crypto trading services',
+    card1_l: '24/7 Support',
+    card1_p:
+      'Our tickets team is available 24/7. We are receptive to your needs and are always available to help you out.',
+    card2_l: 'Secure',
+    card2_p:
+      'Advanced risk control system in the market. Hybrid hot/cold wallet systems and multi-signature technologies. 100% secure for trading and digital asset management',
+    card3_l: 'Easy to use',
+    card3_p:
+      'An intuitive and user-friendly trading interface will help make your pastime on our platform as comfortable and easy as possible.',
+    card4_l: 'Extra Low Trading Fees',
+    card4_p: 'Exchange with extra low fees, keep all your profit',
+    card5_l: 'Trusted by Industry Experts',
+    card5_p:
+      'State of the art infrastructure with SHA-384 layer encryption and multi server cross-referencing',
+    card6_l: 'Privacy Info Standards',
+    card6_p: 'Your information is secured with AUSTRAC inline with AML policy',
+  },
 };

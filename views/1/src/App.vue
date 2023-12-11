@@ -6,12 +6,12 @@
   <CFooter />
 </template>
 <script>
-import { onBeforeUnmount, onMounted } from "vue";
-import { useI18n } from "vue-i18n";
+import { onBeforeUnmount, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import CFooter from './components/Footer/index.vue';
 import CHeader from './components/Header/index.vue';
-import { useWalletStore } from "./modules/wallet.js";
+import { useWalletStore } from './modules/wallet.js';
 // import rest from './rest/index.js';
 export default {
   components: {
@@ -25,13 +25,12 @@ export default {
     onMounted(async () => {
       await wallet.getCoins();
 
-      wallet.bindEvents()
+      wallet.bindEvents();
     });
 
     onBeforeUnmount(() => {
-      wallet.disconnect()
-    })
-
+      wallet.disconnect();
+    });
 
     return {
       t,
