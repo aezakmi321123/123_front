@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 
 import { cMessage } from '../heplers/message';
 import rest from '../rest';
-
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
@@ -15,15 +14,18 @@ export const useAuthStore = defineStore('auth', {
         const { data } = await rest.auth.refreshTokens();
         if (!data) await this.logOut();
       } catch (e) {
-        console.log(e);
         await this.logOut();
       }
     },
     async signUp(params) {
       try {
-        await rest.auth.register(params);
+        const { data } = await rest.auth.register(params);
+        cMessage('success', 'success');
+        this.user = data;
+        this.isLoggedIn = true;
+        this.$router.push({ path: '/wallets' });
       } catch (e) {
-        console.log(e);
+        cMessage('error', e.message);
       }
     },
     async signIn(params) {
@@ -32,15 +34,16 @@ export const useAuthStore = defineStore('auth', {
         cMessage('success', 'success');
         this.user = data;
         this.isLoggedIn = true;
+        this.$router.push({ path: '/wallets' });
       } catch (e) {
-        console.log(e);
+        cMessage('error', e.message);
       }
     },
     async logOut() {
       try {
         await rest.auth.logout();
       } catch (e) {
-        console.log(e);
+        cMessage('error', e.message);
       } finally {
         this.isLoggedIn = false;
         this.user = null;
@@ -52,11 +55,12 @@ export const useAuthStore = defineStore('auth', {
         await rest.auth.updateUser(data);
         cMessage('success', 'success');
       } catch (e) {
+        cMessage('error', e.message);
         console.log(e);
       }
     },
     async getUser() {
-      this.isLoading = true
+      this.isLoading = true;
       if (!this.isLoggedIn) return;
       try {
         const { data } = await rest.auth.getUser(this.user.id);
@@ -65,7 +69,7 @@ export const useAuthStore = defineStore('auth', {
       } catch (e) {
         console.log(e);
       } finally {
-        this.isLoading = false
+        this.isLoading = false;
       }
     },
     async confirmEmail(params) {
@@ -73,6 +77,7 @@ export const useAuthStore = defineStore('auth', {
         const { data } = await rest.auth.confirmEmail(params);
         cMessage('success', data.message);
       } catch (e) {
+        cMessage('error', e.message);
         console.log(e);
       }
     },
@@ -80,6 +85,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         await rest.auth.confirmEmailCode(params);
       } catch (e) {
+        cMessage('error', e.message);
         console.log(e);
       }
     },

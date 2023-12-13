@@ -61,17 +61,37 @@
                   label="Phone"
                   :name="['signup', 'phone']"
                   :rules="[
-                    { type: 'string', required: true, message: t('required') },
+                    {
+                      type: 'string',
+                      required: true,
+                      message: t('required'),
+                    },
+                    {
+                      type: 'string',
+                      min: 6,
+                      max: 8,
+                      message: t('from 6 to 8 digits'),
+                    },
                   ]"
                 >
-                  <CInput v-model:value="formState.signup.phone"></CInput>
+                  <CInput
+                    v-model:value="formState.signup.phone"
+                    type="number"
+                  ></CInput>
                 </a-form-item>
               </a-col>
             </a-row>
             <a-form-item
               :name="['signup', 'password']"
               :label="t('sign_up.password')"
-              :rules="[{ required: true, message: t('required') }]"
+              :rules="[
+                { required: true, message: t('required') },
+                {
+                  type: 'string',
+                  min: 7,
+                  message: t('min 7 symbols'),
+                },
+              ]"
             >
               <CInput
                 v-model:value="formState.signup.password"
@@ -144,7 +164,7 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth.js';
 import CAutocomplete from '../ui/CAutocomplete.vue';
-import CButton from '../ui/CButton.vue';
+import CButton from '../ui/cbutton.vue';
 import CInput from '../ui/CInput.vue';
 export default {
   components: {
@@ -180,19 +200,14 @@ export default {
       return codes.map(mapValue);
     });
     const onFinish = async ({ signup }) => {
-      try {
-        const data = {
-          ...signup,
-          phone: `(${formState.countryCode})${signup.phone}`,
-          country: newCodes.value.find(
-            el => formState.countryCode === el.countryCodes[0],
-          ).country,
-        };
-        await authStore.signUp(data);
-        router.push({ path: '/login' });
-      } catch (e) {
-        console.log(e);
-      }
+      const data = {
+        ...signup,
+        phone: `(${formState.countryCode})${signup.phone}`,
+        country: newCodes.value.find(
+          el => formState.countryCode === el.countryCodes[0],
+        ).country,
+      };
+      authStore.signUp(data);
     };
     const routeToLogin = () => {
       router.push({ path: '/login' });

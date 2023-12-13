@@ -18,8 +18,7 @@ client.interceptors.response.use(
       await auth.refreshTokens();
       return client(error.config);
     }
-
-    return error;
+    return Promise.reject(error);
   },
 );
 

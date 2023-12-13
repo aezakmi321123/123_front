@@ -31,7 +31,14 @@
             <a-form-item
               :name="['login', 'password']"
               :label="t('signin.password')"
-              :rules="[{ required: true, message: t('required') }]"
+              :rules="[
+                { required: true, message: t('required') },
+                {
+                  type: 'string',
+                  min: 7,
+                  message: t('min 7 symbols'),
+                },
+              ]"
             >
               <CInput
                 v-model:value="formState.login.password"
@@ -101,7 +108,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth.js';
-import CButton from '../ui/CButton.vue';
+import CButton from '../ui/cbutton.vue';
 import CInput from '../ui/CInput.vue';
 export default {
   components: {
