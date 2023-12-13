@@ -1,4 +1,6 @@
 export default {
+  required: 'this field is required',
+  captcha: 'Captcha is required',
   btns: {
     submit: 'Submit',
     cancel: 'Cancel',

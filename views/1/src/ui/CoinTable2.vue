@@ -1,20 +1,5 @@
 <template>
   <div class="wallet_table">
-    <a-row class="wallet_table__filters">
-      <a-col class="wallet_table__search">
-        <CInput v-model:value="search" :placeholder="t('wallets.search')">
-          <template #prefix>
-            <SearchOutlined
-              :style="{ fontSize: '20px', color: 'var(--text-link)' }"
-            />
-          </template>
-        </CInput>
-      </a-col>
-      <a-col class="wallet-table__switch">
-        <div>{{ t('wallets.hide_zero') }}</div>
-        <CSwitch v-model:checked="hideBalances" />
-      </a-col>
-    </a-row>
     <a-table
       :data-source="source"
       :columns="columns"
@@ -22,7 +7,6 @@
       row-key="id"
       :custom-row="customRow"
       :row-class-name="customRowClassName"
-      :loading="isUserLoading"
       :scroll="{ x: true }"
     >
       <template #bodyCell="{ column, record }">
@@ -75,42 +59,25 @@
   </div>
 </template>
 <script>
-import {
-  ArrowDownOutlined,
-  ArrowUpOutlined,
-  SearchOutlined,
-} from '@ant-design/icons-vue';
-import { isEmpty } from 'lodash';
-import { computed, ref, watch } from 'vue';
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons-vue';
+import { computed, h, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
-import { useAuthStore } from '../modules/auth.js';
 import { useWalletStore } from '../modules/wallet.js';
-import CInput from '../ui/CInput.vue';
-import CSwitch from '../ui/CSwitch.vue';
+import CButton from '../ui/cbutton.vue';
 export default {
   components: {
-    CInput,
-    CSwitch,
-    SearchOutlined,
     ArrowUpOutlined,
     ArrowDownOutlined,
   },
-  props: {
-    coin: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  emits: ['pushCoin'],
   setup(props, { emit }) {
     const { t } = useI18n();
-    const authStore = useAuthStore();
+    const router = useRouter();
     const walletsStore = useWalletStore();
     const hideBalances = ref(false);
     const search = ref('');
-    const dataSource = computed(() => authStore.user.coins);
-    const isUserLoading = computed(() => authStore.isLoading);
+    const dataSource = computed(() => walletsStore.coins.slice(0, 5));
     const source = computed(() => {
       const dataWithNoZeroBalances = hideBalances.value
         ? dataSource.value.filter(({ coinQuantity }) => +coinQuantity > 0)
@@ -129,11 +96,6 @@ export default {
         dataIndex: 'name',
       },
       {
-        title: t('wallets.qty'),
-        className: 'column-money',
-        dataIndex: 'coinQuantity',
-      },
-      {
         title: t('wallets.rate'),
         dataIndex: 'rate',
         className: 'column-rate',
@@ -144,8 +106,17 @@ export default {
         className: 'column-change',
       },
       {
-        title: t('wallets.direction'),
-        dataIndex: 'direction',
+        title: 'exchange',
+        customRender() {
+          return h(
+            CButton,
+            {
+              type: 'secondary',
+              onClick: () => router.push({ path: '/wallets' }),
+            },
+            'exchange',
+          );
+        },
       },
     ];
     const rowSelect = e => {
@@ -158,18 +129,6 @@ export default {
         },
       };
     };
-    const customRowClassName = record => {
-      return props.coin?.abbr === record.abbr ? 'active' : '';
-    };
-    watch(
-      source,
-      () => {
-        if (source.value.length && isEmpty(props.coin)) {
-          emit('pushCoin', source.value[0]);
-        }
-      },
-      { deep: true, immediate: true },
-    );
     const socketCoinsData = computed(() => walletsStore.wsData.coins);
 
     const getCoinData = record => {
@@ -213,8 +172,6 @@ export default {
       customRow,
       rowSelect,
       t,
-      customRowClassName,
-      isUserLoading,
       socketCoinsData,
       getCoinData,
     };

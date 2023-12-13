@@ -38,13 +38,18 @@
     background-color: var(--bg-input) !important;
   }
 }
-.ant-input-status-error {
+:where(
+    .css-dev-only-do-not-override-1qb1s0s
+  ).ant-input-affix-wrapper-status-error:not(
+    .ant-input-affix-wrapper-disabled
+  ):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper {
   border-color: #ff4d4f !important;
 }
 .ant-input-affix-wrapper {
-  border: 1px solid rgba(0,0,0,0) !important;
+  border: 1px solid rgba(0, 0, 0, 0) !important;
 }
-.ant-input-focused, .ant-input-affix-wrapper-focused{
+.ant-input-focused,
+.ant-input-affix-wrapper-focused {
   box-shadow: unset !important;
   border: 1px solid var(--border-input-focused) !important;
 }

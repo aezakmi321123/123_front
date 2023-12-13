@@ -1,9 +1,9 @@
 <template>
   <a-auto-complete style="width: 100%" class="c-autocomplete" v-bind="$attrs">
-    <template #option="{ value }">
+    <template #option="{ value, label }">
       <div class="aligned">
-        <CryptoIcon :size="24" :name="value.toLowerCase()" />
-        <div>{{ value }}</div>
+        <CryptoIcon v-if="!country" :size="24" :name="value.toLowerCase()" />
+        <div>{{ country ? label : value }}</div>
       </div>
     </template>
     <a-input :bordered="false">
@@ -18,6 +18,12 @@ import { CaretDownFilled } from '@ant-design/icons-vue';
 export default {
   components: {
     CaretDownFilled,
+  },
+  props: {
+    country: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>

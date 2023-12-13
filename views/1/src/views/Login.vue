@@ -4,7 +4,7 @@
       :gutter="[{ xs: 0, lg: 100 }]"
       :justify="{ xs: 'center', sm: 'center', md: 'center' }"
     >
-      <a-col :xs="20" :sm="18" :md="16" :lg="14" :xl="12">
+      <a-col :xs="24" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">{{ t('signin.login') }}</h2>
           <div class="auth__card-registered">
@@ -19,7 +19,9 @@
             <a-form-item
               label="Email"
               :name="['login', 'email']"
-              :rules="[{ type: 'email', required: true }]"
+              :rules="[
+                { type: 'email', required: true, message: t('required') },
+              ]"
             >
               <CInput
                 v-model:value="formState.login.email"
@@ -29,7 +31,7 @@
             <a-form-item
               :name="['login', 'password']"
               :label="t('signin.password')"
-              :rules="[{ required: true }]"
+              :rules="[{ required: true, message: t('required') }]"
             >
               <CInput
                 v-model:value="formState.login.password"
@@ -65,6 +67,7 @@
                         type: 'string',
                         validator: validateCaptcha,
                         trigger: 'change',
+                        message: t('captcha'),
                       },
                     ]"
                   >
@@ -121,8 +124,7 @@ export default {
     let currentCaptcha = ref('');
     const onFinish = async ({ login }) => {
       try {
-        authStore.signIn(login);
-        router.push('/');
+        authStore.signIn(login).then(() => router.push('/'));
       } catch (e) {
         console.log(e);
       }

@@ -14,6 +14,7 @@
     "@scavengerbot/cryptofont": "^1.6.0",
     "ant-design-vue": "^4.0.7",
     "axios": "^1.5.1",
+    "country-calling-code": "^0.0.3",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",

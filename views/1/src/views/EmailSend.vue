@@ -16,7 +16,9 @@
             <a-form-item
               label="Email"
               :name="['email']"
-              :rules="[{ type: 'email', required: true }]"
+              :rules="[
+                { type: 'email', required: true, message: t('required') },
+              ]"
             >
               <CInput
                 v-model:value="formState.email"

@@ -25,12 +25,12 @@
           </a-col>
           <a-col :md="12" :xs="24">
             <a-form-item :label="t('settings.country')">
-              <CInput v-model:value="formState.country" />
+              <CInput v-model:value="formState.country" readonly />
             </a-form-item>
           </a-col>
           <a-col :md="12" :xs="24">
             <a-form-item :label="t('settings.phone')">
-              <CInput v-model:value="formState.phone" />
+              <CInput v-model:value="formState.phone" readonly />
             </a-form-item>
           </a-col>
         </a-row>

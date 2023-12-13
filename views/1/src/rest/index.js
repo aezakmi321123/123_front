@@ -15,11 +15,11 @@ client.interceptors.response.use(
   async error => {
     const auth = useAuthStore();
     if (error.response.status === 401 && auth.isLoggedIn) {
-      await auth.refreshTokens()
-      return client(error.config)
+      await auth.refreshTokens();
+      return client(error.config);
     }
 
-    return error
+    return error;
   },
 );
 
@@ -81,6 +81,6 @@ export default {
   withdraw: {
     generateWithdraw(params) {
       return call('POST', '/withdrawals/generateWithdrawal', params);
-    }
-  }
+    },
+  },
 };

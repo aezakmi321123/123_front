@@ -4,7 +4,7 @@
       :gutter="[100, 0]"
       :justify="{ xs: 'center', sm: 'center', md: 'center' }"
     >
-      <a-col :xs="20" :sm="18" :md="16" :lg="14" :xl="12">
+      <a-col :xs="24" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">{{ t('sign_up.register') }}</h2>
           <div class="auth__card-registered">
@@ -17,28 +17,61 @@
             <a-form-item
               :label="t('sign_up.full_name')"
               :name="['signup', 'fullName']"
-              :rules="[{ required: true }]"
+              :rules="[{ required: true, message: t('required') }]"
             >
               <CInput v-model:value="formState.signup.fullName"></CInput>
             </a-form-item>
             <a-form-item
               label="Email"
               :name="['signup', 'email']"
-              :rules="[{ type: 'email', required: true }]"
+              :rules="[
+                { type: 'email', required: true, message: t('required') },
+              ]"
             >
-              <CInput v-model:value="formState.signup.email"></CInput>
+              <CInput
+                v-model:value="formState.signup.email"
+                :style="{ style: '20%' }"
+              ></CInput>
             </a-form-item>
-            <a-form-item
-              label="Phone"
-              :name="['signup', 'phone']"
-              :rules="[{ type: 'string', required: true }]"
-            >
-              <CInput v-model:value="formState.signup.phone"></CInput>
-            </a-form-item>
+            <a-row>
+              <a-col :xs="24" :md="10" :lg="8">
+                <a-form-item
+                  label="Country Code"
+                  name="countryCode"
+                  :rules="[
+                    {
+                      required: true,
+                      type: 'string',
+                      trigger: 'change',
+                      message: t('required'),
+                    },
+                  ]"
+                >
+                  <CAutocomplete
+                    v-model:value="formState.countryCode"
+                    country
+                    default-active-first-option
+                    :filter-option="filterOption"
+                    :options="newCodes"
+                  ></CAutocomplete>
+                </a-form-item>
+              </a-col>
+              <a-col :xs="24" :md="14" :lg="16">
+                <a-form-item
+                  label="Phone"
+                  :name="['signup', 'phone']"
+                  :rules="[
+                    { type: 'string', required: true, message: t('required') },
+                  ]"
+                >
+                  <CInput v-model:value="formState.signup.phone"></CInput>
+                </a-form-item>
+              </a-col>
+            </a-row>
             <a-form-item
               :name="['signup', 'password']"
               :label="t('sign_up.password')"
-              :rules="[{ required: true }]"
+              :rules="[{ required: true, message: t('required') }]"
             >
               <CInput
                 v-model:value="formState.signup.password"
@@ -74,6 +107,7 @@
                         type: 'string',
                         validator: validateCaptcha,
                         trigger: 'change',
+                        message: t('captcha'),
                       },
                     ]"
                   >
@@ -101,13 +135,15 @@
 </template>
 <script>
 import { ReloadOutlined } from '@ant-design/icons-vue';
+import codes from 'country-calling-code';
 import { vMaska } from 'maska';
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import VueClientRecaptcha from 'vue-client-recaptcha';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth.js';
+import CAutocomplete from '../ui/CAutocomplete.vue';
 import CButton from '../ui/CButton.vue';
 import CInput from '../ui/CInput.vue';
 export default {
@@ -116,6 +152,7 @@ export default {
     CButton,
     ReloadOutlined,
     VueClientRecaptcha,
+    CAutocomplete,
   },
   directives: { maska: vMaska },
   setup() {
@@ -129,12 +166,29 @@ export default {
         phone: '',
       },
       captcha: '',
+      countryCode: '',
     });
+
     const router = useRouter();
     let currentCaptcha = ref('');
+    const mapValue = el => ({
+      label: `+${el.countryCodes[0]}(${el.country})`,
+      value: el.countryCodes[0],
+      ...el,
+    });
+    const newCodes = computed(() => {
+      return codes.map(mapValue);
+    });
     const onFinish = async ({ signup }) => {
       try {
-        await authStore.signUp(signup);
+        const data = {
+          ...signup,
+          phone: `(${formState.countryCode})${signup.phone}`,
+          country: newCodes.value.find(
+            el => formState.countryCode === el.countryCodes[0],
+          ).country,
+        };
+        await authStore.signUp(data);
         router.push({ path: '/login' });
       } catch (e) {
         console.log(e);
@@ -145,6 +199,12 @@ export default {
     };
     const getCaptchaCode = code => {
       currentCaptcha.value = code;
+    };
+    const filterOption = (input, option) => {
+      return (
+        option.country.toLowerCase().includes(input.toLowerCase()) ||
+        option.countryCodes[0].includes(input)
+      );
     };
     const validateCaptcha = async () => {
       const captcha = formState.captcha;
@@ -159,6 +219,8 @@ export default {
       validateCaptcha,
       routeToLogin,
       t,
+      newCodes,
+      filterOption,
     };
   },
 };
@@ -190,5 +252,8 @@ export default {
 }
 .auth__card-registered {
   font-size: 18px;
+}
+.input-group {
+  display: flex;
 }
 </style>

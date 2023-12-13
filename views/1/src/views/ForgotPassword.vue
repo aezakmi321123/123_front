@@ -11,7 +11,7 @@
             <a-form-item
               :name="['newPassword']"
               :label="t('signin.password')"
-              :rules="[{ required: true }]"
+              :rules="[{ required: true, message: t('required') }]"
             >
               <CInput
                 v-model:value="formState.newPassword"
