@@ -68,8 +68,14 @@ export default {
     getCoins(params) {
       return call('GET', '/coins', params);
     },
+    getExchangeInfo(id) {
+      return call('GET', `/coins/userExchangeInfo/${id}`);
+    },
   },
   payment: {
+    getPayments(id) {
+      return call('GET', `/payments/userPaymentsInfo/${id}`);
+    },
     getPayment(id) {
       return call('GET', `/payments/${id}`);
     },
@@ -80,6 +86,9 @@ export default {
   withdraw: {
     generateWithdraw(params) {
       return call('POST', '/withdrawals/generateWithdrawal', params);
+    },
+    getWithdrawals(id) {
+      return call('GET', `/withdrawals/userWithdrawalsInfo/${id}`);
     },
   },
 };

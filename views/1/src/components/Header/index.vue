@@ -98,7 +98,7 @@
         </div>
         <div v-if="authStore.isLoggedIn" class="drawer__item">
           <HistoryOutlined />
-          <span>{{ t('header.history') }}</span>
+          <span @click="goTo('history')">{{ t('header.history') }}</span>
         </div>
         <div class="drawer__item show-mobile">
           <HomeOutlined />

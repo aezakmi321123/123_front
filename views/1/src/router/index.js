@@ -12,6 +12,7 @@ const Payment = () => import('../views/Payment.vue');
 const Privacy = () => import('../views/Privacy.vue');
 const Terms = () => import('../views/Terms.vue');
 const About = () => import('../views/About.vue');
+const History = () => import('../views/History.vue');
 const routes = [
   {
     path: '/',
@@ -99,6 +100,14 @@ const routes = [
     component: About,
     meta: {
       requiresAuth: false,
+    },
+  },
+  {
+    path: '/history',
+    name: 'history',
+    component: History,
+    meta: {
+      requiresAuth: true,
     },
   },
 ];
