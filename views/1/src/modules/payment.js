@@ -23,7 +23,8 @@ export const usePaymentStore = defineStore('payment', {
 
                 this.payment = data;
             } catch (e) {
-                cMessage('error', i18n.t('apiErrors.common'))
+                cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
+                this.$router.push('/')
                 console.log(e);
             } finally {
                 this.isLoading = false;

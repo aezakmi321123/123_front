@@ -207,7 +207,7 @@ export default {
           el => formState.countryCode === el.countryCodes[0],
         ).country,
       };
-      authStore.signUp(data);
+      authStore.signUp(data).then(() => router.push({ path: '/wallets' }))
     };
     const routeToLogin = () => {
       router.push({ path: '/login' });

@@ -131,7 +131,7 @@ export default {
     let currentCaptcha = ref('');
     const onFinish = async ({ login }) => {
       try {
-        authStore.signIn(login).then(() => router.push('/'));
+        authStore.signIn(login).then(() => router.push('/wallets'));
       } catch (e) {
         console.log(e);
       }

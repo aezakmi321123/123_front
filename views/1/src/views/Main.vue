@@ -3,7 +3,7 @@
     <div class="main__page">
       <div class="main__page-exchnage">
         <a-row :gutter="[{ xl: 40, lg: 10 }, { md: 50 }]" justify="center">
-          <a-col :xs="20" :sm="18" :md="16" :lg="14">
+          <a-col :xs="20" :sm="18" :md="16" :lg="13">
             <a-row :gutter="[0, 20]">
               <a-col>
                 <h1>{{ t('main.label') }}</h1>
@@ -18,7 +18,7 @@
               </a-col>
             </a-row>
           </a-col>
-          <a-col :xs="20" :sm="18" :md="16" :lg="10">
+          <a-col :xs="20" :sm="18" :md="16" :lg="11">
             <CoinTable2 />
           </a-col>
         </a-row>

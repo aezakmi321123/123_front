@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { cMessage } from '../heplers/message';
+import { i18n } from "../main.js";
 import rest from '../rest';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -23,9 +24,8 @@ export const useAuthStore = defineStore('auth', {
         cMessage('success', 'success');
         this.user = data;
         this.isLoggedIn = true;
-        this.$router.push({ path: '/wallets' });
       } catch (e) {
-        cMessage('error', e.message);
+        cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
       }
     },
     async signIn(params) {
@@ -34,16 +34,15 @@ export const useAuthStore = defineStore('auth', {
         cMessage('success', 'success');
         this.user = data;
         this.isLoggedIn = true;
-        this.$router.push({ path: '/wallets' });
       } catch (e) {
-        cMessage('error', e.message);
+        cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
       }
     },
     async logOut() {
       try {
         await rest.auth.logout();
       } catch (e) {
-        cMessage('error', e.message);
+        cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
       } finally {
         this.isLoggedIn = false;
         this.user = null;
@@ -55,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
         await rest.auth.updateUser(data);
         cMessage('success', 'success');
       } catch (e) {
-        cMessage('error', e.message);
+        cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
         console.log(e);
       }
     },
@@ -77,7 +76,7 @@ export const useAuthStore = defineStore('auth', {
         const { data } = await rest.auth.confirmEmail(params);
         cMessage('success', data.message);
       } catch (e) {
-        cMessage('error', e.message);
+        cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
         console.log(e);
       }
     },
@@ -85,7 +84,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         await rest.auth.confirmEmailCode(params);
       } catch (e) {
-        cMessage('error', e.message);
+        cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
         console.log(e);
       }
     },
