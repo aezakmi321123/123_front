@@ -22,7 +22,7 @@
           />
           <a-tab-pane
             key="3"
-            :tab="t('history.payments')"
+            :tab="t('history.exchanges')"
             class="wallets__tab"
           />
         </a-tabs>
