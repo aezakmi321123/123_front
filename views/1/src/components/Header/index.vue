@@ -17,6 +17,9 @@
           <a key="1" class="header__list-item" @click="goToMainPage"
             >{{ t('header.homepage') }}
           </a>
+          <a key="1" class="header__list-item" @click="goTo('exchange')"
+          >{{ t('header.exchange') }}
+          </a>
           <a key="2" class="header__list-item" @click="goTo('terms')"
             >Terms of use</a
           >

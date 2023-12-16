@@ -7,6 +7,7 @@ const Register = () => import('../views/Register.vue');
 const Settings = () => import('../views/Settings.vue');
 const EMailSend = () => import('../views/EmailSend.vue');
 const ForgotPassword = () => import('../views/ForgotPassword.vue');
+const Exchange = () => import('../views/Exchange.vue');
 const Wallets = () => import('../views/Wallets.vue');
 const Payment = () => import('../views/Payment.vue');
 const Privacy = () => import('../views/Privacy.vue');
@@ -66,6 +67,14 @@ const routes = [
     path: '/wallets',
     name: 'Wallets',
     component: Wallets,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/exchange',
+    name: 'Exchange',
+    component: Exchange,
     meta: {
       requiresAuth: true,
     },

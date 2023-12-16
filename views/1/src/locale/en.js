@@ -9,6 +9,7 @@ export default {
   header: {
     news: 'News',
     homepage: 'Homepage',
+    exchange: 'Exchange',
     top_directions: 'Top directions',
     about_us: 'About Us',
     signin: 'Sign in',
@@ -134,6 +135,21 @@ export default {
     withdrawSuccess:
       "Congratulations! Your withdrawal order has been successfully attached. We understand the importance of your request, and we're working diligently to process it promptly.  If you encounter any unexpected challenges or have questions, our dedicated support team is here to assist you.",
     incorrectAddress: 'Incorrect address',
+  },
+  exchange: {
+    success: "Successfully exchanged",
+    sameCoins: 'Chose same coins',
+    card: {
+      balance: 'balance',
+      qty:'qty',
+      price: "price",
+      change: "24h Change",
+      volume: "24h Volume"
+    },
+    mainCard: {
+      exchangeRate: 'Exchange rate',
+      ourCommission: 'Our commission',
+    }
   },
   privacy: `
     <h2>PRIVACY POLICY ${import.meta.env.VITE_BASE_EXCHANGE_NAME}</h2>\n

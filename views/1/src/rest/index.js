@@ -71,6 +71,9 @@ export default {
     getExchangeInfo(id) {
       return call('GET', `/coins/userExchangeInfo/${id}`);
     },
+    exchange(params) {
+      return call('POST', '/coins/exchange', params);
+    },
   },
   payment: {
     getPayments(id) {

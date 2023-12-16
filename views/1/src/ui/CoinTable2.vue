@@ -11,13 +11,7 @@
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
-          <a-flex gap="10" align="center">
-            <CryptoIcon :size="40" :name="record.abbr.toLowerCase()" />
-            <a-flex vertical>
-              <div>{{ record.abbr }}</div>
-              <div class="text-nowrap">{{ record.name }}</div>
-            </a-flex>
-          </a-flex>
+          <CoinInfo :abbr="record.abbr" :name="record.name" />
         </template>
         <template v-if="column.dataIndex === 'coinQuantity'">
           <a-flex vertical>
@@ -66,8 +60,10 @@ import { useRouter } from 'vue-router';
 
 import { useWalletStore } from '../modules/wallet.js';
 import CButton from '../ui/cbutton.vue';
+import CoinInfo from "./CoinInfo.vue";
 export default {
   components: {
+    CoinInfo,
     ArrowUpOutlined,
     ArrowDownOutlined,
   },
