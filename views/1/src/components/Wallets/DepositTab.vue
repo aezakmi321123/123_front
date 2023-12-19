@@ -65,6 +65,11 @@
       );
       const changeCoin = e => {
         depositForm.value.depositCurrency = options.value.find(({ abbr }) => abbr === e) || e
+
+        const transformedNetworks = mapNetworks(depositForm.value.depositCurrency.networks)
+
+        depositForm.value.depositNetwork = transformedNetworks?.[0];
+        depositForm.value.depositNetworks = transformedNetworks
       };
       watch(
           () => props.coin,

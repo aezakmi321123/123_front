@@ -11,15 +11,15 @@
   <a-flex vertical gap="15">
     <CCopyableInput
         :prefix="t('payment.cryptoAmount')"
-        :value="`${payment?.fullAmount} ${payment?.currency}`"
+        :value="payment.fullAmountCalculated"
         readonly
-        @copy="() => onCopy(`${payment?.fullAmount} ${payment?.currency}`)"
+        @copy="() => onCopy(payment.fullAmountCalculated)"
     />
     <CCopyableInput
         :prefix="t('payment.totalAmountReceived')"
-        :value="`${payment?.receivedAmount || 0} ${payment?.currency}`"
+        :value="payment?.receivedAmountCalculated"
         readonly
-        @copy="() => onCopy(`${payment?.receivedAmount || 0} ${payment?.currency}`)"
+        @copy="() => onCopy(payment?.receivedAmountCalculated)"
     />
     <CCopyableInput
         :prefix="t('payment.walletAddress')"
@@ -28,10 +28,23 @@
         @copy="() => onCopy(payment?.address)"
     />
     <CCopyableInput
-        :prefix="t('payment.network')"
-        :value="payment?.network || payment?.currency"
+        v-if="payment?.receivedAddress"
+        :prefix="t('payment.receivedAddress')"
+        :value="shortAddress(payment?.receivedAddress)"
         readonly
-        @copy="() => onCopy(payment?.network || payment?.currency)"
+        @copy="() => onCopy(payment?.receivedAddress)"
+    />
+    <CCopyableInput
+        :prefix="t('payment.networkFrom')"
+        :value="payment?.networkFrom || payment?.currencyFrom"
+        readonly
+        @copy="() => onCopy(payment?.networkFrom || payment?.currencyFrom)"
+    />
+    <CCopyableInput
+        :prefix="t('payment.networkTo')"
+        :value="payment?.networkTo|| payment?.currencyTo"
+        readonly
+        @copy="() => onCopy(payment?.networkTo|| payment?.currencyTo)"
     />
   </a-flex>
 </template>
@@ -41,8 +54,8 @@ import { Grid } from "ant-design-vue";
 import { computed, defineComponent } from "vue";
 import { useI18n } from "vue-i18n";
 
+import { usePayment } from "../../composables/usePayment.js";
 import { cMessage } from "../../heplers/message.js";
-import { usePaymentStore } from "../../modules/payment.js";
 import CCopyableInput from "../../ui/CCopyableInput.vue";
 
 export default defineComponent({
@@ -50,8 +63,8 @@ export default defineComponent({
   components: {  CCopyableInput },
   setup() {
     const { t } = useI18n();
-    const paymentData = usePaymentStore()
-    const payment = computed(() => paymentData.payment)
+
+    const payment = computed(usePayment)
     const screens = Grid.useBreakpoint();
 
     const shortAddress = (address) => {

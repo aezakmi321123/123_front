@@ -19,7 +19,7 @@
             </a-row>
           </a-col>
           <a-col :xs="20" :sm="18" :md="16" :lg="11">
-            <CoinTable2 />
+            <ExchangeCard :selected-card="exchange.pendingExchange?.coinFrom || coins?.[0]" />
           </a-col>
         </a-row>
       </div>
@@ -116,18 +116,27 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import { useI18n } from 'vue-i18n';
 
-import CoinTable2 from '../ui/CoinTable2.vue';
+import { useExchangeStore } from "../modules/exchange.js";
+import { useWalletStore } from "../modules/wallet.js";
+import ExchangeCard from "../ui/ExchangeCard.vue";
 export default {
   components: {
-    CoinTable2,
+    ExchangeCard
   },
   setup() {
     const { t } = useI18n();
+    const wallet = useWalletStore();
+    const exchange = useExchangeStore()
+
+    const coins = computed(() => wallet.coins);
 
     return {
       t,
+      coins,
+      exchange
     };
   },
 };

@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { socket } from "../data/socket.js";
-import { cMessage } from "../heplers/message.js";
-import { i18n } from "../main.js";
+import { handleAxiosError } from "../heplers/error.js";
 // import { cMessage } from '../heplers/message';
 import rest from '../rest';
 
@@ -23,20 +22,9 @@ export const useWalletStore = defineStore('wallet', {
         const { data } = await rest.wallet.getCoins();
         this.coins = data;
       } catch (e) {
-        // console.log(e);
+        handleAxiosError(e)
       }finally {
         this.isLoading = false
-      }
-    },
-    async exchange(params) {
-      try {
-        await rest.wallet.exchange(params);
-        cMessage('success', i18n.t('exchange.success'));
-      } catch (e) {
-        cMessage(
-            'error',
-            e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
       }
     },
     bindEvents() {
@@ -61,7 +49,6 @@ export const useWalletStore = defineStore('wallet', {
     },
     disconnect(){
       socket.close()
-    }
+    },
   },
-  persist: false,
 });

@@ -18,7 +18,15 @@
   background: var(--bg-base) !important;
   border-color: var(--bg-base);
   color: var(--text-primary);
+  & .ant-radio-button + span {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
   &.ant-radio-button-wrapper{
+    padding-inline: 15px;
+
     &:first-of-type{
       border-inline-color: var(--bg-base);
     }

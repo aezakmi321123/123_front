@@ -1,8 +1,7 @@
 import { isEmpty } from "lodash";
 import { defineStore } from 'pinia';
 
-import { cMessage } from '../heplers/message';
-import { i18n } from "../main.js";
+import { handleAxiosError } from "../heplers/error.js";
 import rest from '../rest';
 export const usePaymentStore = defineStore('payment', {
     state: () => ({
@@ -23,9 +22,8 @@ export const usePaymentStore = defineStore('payment', {
 
                 this.payment = data;
             } catch (e) {
-                cMessage('error', e?.response?.data?.message || i18n.t('apiErrors.common'))
+                handleAxiosError(e)
                 this.$router.push('/')
-                console.log(e);
             } finally {
                 this.isLoading = false;
             }
@@ -38,8 +36,39 @@ export const usePaymentStore = defineStore('payment', {
 
                 this.$router.push(`/payment/${data.id}`)
             } catch (e) {
-                cMessage('error', i18n.t('apiErrors.common'))
-                console.log(e);
+                handleAxiosError(e)
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        async getUnauthPayment(id) {
+            try {
+                this.isLoading = true
+
+                const { data } = await rest.payment.getUnauthPayment(id);
+
+                if (isEmpty(data)){
+                    this.$router.push('/')
+                    return
+                }
+
+                this.payment = data;
+            } catch (e) {
+                handleAxiosError(e);
+                this.$router.push('/')
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        async generateUnauthPayment(params) {
+            try {
+                this.isLoading = true
+
+                const { data } = await rest.payment.generateUnauthPayment(params);
+
+                this.$router.push(`/payment/${data.id}`)
+            } catch (e) {
+                handleAxiosError(e)
             } finally {
                 this.isLoading = false;
             }

@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 
+import { handleAxiosError } from "../heplers/error.js";
 import { cMessage } from '../heplers/message';
-import { i18n } from '../main.js';
+import { i18n } from "../main.js";
 import rest from '../rest';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -16,42 +17,34 @@ export const useAuthStore = defineStore('auth', {
         if (!data) await this.logOut();
       } catch (e) {
         await this.logOut();
+        handleAxiosError(e)
       }
     },
     async signUp(params) {
       try {
         const { data } = await rest.auth.register(params);
-        cMessage('success', 'success');
+        cMessage('success', i18n.t('success'));
         this.user = data;
         this.isLoggedIn = true;
       } catch (e) {
-        cMessage(
-          'error',
-          e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
+        handleAxiosError(e)
       }
     },
     async signIn(params) {
       try {
         const { data } = await rest.auth.login(params);
-        cMessage('success', 'success');
+        cMessage('success', i18n.t('success'));
         this.user = data;
         this.isLoggedIn = true;
       } catch (e) {
-        cMessage(
-          'error',
-          e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
+        handleAxiosError(e)
       }
     },
     async logOut() {
       try {
         await rest.auth.logout();
       } catch (e) {
-        cMessage(
-          'error',
-          e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
+        handleAxiosError(e)
       } finally {
         this.isLoggedIn = false;
         this.user = null;
@@ -61,13 +54,9 @@ export const useAuthStore = defineStore('auth', {
     async updateUser(data) {
       try {
         await rest.auth.updateUser(data);
-        cMessage('success', 'success');
+        cMessage('success', i18n.t('success'));
       } catch (e) {
-        cMessage(
-          'error',
-          e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
-        console.log(e);
+        handleAxiosError(e)
       }
     },
     async getUser() {
@@ -77,7 +66,7 @@ export const useAuthStore = defineStore('auth', {
         const { data } = await rest.auth.getUser(this.user.id);
         this.user = data;
       } catch (e) {
-        console.log(e);
+        handleAxiosError(e)
       } finally {
         this.isLoading = false;
       }
@@ -87,22 +76,14 @@ export const useAuthStore = defineStore('auth', {
         const { data } = await rest.auth.confirmEmail(params);
         cMessage('success', data.message);
       } catch (e) {
-        cMessage(
-          'error',
-          e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
-        console.log(e);
+        handleAxiosError(e)
       }
     },
     async confirmEmailCode(params) {
       try {
         await rest.auth.confirmEmailCode(params);
       } catch (e) {
-        cMessage(
-          'error',
-          e?.response?.data?.message || i18n.t('apiErrors.common'),
-        );
-        console.log(e);
+        handleAxiosError(e)
       }
     },
   },

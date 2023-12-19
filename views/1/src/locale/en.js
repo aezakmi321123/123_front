@@ -21,6 +21,11 @@ export default {
     no_verified: 'Email not verified',
     wallet: 'Wallet',
   },
+  exchangeConfirm: {
+    title: "You have pending exchange",
+    content: "You have pending exhchange {coinFrom} - {coinTo}. Do you want to continue?",
+    notEnoughError: "Not enough coins, please deposit!"
+  },
   main: {
     label: `${import.meta.env.VITE_BASE_EXCHANGE_NAME} Cryptocurrency Exchange`,
     features: `Features of ${import.meta.env.VITE_BASE_EXCHANGE_NAME}`,
@@ -85,13 +90,16 @@ export default {
     cryptoAmount: 'Full Amount',
     totalAmountReceived: 'Amount Received',
     walletAddress: 'Wallet Address',
-    network: 'Network',
+    receivedAddress: 'Received Address',
+    networkFrom: 'Network From',
+    networkTo: 'Network To',
     copied: 'Copied',
     error: 'Something went wrong, try again later!',
     paymentInfo: 'Payment Info',
     domain: 'Domain:',
     paymentNumber: 'Payment ID:',
-    total: 'Total:',
+    totalSend: 'Total to Send:',
+    totalReceive: 'Total to Receive:',
     toPay: 'To Pay:',
     commission: 'Commission:',
     invoiceExpiresIn: 'Invoice Expires In:',
@@ -109,6 +117,7 @@ export default {
       tooltip: 'copy',
     },
   },
+  success: 'success',
   apiErrors: {
     common: 'Something went wrong!',
   },
@@ -147,8 +156,16 @@ export default {
       volume: "24h Volume"
     },
     mainCard: {
+      makeExchange: "Make Exchange",
       exchangeRate: 'Exchange rate',
       ourCommission: 'Our commission',
+      with: 'With Account',
+      without: 'Without Account',
+      tooltip: 'You are not currently logged in.\n' +
+          'You have two options to make an exchange:\n' +
+          '1. You can create an account or sign in existing and in this case the money will be credited to your account\n' +
+          '2. You can make an exchange without an account by indicating the details of where you want to receive your money',
+      addressPlaceholder: 'Receiving Address'
     }
   },
   privacy: `

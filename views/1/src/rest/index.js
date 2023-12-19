@@ -82,8 +82,14 @@ export default {
     getPayment(id) {
       return call('GET', `/payments/${id}`);
     },
+    getUnauthPayment(id) {
+      return call('GET', `/payments/unauth/${id}`);
+    },
     generatePayment(params) {
       return call('POST', '/payments/generatePayment', params);
+    },
+    generateUnauthPayment(params) {
+      return call('POST', '/payments/unauth/generatePayment', params);
     },
   },
   withdraw: {

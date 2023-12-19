@@ -29,6 +29,7 @@ import StatusPending from "../components/Payment/StatusPending.vue";
 import StatusRejected from "../components/Payment/StatusRejected.vue";
 import StatusSuccess from "../components/Payment/StatusSuccess.vue";
 import { PAYMENT_STATUSES } from "../data/constants.js";
+import { useAuthStore } from "../modules/auth.js";
 import { usePaymentStore } from "../modules/payment.js";
 import CButton from "../ui/CButton.vue";
 
@@ -38,6 +39,7 @@ export default {
   setup() {
     const { t } = useI18n();
     const paymentData = usePaymentStore()
+    const authData = useAuthStore();
     const { params } = useRoute()
     const router = useRouter();
     const statusComponentMap = {
@@ -50,13 +52,18 @@ export default {
     onMounted(() => {
       const { id } = params
 
+      if(!authData.isLoggedIn){
+        paymentData.getUnauthPayment(id)
+        return;
+      }
+
       paymentData.getPayment(id)
     })
 
     const payment = computed(() => ({
       ...paymentData.payment,
       isLoading: paymentData.isLoading,
-      currentComponent: statusComponentMap[/*paymentData.payment?.status ||*/ PAYMENT_STATUSES.PENDING]
+      currentComponent: statusComponentMap[paymentData.payment?.status || PAYMENT_STATUSES.PENDING]
     }))
 
     return { t, payment, router, screens };

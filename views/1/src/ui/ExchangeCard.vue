@@ -1,56 +1,114 @@
 <template>
   <div>
-      <div class="exchange__card">
-        <div class="exchange__card-send">
+      <a-form class="exchange__card" :model="exchangeForm" layout="vertical" @finish="exchange">
+        <a-flex vertical class="exchange__card-title">
+          <a-flex align="center">
+            <a-typography-title class="mb-0">
+              {{t('exchange.mainCard.makeExchange')}}
+            </a-typography-title>
+            <a-tooltip v-if="!isUserAuthed">
+              <template #title>{{t('exchange.mainCard.tooltip')}}</template>
+              <InfoCircleOutlined class="exchange__card-info" fill="white" />
+            </a-tooltip>
+          </a-flex>
+          <a-form-item v-if="!isUserAuthed" class="exchange__card-unauth" name="withAccount">
+            <CRadioGroup v-model:value="exchangeForm.withAccount">
+              <CRadioButton v-for="radio in unauthOptions" :key="radio" class="text-nowrap" :value="radio">
+                {{t(`exchange.mainCard.${radio}`)}}
+              </CRadioButton>
+            </CRadioGroup>
+          </a-form-item>
+          <a-form-item v-if="exchangeForm.withAccount === unauthOptions[1]" name="receivedAddress">
+            <CInput v-model:value="exchangeForm.receivedAddress" :placeholder="t('exchange.mainCard.addressPlaceholder')" />
+          </a-form-item>
+        </a-flex>
+        <div class="exchange__card-send" name="valueSend">
           <div class="title">{{ t('main.send') }}</div>
           <a-spin :spinning="isWalletLoading">
-            <div class="exchange__card-select">
-              <CAutocomplete :value="valueSend" :options="options" @change="onChangeSend"/>
-            </div>
-            <CInputNumber v-model:value="valueNumberSend" @change="onChangeSendValue" />
+            <a-form-item class="exchange__card-select" name="valueSend">
+              <CAutocomplete :value="exchangeForm.valueSend" :options="options" @change="onChangeSend"/>
+            </a-form-item>
+            <a-form-item v-if="exchangeForm.sendNetworks.length" class="exchange__card-networks" name="valueSendNetwork">
+              <CRadioGroup v-model:value="exchangeForm.valueSendNetwork">
+                <CRadioButton v-for="network in exchangeForm.sendNetworks" :key="network" class="text-nowrap" :value="network">
+                  {{network}}
+                </CRadioButton>
+              </CRadioGroup>
+            </a-form-item>
+            <a-form-item name="valueNumberSend">
+              <CInputNumber v-model:value="exchangeForm.valueNumberSend" @change="onChangeSendValue" />
+            </a-form-item>
           </a-spin>
         </div>
         <div class="exchange__card-swap">
-          <div class="img">
+          <div class="img" @click="swapCoins">
             <img height="20" width="20" src="replace.svg" />
           </div>
         </div>
         <div class="exchange__card-receive">
           <div class="title">{{ t('main.receive') }}</div>
           <a-spin :spinning="isWalletLoading">
-            <div class="exchange__card-select">
-              <CAutocomplete :value="valueReceive" :options="options" @change="onChangeReceive" />
-            </div>
-            <CInputNumber v-model:value="valueNumberReceive" @change="onChangeReceiveValue" />
+            <a-form-item class="exchange__card-select" name="valueReceive">
+              <CAutocomplete :value="exchangeForm.valueReceive" :options="options" @change="onChangeReceive" />
+            </a-form-item>
+            <a-form-item v-if="exchangeForm.receiveNetworks.length" class="exchange__card-networks" name="valueReceiveNetwork">
+              <CRadioGroup v-model:value="exchangeForm.valueReceiveNetwork">
+                <CRadioButton v-for="network in exchangeForm.receiveNetworks" :key="network" class="text-nowrap" :value="network">
+                  {{network}}
+                </CRadioButton>
+              </CRadioGroup>
+            </a-form-item>
+            <a-form-item name="valueNumberReceive">
+              <CInputNumber v-model:value="exchangeForm.valueNumberReceive"  @focus="onReceiveFocus" @blur="onReceiveBlur" @change="onChangeReceiveValue" />
+            </a-form-item>
           </a-spin>
         </div>
         <div class="exchange__card-rate">
-          <div>{{t('exchange.mainCard.exchangeRate')}}: 1 {{valueSend.value}} = {{calculateCoinQuantity()}} {{valueReceive.value}}</div>
+          <div>{{t('exchange.mainCard.exchangeRate')}}: 1 {{exchangeForm.valueSend.value}} = {{calculateCoinQuantity()}} {{exchangeForm.valueReceive.value}}</div>
           <div>{{t('exchange.mainCard.ourCommission')}}: {{commission}}%</div>
         </div>
-        <div class="exchange__card-exchnage">
-          <CButton size="large" type="secondary" :disabled="isExchanging" block @click="exchange">{{
-              t('main.exchange')
-            }}</CButton>
-        </div>
-      </div>
+        <a-form-item class="exchange__card-exchnage">
+          <CButton
+            size="large" type="secondary"
+            :disabled="
+              isExchanging
+              || parseFloat(exchangeForm.valueNumberSend) <= 0
+              || parseFloat(exchangeForm.valueNumberReceive) <= 0"
+            block
+            html-type="submit"
+          >
+            {{ t('main.exchange') }}
+          </CButton>
+        </a-form-item>
+      </a-form>
   </div>
 </template>
 <script>
+import { InfoCircleOutlined } from '@ant-design/icons-vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from "vue-router";
 
+import { useCurrentRate } from "../composables/useCurrentRate.js";
 import { cMessage } from "../heplers/message.js";
 import { useAuthStore } from "../modules/auth.js";
+import { useExchangeStore } from "../modules/exchange.js";
+import { usePaymentStore } from "../modules/payment.js";
 import { useWalletStore } from '../modules/wallet.js';
 import CAutocomplete from '../ui/CAutocomplete.vue';
 import CButton from '../ui/CButton.vue';
 import CInputNumber from '../ui/CInputNumber.vue';
+import CInput from "./CInput.vue";
+import CRadioButton from "./CRadioButton.vue";
+import CRadioGroup from "./CRadioGroup.vue";
 export default {
   components: {
+    CInput,
+    CRadioButton, CRadioGroup,
     CAutocomplete,
     CInputNumber,
     CButton,
+    InfoCircleOutlined
   },
   props: {
     selectedCard: {
@@ -59,31 +117,39 @@ export default {
     }
   },
   setup(props) {
-    const wallet = useWalletStore()
-    const auth = useAuthStore()
+    const walletStore = useWalletStore()
+    const authStore = useAuthStore()
+    const exchangeStore = useExchangeStore()
+    const paymentStore = usePaymentStore()
+    const router = useRouter()
+    const pendingExchange = { ...exchangeStore.pendingExchange }
 
     const { t } = useI18n();
 
-    const mapValue = ({ abbr, name } = { abbr: '', name: '' }) => ({ label: name, value: abbr });
+    const mapValue = ({ abbr, name, networks } = { abbr: '', name: '', networks: [] }) => ({ label: name, value: abbr, networks });
+    const mapNetworks = networks => networks?.map(({ name }) => name) || []
 
-    const valueSend = ref({});
-    const valueNumberSend = ref(0);
+    const unauthOptions = ['with', 'without']
 
-    const valueReceive = ref({})
-    const valueNumberReceive = ref( 0);
-
-    const isExchanging = ref(false);
-
-    const options = computed(() => wallet.coins?.map?.(value => mapValue(value)));
-    const isWalletLoading = computed(() => wallet.isLoading)
-
-    const currentRate = computed(() => {
-      const wsData = wallet.wsData.coins
-      const rateSend = wsData[valueSend?.value?.value]
-      const rateReceive = wsData[valueReceive?.value?.value]
-
-      return parseFloat(rateSend?.c || 1) / parseFloat(rateReceive?.c || 1)
+    const exchangeForm = ref({
+      valueSend: {},
+      valueNumberSend: 0,
+      sendNetworks: [],
+      valueSendNetwork: '',
+      valueReceive: {},
+      valueNumberReceive: 0,
+      receiveNetworks: [],
+      valueReceiveNetwork: '',
+      withAccount: unauthOptions[0],
+      receivedAddress: ''
     })
+    const isExchanging = ref(false);
+    const receiveOnFocus = ref(false)
+
+    const options = computed(() => walletStore.coins?.map?.(value => mapValue(value)));
+    const isWalletLoading = computed(() => walletStore.isLoading)
+    const isUserAuthed = computed(() => authStore.isLoggedIn)
+    const currentRate = computed(() => useCurrentRate(exchangeForm.value.valueSend?.value, exchangeForm.value.valueReceive?.value))
 
     const commission = import.meta.env.VITE_BASE_COMMISSION
 
@@ -97,81 +163,142 @@ export default {
       return fullSum.toFixed(6)
     }
 
-    const exchange = async () => {
+    const exchange = async (values) => {
+      if(!authStore.isLoggedIn && values.withAccount === unauthOptions[0]) {
+        exchangeStore.setPendingExchange({
+          ...values,
+          coinFrom: { ...values.valueSend, abbr: values.valueSend.value, name: values.valueSend.label },
+          coinTo: { ...values.valueReceive, abbr: values.valueReceive.value, name: values.valueReceive.label }
+        })
+        router.push('register')
+        return;
+      }
+
       isExchanging.value = true
 
-      if(valueSend.value.value === valueReceive.value.value){
+      if(exchangeForm.value.valueSend.value === exchangeForm.value.valueReceive.value){
         isExchanging.value = false
         return cMessage('error', t('exchange.sameCoins'))
-
       }
 
       try {
-        await wallet.exchange({
-          coinFrom: valueSend.value.value,
-          coinTo: valueReceive.value.value ,
-          quantity: valueNumberSend.value.toString(),
-          commission
-        })
+        if(!authStore.isLoggedIn && values.withAccount === unauthOptions[1]){
+          await paymentStore.generateUnauthPayment({
+            currencyFrom: values.valueSend.value,
+            networkFrom: values.valueSendNetwork,
+            currencyTo: values.valueReceive.value,
+            networkTo: values.valueReceiveNetwork,
+            fullAmount: values.valueNumberSend.toString(),
+            receivedAddress: values.receivedAddress,
+            commission
+          })
+        }else {
+          await exchangeStore.exchange({
+            coinFrom: values.valueSend.value,
+            coinTo: values.valueReceive.value ,
+            quantity: values.valueNumberSend.toString(),
+            commission
+          })
+        }
 
-        await auth.getUser()
+        await authStore.getUser()
       } finally {
         isExchanging.value = false
       }
     }
 
-    onMounted(() => {
+    const swapCoins = () => {
+      const prevReceiveValue = { ... exchangeForm.value.valueReceive }
+      const prevReceiveNetworks = { ... exchangeForm.value.receiveNetworks }
 
-      valueReceive.value = mapValue(wallet?.coins?.[1])
-    })
+      exchangeForm.value.valueReceive = { ...exchangeForm.value.valueSend }
+      exchangeForm.value.valueSend = { ...prevReceiveValue }
 
-    watch(() => props.selectedCard, () => {
-      valueSend.value = mapValue(props.selectedCard)
-    }, { immediate: true })
-
-    watch(() => valueSend, () => {
-      valueNumberSend.value = auth.user.coins
-          .find(({ abbr }) => abbr === valueSend.value.value)?.coinQuantity || 0
-
-      valueNumberReceive.value = calculateCoinQuantity(valueNumberSend.value, commission)
-    }, { immediate: true, deep: true })
-
-    watch(() => valueReceive, () => {
-      valueNumberReceive.value = calculateCoinQuantity(valueNumberSend.value, commission)
-    }, { immediate: true, deep: true })
+      exchangeForm.value.receiveNetworks = { ...exchangeForm.value.sendNetworks }
+      exchangeForm.value.valueReceiveNetwork = exchangeForm.value.receiveNetworks?.[0]
+      exchangeForm.value.sendNetworks = { ...prevReceiveNetworks }
+      exchangeForm.value.valueSendNetwork = exchangeForm.value.valueSendNetwork?.[0]
+    }
 
     const onChangeSend = e => {
-      valueSend.value = options.value.find(({ value }) => value === e) || e
+      exchangeForm.value.valueSend = options.value.find(({ value }) => value === e) || e
     };
 
     const onChangeReceive = e => {
-      valueReceive.value = options.value.find(({ value }) => value === e) || e
+      exchangeForm.value.valueReceive = options.value.find(({ value }) => value === e) || e
     };
 
     const onChangeSendValue = (e) => {
-      valueNumberReceive.value = calculateCoinQuantity(e || 0, commission)
+      exchangeForm.value.valueNumberReceive = calculateCoinQuantity(e || 0, commission)
     }
 
     const onChangeReceiveValue = e => {
-      valueNumberSend.value = calculateCoinQuantity(e || 0, commission)
+      exchangeForm.value.valueNumberSend = calculateCoinQuantity(e || 0, commission)
     }
+
+    const onReceiveFocus = () => {
+      receiveOnFocus.value = true
+    }
+
+    const onReceiveBlur = () => {
+      receiveOnFocus.value = false
+    }
+
+    onMounted(() => {
+      exchangeForm.value.valueReceive = mapValue(pendingExchange.coinTo || walletStore?.coins?.[1])
+    })
+
+    watch(() => props.selectedCard, () => {
+      if(!props.selectedCard) return
+
+      exchangeForm.value.valueSend = mapValue(props.selectedCard)
+    }, { immediate: true })
+
+    watch(() => exchangeForm.value.valueSend, () => {
+      exchangeForm.value.valueNumberSend = pendingExchange.valueNumberSend || authStore?.user?.coins
+          ?.find?.(({ abbr }) => abbr === exchangeForm.value.valueSend.value)?.coinQuantity || 0
+
+      exchangeForm.value.valueNumberReceive = calculateCoinQuantity(exchangeForm.value.valueNumberSend, commission)
+
+      const transformedNetworks = mapNetworks(exchangeForm.value.valueSend.networks || [])
+      exchangeForm.value.sendNetworks = transformedNetworks
+      exchangeForm.value.valueSendNetwork = transformedNetworks?.[0]
+    }, { immediate: true, deep: true })
+
+    watch(() => exchangeForm.value.valueReceive, () => {
+      exchangeForm.value.valueNumberReceive = calculateCoinQuantity(exchangeForm.value.valueNumberSend, commission)
+
+      const transformedNetworks = mapNetworks(exchangeForm.value.valueReceive.networks || [])
+      exchangeForm.value.receiveNetworks = transformedNetworks
+      exchangeForm.value.valueReceiveNetwork = transformedNetworks?.[0]
+    }, { immediate: true, deep: true })
+
+    watch(() => currentRate.value, () => {
+      if(!receiveOnFocus.value){
+        exchangeForm.value.valueNumberReceive = calculateCoinQuantity(exchangeForm.value.valueNumberSend, commission)
+      }
+    }, { immediate: true })
 
     return {
       options,
-      valueSend,
       t,
-      valueReceive,
       isWalletLoading,
       commission,
-      valueNumberSend,
-      valueNumberReceive,
       onChangeSend,
       onChangeReceive,
       calculateCoinQuantity,
       onChangeSendValue,
       onChangeReceiveValue,
       isExchanging,
-      exchange
+      exchange,
+      exchangeForm,
+      swapCoins,
+      isUserAuthed,
+      unauthOptions,
+      currentRate,
+      receiveOnFocus,
+      onReceiveFocus,
+      onReceiveBlur
     };
   },
 };
@@ -185,6 +312,14 @@ export default {
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  &-title {
+    gap: 15px;
+  }
+  &-info {
+    color: #fff;
+    font-size: 24px;
+    margin-left: 8px;
+  }
   &-swap {
     display: flex;
     justify-content: center;
@@ -220,12 +355,15 @@ export default {
     flex-direction: column;
     gap: 20px;
   }
-  &-select {
-    margin-bottom: 10px;
-  }
   .title {
     font-size: 16px;
     color: var(--text-link);
+  }
+  &-select {
+    margin-bottom: 10px;
+  }
+  &-networks {
+    margin: 0 0 10px;
   }
 }
 </style>

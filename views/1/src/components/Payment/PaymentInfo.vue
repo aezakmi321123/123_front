@@ -18,8 +18,12 @@
                 <a-typography-text class="text-primary">{{payment?.id}}</a-typography-text>
               </li>
               <li class="payment__list-item">
-                <a-typography-text class="text-primary fw-bold">{{$t('payment.total')}}</a-typography-text>
-                <a-typography-text class="text-primary">{{payment?.fullAmount}} {{payment?.currency}} (${{payment?.fullAmountInUsdt }})</a-typography-text>
+                <a-typography-text class="text-primary fw-bold">{{$t('payment.totalSend')}}</a-typography-text>
+                <a-typography-text class="text-primary">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.usdAmount }})</a-typography-text>
+              </li>
+              <li class="payment__list-item">
+                <a-typography-text class="text-primary fw-bold">{{$t('payment.totalReceive')}}</a-typography-text>
+                <a-typography-text class="text-primary">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}} (${{payment?.usdAmount }})</a-typography-text>
               </li>
               <li class="payment__list-item">
                 <a-typography-text class="text-primary fw-bold">{{$t('payment.commission')}}</a-typography-text>
@@ -36,8 +40,9 @@
             </ul>
           </a-flex>
           <a-divider class="payment__divider text-primary">{{$t('payment.toPay')}}</a-divider>
-          <a-flex>
-            <a-typography-text class="text-primary fw-bold payment__to-pay">{{payment?.fullAmount}} {{payment?.currency}}</a-typography-text>
+          <a-flex vertical>
+            <a-typography-text class="text-primary fw-bold payment__to-pay-from">{{payment?.fullAmount}} {{payment?.currencyFrom}}</a-typography-text>
+            <a-typography-text class="fw-bold payment__to-pay-to">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}}</a-typography-text>
           </a-flex>
           </a-spin>
       </a-flex>
@@ -51,7 +56,9 @@
   import { useI18n } from "vue-i18n";
   import { useRoute } from "vue-router";
 
+  import { usePayment } from "../../composables/usePayment.js";
   import { PAYMENT_STATUSES } from "../../data/constants.js";
+  import { useAuthStore } from "../../modules/auth.js";
   import { usePaymentStore } from "../../modules/payment.js";
   import BackButton from "./BackButton.vue";
 
@@ -64,13 +71,12 @@
       const appName = import.meta.env.VITE_BASE_EXCHANGE_NAME
       const commission = import.meta.env.VITE_BASE_COMMISSION
       const paymentData = usePaymentStore()
+      const authData = useAuthStore()
       const timer = ref(null);
       const time = ref('00:00')
       const requestCounter  = ref(0)
 
-      const payment = computed(() => {
-          return { ...paymentData.payment, isLoading: paymentData.isLoading }
-      })
+      const payment = computed(usePayment)
 
       const screens = Grid.useBreakpoint();
 
@@ -87,8 +93,13 @@
 
         if(requestCounter.value === 10){
           const { id } = params
-          await paymentData.getPayment(id)
 
+          if(!authData.isLoggedIn){
+            await paymentData.getUnauthPayment(id)
+          }else {
+            await paymentData.getPayment(id)
+          }
+          
           requestCounter.value = 0
 
           return
@@ -157,9 +168,15 @@
       }
     }
 
-    &__to-pay {
+    &__to-pay-from {
       font-size: var(--fs-6);
       margin-left: auto;
+    }
+
+    &__to-pay-to {
+      font-size: var(--fs-5);
+      margin-left: auto;
+      color: var(--border-input);
     }
   }
 

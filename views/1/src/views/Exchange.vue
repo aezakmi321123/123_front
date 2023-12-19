@@ -28,6 +28,7 @@ import { computed, onMounted, ref } from "vue";
 
 import Card from "../components/Exchange/Card.vue";
 import { useAuthStore } from "../modules/auth.js";
+import { useExchangeStore } from "../modules/exchange.js";
 import { useWalletStore } from "../modules/wallet.js";
 import ExchangeCard from "../ui/ExchangeCard.vue";
 
@@ -36,8 +37,10 @@ export default {
   setup(){
     const authStore = useAuthStore();
     const walletsStore = useWalletStore()
+    const exchangeStore = useExchangeStore()
 
     const userCoins = computed(() => authStore.user?.coins);
+    const pendingExchange = computed(() => exchangeStore.pendingExchange);
     const socketCoinsData = computed(() => walletsStore.wsData.coins);
 
     const selectedCard = ref({})
@@ -47,7 +50,9 @@ export default {
     }
     
     onMounted(() => {
-      selectedCard.value = userCoins.value?.[0]
+      selectedCard.value = pendingExchange.value?.coinFrom  || userCoins.value?.[0]
+
+      exchangeStore.setPendingExchange(null)
     })
 
     return {
