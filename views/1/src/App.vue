@@ -6,17 +6,18 @@
   <CFooter />
 </template>
 <script>
-import { Modal } from "ant-design-vue";
+import { Modal } from 'ant-design-vue';
 import { onBeforeUnmount, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 
 import CFooter from './components/Footer/index.vue';
 import CHeader from './components/Header/index.vue';
-import { cMessage } from "./heplers/message.js";
-import { useAuthStore } from "./modules/auth.js";
-import { useExchangeStore } from "./modules/exchange.js";
+import { cMessage } from './heplers/message.js';
+import { useAuthStore } from './modules/auth.js';
+import { useExchangeStore } from './modules/exchange.js';
 import { useWalletStore } from './modules/wallet.js';
+// import rest from './rest/index';
 // import rest from './rest/index.js';
 export default {
   components: {
@@ -25,48 +26,62 @@ export default {
   },
   setup() {
     const wallet = useWalletStore();
-    const exchange = useExchangeStore()
-    const auth = useAuthStore()
+    const exchange = useExchangeStore();
+    const auth = useAuthStore();
     const { t } = useI18n();
-    const { push } = useRouter()
+    const { push } = useRouter();
 
     onMounted(async () => {
       await wallet.getCoins();
 
       wallet.bindEvents();
     });
-
     onBeforeUnmount(() => {
       wallet.disconnect();
     });
 
-    watch(() => auth.isLoggedIn && exchange.pendingExchange, () => {
-      if(auth.isLoggedIn && exchange.pendingExchange){
-        const { valueNumberReceive, valueNumberSend, valueReceive, valueSend } = exchange.pendingExchange
+    watch(
+      () => auth.isLoggedIn && exchange.pendingExchange,
+      () => {
+        if (auth.isLoggedIn && exchange.pendingExchange) {
+          const {
+            valueNumberReceive,
+            valueNumberSend,
+            valueReceive,
+            valueSend,
+          } = exchange.pendingExchange;
 
-        Modal.confirm({
-          title: t('exchangeConfirm.title'),
-          content: t('exchangeConfirm.content', {
-            coinFrom: `${valueNumberSend}${valueSend?.value}`,
-            coinTo: `${valueNumberReceive}${valueReceive?.value}`
-          }),
-          wrapClassName: 'exchangeConfirm',
-          onOk() {
-            if(auth.user.coins.some(({ abbr, coinQuantity }) => abbr === valueSend?.value && parseFloat(coinQuantity) < parseFloat(valueNumberSend) ) ) {
-              cMessage('error', t('exchangeConfirm.notEnoughError'))
-              exchange.setPendingExchange(null)
-              push('/wallets')
-              return;
-            }
+          Modal.confirm({
+            title: t('exchangeConfirm.title'),
+            content: t('exchangeConfirm.content', {
+              coinFrom: `${valueNumberSend}${valueSend?.value}`,
+              coinTo: `${valueNumberReceive}${valueReceive?.value}`,
+            }),
+            wrapClassName: 'exchangeConfirm',
+            onOk() {
+              if (
+                auth.user.coins.some(
+                  ({ abbr, coinQuantity }) =>
+                    abbr === valueSend?.value &&
+                    parseFloat(coinQuantity) < parseFloat(valueNumberSend),
+                )
+              ) {
+                cMessage('error', t('exchangeConfirm.notEnoughError'));
+                exchange.setPendingExchange(null);
+                push('/wallets');
+                return;
+              }
 
-            push('/exchange')
-          },
-          onCancel() {
-            exchange.setPendingExchange(null)
-          },
-        });
-      }
-    }, { immediate: true })
+              push('/exchange');
+            },
+            onCancel() {
+              exchange.setPendingExchange(null);
+            },
+          });
+        }
+      },
+      { immediate: true },
+    );
 
     return {
       t,
@@ -93,7 +108,8 @@ main {
       font-weight: 600;
     }
 
-    .ant-modal-confirm-title, .ant-modal-confirm-content {
+    .ant-modal-confirm-title,
+    .ant-modal-confirm-content {
       color: var(--text-primary);
     }
 
@@ -112,5 +128,4 @@ main {
     }
   }
 }
-
 </style>

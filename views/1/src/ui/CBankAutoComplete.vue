@@ -1,19 +1,12 @@
 <template>
   <a-select style="width: 100%" class="c-autocomplete" v-bind="$attrs">
-    <template #option="{ value, label, type }">
+    <template #option="{ value, label }">
       <div class="aligned">
-        <CryptoIcon
-          v-if="!country && type === 'crypto'"
-          :size="24"
-          :name="value.toLowerCase()"
-        />
-
         <img
-          v-if="!country && type === 'fiat'"
-          :style="{ width: '26px' }"
+          :style="{ width: '26px', height: '26px' }"
           :src="`${value.toLowerCase()}.svg`"
         />
-        <div>{{ country ? label : value }}</div>
+        <div>{{ label }}</div>
       </div>
     </template>
     <template #suffixIcon>
@@ -27,12 +20,6 @@ export default {
   components: {
     CaretDownFilled,
   },
-  props: {
-    country: {
-      type: Boolean,
-      default: false,
-    },
-  },
 };
 </script>
 <style lang="scss">
@@ -44,14 +31,16 @@ export default {
     font-weight: 700 !important;
     height: 50px !important;
   }
-  .ant-select-selector {
-    background-color: transparent !important;
-    border: 0px;
-    height: 50px !important;
-  }
 }
-.ant-select-selection-search-input {
+:where(.css-dev-only-do-not-override-1qb1s0s).ant-select:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
+  border: unset !important;
+}
+.ant-select-selection-item {
   font-size: 20px !important;
+  padding-top: 10px !important;
   color: var(--text-primary) !important;
   font-weight: 700 !important;
   height: 50px !important;

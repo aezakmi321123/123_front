@@ -74,6 +74,9 @@ export default {
     exchange(params) {
       return call('POST', '/coins/exchange', params);
     },
+    updateCoins(params) {
+      return call('POST', '/coins/saveCoins', params);
+    },
   },
   payment: {
     getPayments(id) {
