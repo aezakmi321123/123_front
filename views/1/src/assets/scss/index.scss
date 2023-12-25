@@ -146,6 +146,10 @@ a {
   }
 }
 
+.ant-table-cell {
+  white-space: nowrap;
+}
+
 // utility styles
 .text-primary {
   color: var(--text-primary) !important;
