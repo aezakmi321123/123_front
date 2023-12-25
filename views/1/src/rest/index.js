@@ -77,6 +77,9 @@ export default {
     updateCoins(params) {
       return call('POST', '/coins/saveCoins', params);
     },
+    getRuble() {
+      return axios.get('https://www.cbr-xml-daily.ru/latest.js');
+    },
   },
   payment: {
     getPayments(id) {

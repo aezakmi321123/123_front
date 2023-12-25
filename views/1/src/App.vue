@@ -7,6 +7,7 @@
 </template>
 <script>
 import { Modal } from 'ant-design-vue';
+import money from 'money';
 import { onBeforeUnmount, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -33,6 +34,9 @@ export default {
 
     onMounted(async () => {
       await wallet.getCoins();
+      // const arr = rest.wallet.getRuble();
+      console.log(money(1000).from('USD').to('GBP'));
+      // money(1)
 
       wallet.bindEvents();
     });

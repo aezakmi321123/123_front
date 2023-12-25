@@ -7,7 +7,7 @@
   >
     <template #title>
       <a-flex align="center" justify="space-between">
-        <CoinInfo :name="coin.name" :abbr="coin.abbr" />
+        <CoinInfo :name="coin.name" :abbr="coin.abbr" :type="coin.type" />
         <a-flex :vertical="true" align="end">
           <a-typography-text
             class="exchange-card__current-price fw-bold text-primary"

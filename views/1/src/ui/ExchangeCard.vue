@@ -60,8 +60,7 @@
             <CBankAutoComplete
               v-if="exchangeForm.valueSend.type === 'fiat'"
               v-model:value="exchangeForm.valueSendNetwork"
-              option-label-prop="title"
-              :options="mapBanks(exchangeForm.sendNetworks)"
+              :options="exchangeForm.sendNetworks"
             />
             <CRadioGroup
               v-if="exchangeForm.valueSend.type === 'crypto'"
@@ -97,7 +96,6 @@
             <CAutocomplete
               :value="exchangeForm.valueReceive"
               :options="options"
-              option-label-prop="title"
               @change="onChangeReceive"
             />
           </a-form-item>
@@ -109,8 +107,7 @@
             <CBankAutoComplete
               v-if="exchangeForm.valueReceive.type === 'fiat'"
               v-model:value="exchangeForm.valueReceiveNetwork"
-              :options="mapBanks(exchangeForm.receiveNetworks)"
-              option-label-prop="title"
+              :options="exchangeForm.receiveNetworks"
             />
             <CRadioGroup
               v-if="exchangeForm.valueReceive.type === 'crypto'"
@@ -164,12 +161,11 @@
 </template>
 <script>
 import { InfoCircleOutlined } from '@ant-design/icons-vue';
-import { computed, h, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useCurrentRate } from '../composables/useCurrentRate.js';
-import { BANKS } from '../data/constants';
 import { cMessage } from '../heplers/message.js';
 import { useAuthStore } from '../modules/auth.js';
 import { useExchangeStore } from '../modules/exchange.js';
@@ -218,25 +214,6 @@ export default {
       },
     ) => ({ label: name, value: abbr, networks, type });
     const mapNetworks = networks => networks?.map(({ name }) => name) || [];
-    const mapBanks = banks =>
-      banks.map(el => ({
-        label: BANKS[el],
-        title: h(
-          'div',
-          { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
-          [
-            h('img', {
-              src: `${el}.svg`,
-              style: {
-                width: '26px',
-                height: '26px',
-              },
-            }),
-            h('span', {}, BANKS[el]),
-          ],
-        ),
-        value: el,
-      }));
     const unauthOptions = ['with', 'without'];
 
     const exchangeForm = ref({
@@ -472,7 +449,6 @@ export default {
       receiveOnFocus,
       onReceiveFocus,
       onReceiveBlur,
-      mapBanks,
     };
   },
 };

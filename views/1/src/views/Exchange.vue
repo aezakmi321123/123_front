@@ -1,20 +1,20 @@
 <template>
   <div class="container">
     <a-row :gutter="[{ xl: 40, lg: 20 }, { md: 50 }]" justify="center">
-      <a-col :lg="{span: 11, offset: 2}" span="24">
+      <a-col :lg="{ span: 11, offset: 2 }" span="24">
         <a-flex class="exchange-main-card">
-          <ExchangeCard :selected-card="selectedCard"/>
+          <ExchangeCard :selected-card="selectedCard" />
         </a-flex>
       </a-col>
       <a-col :lg="9" span="24">
         <a-flex vertical gap="15">
           <Card
-              v-for="(coin, i) in userCoins"
-              :key="i"
-              :coin="coin"
-              :socket-data="socketCoinsData?.[coin.abbr]"
-              :selected-card="selectedCard"
-              @cardClick="onCardClick"
+            v-for="(coin, i) in userCoins"
+            :key="i"
+            :coin="coin"
+            :socket-data="socketCoinsData?.[coin.abbr]"
+            :selected-card="selectedCard"
+            @card-click="onCardClick"
           />
         </a-flex>
       </a-col>
@@ -22,50 +22,48 @@
   </div>
 </template>
 
-
 <script>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref } from 'vue';
 
-import Card from "../components/Exchange/Card.vue";
-import { useAuthStore } from "../modules/auth.js";
-import { useExchangeStore } from "../modules/exchange.js";
-import { useWalletStore } from "../modules/wallet.js";
-import ExchangeCard from "../ui/ExchangeCard.vue";
+import Card from '../components/Exchange/Card.vue';
+import { useAuthStore } from '../modules/auth.js';
+import { useExchangeStore } from '../modules/exchange.js';
+import { useWalletStore } from '../modules/wallet.js';
+import ExchangeCard from '../ui/ExchangeCard.vue';
 
 export default {
   components: { Card, ExchangeCard },
-  setup(){
+  setup() {
     const authStore = useAuthStore();
-    const walletsStore = useWalletStore()
-    const exchangeStore = useExchangeStore()
+    const walletsStore = useWalletStore();
+    const exchangeStore = useExchangeStore();
 
     const userCoins = computed(() => authStore.user?.coins);
     const pendingExchange = computed(() => exchangeStore.pendingExchange);
     const socketCoinsData = computed(() => walletsStore.wsData.coins);
 
-    const selectedCard = ref({})
+    const selectedCard = ref({});
 
-    const onCardClick = (coin) => {
-      selectedCard.value = coin
-    }
-    
+    const onCardClick = coin => {
+      selectedCard.value = coin;
+    };
+
     onMounted(() => {
-      selectedCard.value = pendingExchange.value?.coinFrom  || userCoins.value?.[0]
+      selectedCard.value =
+        pendingExchange.value?.coinFrom || userCoins.value?.[0];
 
-      exchangeStore.setPendingExchange(null)
-    })
+      exchangeStore.setPendingExchange(null);
+    });
 
     return {
       selectedCard,
       userCoins,
       socketCoinsData,
-      onCardClick
-    }
-  }
-
-}
+      onCardClick,
+    };
+  },
+};
 </script>
-
 
 <style lang="scss">
 .exchange-main-card {

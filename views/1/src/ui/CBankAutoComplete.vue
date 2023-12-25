@@ -1,5 +1,11 @@
 <template>
-  <a-select style="width: 100%" class="c-autocomplete" v-bind="$attrs">
+  <a-select
+    style="width: 100%"
+    class="c-autocomplete"
+    v-bind="$attrs"
+    :options="mappedOptions"
+    option-label-prop="title"
+  >
     <template #option="{ value, label }">
       <div class="aligned">
         <img
@@ -16,9 +22,45 @@
 </template>
 <script>
 import { CaretDownFilled } from '@ant-design/icons-vue';
+import { computed, h } from 'vue';
+
+import { BANKS } from '../data/constants';
 export default {
   components: {
     CaretDownFilled,
+  },
+  props: {
+    options: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  setup(props) {
+    const mapBanks = banks =>
+      banks.map(el => ({
+        label: BANKS[el],
+        title: h(
+          'div',
+          { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
+          [
+            h('img', {
+              src: `${el}.svg`,
+              style: {
+                width: '26px',
+                height: '26px',
+              },
+            }),
+            h('span', {}, BANKS[el]),
+          ],
+        ),
+        value: el,
+      }));
+    const mappedOptions = computed(() => {
+      return mapBanks(props.options);
+    });
+    return {
+      mappedOptions,
+    };
   },
 };
 </script>
