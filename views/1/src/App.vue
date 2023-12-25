@@ -7,7 +7,6 @@
 </template>
 <script>
 import { Modal } from 'ant-design-vue';
-import money from 'money';
 import { onBeforeUnmount, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -18,7 +17,7 @@ import { cMessage } from './heplers/message.js';
 import { useAuthStore } from './modules/auth.js';
 import { useExchangeStore } from './modules/exchange.js';
 import { useWalletStore } from './modules/wallet.js';
-// import rest from './rest/index';
+import rest from './rest/index';
 // import rest from './rest/index.js';
 export default {
   components: {
@@ -34,9 +33,7 @@ export default {
 
     onMounted(async () => {
       await wallet.getCoins();
-      // const arr = rest.wallet.getRuble();
-      console.log(money(1000).from('USD').to('GBP'));
-      // money(1)
+      rest.wallet.getRuble();
 
       wallet.bindEvents();
     });
