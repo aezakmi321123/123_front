@@ -31,7 +31,7 @@
           }}</a>
         </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
-          <CSelect :value="lang" :options="languages" @change="changeLang" />
+          <CSelect class="select__change-lang" :value="lang" :options="languages" @change="changeLang" />
           <router-link to="/login"
             ><CButton type="primary">{{
               t('header.signin')
@@ -44,7 +44,7 @@
           >
         </div>
         <div v-else class="header__right">
-          <CSelect :value="lang" :options="languages" @change="changeLang" />
+          <CSelect class="select__change-lang" :value="lang" :options="languages" @change="changeLang" />
           <div class="header__buttons" @click="drawer = true">
             <UserOutlined :style="{ fontSize: '20px' }" />
             <a>{{ authStore.user.fullName }}</a>
@@ -124,7 +124,7 @@
           <span>{{ t('header.logout') }}</span>
         </div>
         <CSelect
-          class="show-mobile"
+          class="show-mobile select__change-lang"
           :value="lang"
           :options="languages"
           @change="changeLang"
@@ -331,6 +331,11 @@ export default {
   &__lang {
     padding-left: 50px;
     color: var(--text-primary);
+  }
+}
+.select__change-lang {
+  .ant-select-selection-item {
+    padding-top: 0 !important;
   }
 }
 @include mq(992px, max-width) {

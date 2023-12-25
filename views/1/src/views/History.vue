@@ -65,7 +65,8 @@ export default {
         const { data } = await requestObj(val).finally(
           () => (loading.value = false),
         );
-        arr.value = cloneDeep(data);
+        console.log({ data })
+        arr.value = cloneDeep(data.map(coin => ({ ...coin, fullAmountInUsdt: isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt ? 0 : coin?.fullAmountInUsdt })));
       },
       { immediate: true },
     );
@@ -76,20 +77,40 @@ export default {
           dataIndex: 'id',
         },
         {
-          title: t('history.currency'),
-          dataIndex: 'currency',
+          title: t('history.currencyFrom'),
+          dataIndex: 'currencyFrom',
+        },
+        {
+          title: t('history.currencyTo'),
+          dataIndex: 'currencyTo',
+        },
+        {
+          title: t('history.networkFrom'),
+          dataIndex: 'networkFrom',
+        },
+        {
+          title: t('history.networkTo'),
+          dataIndex: 'networkTo',
         },
         {
           title: t('history.status'),
           dataIndex: 'status',
         },
         {
-          title: t('history.address'),
+          title: t('history.depositAddress'),
           dataIndex: 'address',
+        },
+        {
+          title: t('history.receivedAddress'),
+          dataIndex: 'receivedAddress',
         },
         {
           title: t('history.fullAmount'),
           dataIndex: 'fullAmount',
+        },
+        {
+          title: t('history.receivedAmount'),
+          dataIndex: 'receivedAmount',
         },
         {
           title: t('history.usdtAmount'),
@@ -162,6 +183,14 @@ export default {
         {
           title: t('history.coinTo'),
           dataIndex: 'coinTo',
+        },
+        {
+          title: t('history.networkTo'),
+          dataIndex: 'networkTo',
+        },
+        {
+          title: t('history.networkFrom'),
+          dataIndex: 'networkFrom',
         },
         {
           title: t('history.quantityFrom'),

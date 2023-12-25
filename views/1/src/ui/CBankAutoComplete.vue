@@ -38,7 +38,7 @@ export default {
   setup(props) {
     const mapBanks = banks =>
       banks.map(el => ({
-        label: BANKS[el],
+        label: BANKS[el.toLowerCase()],
         title: h(
           'div',
           { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
@@ -50,7 +50,7 @@ export default {
                 height: '26px',
               },
             }),
-            h('span', {}, BANKS[el]),
+            h('span', {}, BANKS[el.toLowerCase()]),
           ],
         ),
         value: el,
