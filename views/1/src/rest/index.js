@@ -78,7 +78,14 @@ export default {
       return call('POST', '/coins/saveCoins', params);
     },
     getRuble() {
-      return axios.get('https://www.cbr-xml-daily.ru/latest.js');
+      return axios.get(
+        'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=USD&tsyms=RUB',
+        {
+          headers: {
+            authorization: `Apikey${import.meta.env.VITE_BASE_FIAT_KEY}`,
+          },
+        },
+      );
     },
   },
   payment: {

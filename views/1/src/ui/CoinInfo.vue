@@ -9,7 +9,7 @@
     <a-flex vertical>
       <a-flex align="center" gap="3">
         <a-typography-text class="text-primary">{{ abbr }}</a-typography-text>
-        <a-tag v-if="type === 'crypto'" class="tag" color="orange">USD</a-tag>
+        <a-tag class="tag" color="orange">USD</a-tag>
       </a-flex>
       <a-typography-text class="text-nowrap text-primary">{{
         name

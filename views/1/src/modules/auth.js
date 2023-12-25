@@ -1,8 +1,9 @@
+import { orderBy } from 'lodash';
 import { defineStore } from 'pinia';
 
-import { handleAxiosError } from "../heplers/error.js";
+import { handleAxiosError } from '../heplers/error.js';
 import { cMessage } from '../heplers/message';
-import { i18n } from "../main.js";
+import { i18n } from '../main.js';
 import rest from '../rest';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -17,7 +18,7 @@ export const useAuthStore = defineStore('auth', {
         if (!data) await this.logOut();
       } catch (e) {
         await this.logOut();
-        handleAxiosError(e)
+        handleAxiosError(e);
       }
     },
     async signUp(params) {
@@ -27,7 +28,7 @@ export const useAuthStore = defineStore('auth', {
         this.user = data;
         this.isLoggedIn = true;
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       }
     },
     async signIn(params) {
@@ -37,14 +38,14 @@ export const useAuthStore = defineStore('auth', {
         this.user = data;
         this.isLoggedIn = true;
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       }
     },
     async logOut() {
       try {
         await rest.auth.logout();
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       } finally {
         this.isLoggedIn = false;
         this.user = null;
@@ -56,7 +57,7 @@ export const useAuthStore = defineStore('auth', {
         await rest.auth.updateUser(data);
         cMessage('success', i18n.t('success'));
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       }
     },
     async getUser() {
@@ -64,9 +65,21 @@ export const useAuthStore = defineStore('auth', {
       if (!this.isLoggedIn) return;
       try {
         const { data } = await rest.auth.getUser(this.user.id);
+        const { data: ruble } = await rest.wallet.getRuble();
         this.user = data;
+        this.user.coins = orderBy(this.user.coins, 'type', 'desc').map(el => {
+          if (el.abbr === 'RUB') {
+            return {
+              ...el,
+              price24: ruble.RAW.USD.RUB.CHANGE24HOUR || 0,
+              price: ruble.RAW.USD.RUB.PRICE || 90,
+            };
+          } else {
+            return el;
+          }
+        });
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       } finally {
         this.isLoading = false;
       }
@@ -76,14 +89,14 @@ export const useAuthStore = defineStore('auth', {
         const { data } = await rest.auth.confirmEmail(params);
         cMessage('success', data.message);
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       }
     },
     async confirmEmailCode(params) {
       try {
         await rest.auth.confirmEmailCode(params);
       } catch (e) {
-        handleAxiosError(e)
+        handleAxiosError(e);
       }
     },
   },

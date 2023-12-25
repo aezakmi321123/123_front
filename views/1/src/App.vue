@@ -17,7 +17,7 @@ import { cMessage } from './heplers/message.js';
 import { useAuthStore } from './modules/auth.js';
 import { useExchangeStore } from './modules/exchange.js';
 import { useWalletStore } from './modules/wallet.js';
-import rest from './rest/index';
+
 // import rest from './rest/index.js';
 export default {
   components: {
@@ -33,8 +33,6 @@ export default {
 
     onMounted(async () => {
       await wallet.getCoins();
-      rest.wallet.getRuble();
-
       wallet.bindEvents();
     });
     onBeforeUnmount(() => {

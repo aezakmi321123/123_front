@@ -21,8 +21,19 @@ export const useWalletStore = defineStore('wallet', {
       this.isLoading = true;
       try {
         const { data } = await rest.wallet.getCoins();
-        this.coins = orderBy(data, 'type', 'desc');
-        console.log(this.coins);
+        const { data: ruble } = await rest.wallet.getRuble();
+        console.log(data);
+        this.coins = orderBy(data, 'type', 'desc').map(el => {
+          if (el.abbr === 'RUB') {
+            return {
+              ...el,
+              price24: ruble.RAW.USD.RUB.CHANGE24HOUR || 0,
+              price: ruble.RAW.USD.RUB.PRICE || 90,
+            };
+          } else {
+            return el;
+          }
+        });
       } catch (e) {
         handleAxiosError(e);
       } finally {
