@@ -179,6 +179,12 @@ a {
   white-space: nowrap;
 }
 
+.text-nowrap-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .mb-0 {
   margin-bottom: 0 !important;
 }

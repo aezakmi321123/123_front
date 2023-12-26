@@ -148,11 +148,7 @@ export default {
         },
         {
           title: t('history.fullAmount'),
-          dataIndex: 'fullAmount',
-        },
-        {
-          title: t('history.usdtAmount'),
-          dataIndex: 'fullAmountInUsdt',
+          dataIndex: 'amount',
         },
         {
           title: t('history.created'),

@@ -45,29 +45,6 @@
         @change="changeCoin($event, true)"
       />
     </a-form-item>
-    <a-form-item
-      v-if="depositForm.depositNetworksReceive.length"
-      name="withdrawNetwork"
-    >
-      <CRadioGroup
-        v-if="depositForm.depositCurrencyReceive.type === 'crypto'"
-        v-model:value="depositForm.depositNetworkReceive"
-      >
-        <CRadioButton
-          v-for="network in depositForm.depositNetworksReceive"
-          :key="network"
-          class="text-nowrap"
-          :value="network"
-        >
-          {{ network }}
-        </CRadioButton>
-      </CRadioGroup>
-      <CBankAutoComplete
-        v-else
-        v-model:value="depositForm.depositNetworkReceive"
-        :options="depositForm.depositNetworksReceive"
-      />
-    </a-form-item>
     <a-form-item>
       <CButton
         type="secondary"
@@ -135,12 +112,6 @@ export default {
       if (isReceive) {
         depositForm.value.depositCurrencyReceive =
           options.value.find(({ abbr }) => abbr === e) || e;
-        const transformedNetworks = mapNetworks(
-          depositForm.value.depositCurrencyReceive.networks,
-        );
-
-        depositForm.value.depositNetworkReceive = transformedNetworks?.[0];
-        depositForm.value.depositNetworksReceive = transformedNetworks;
       } else {
         depositForm.value.depositCurrencySend =
           options.value.find(({ abbr }) => abbr === e) || e;
@@ -161,13 +132,8 @@ export default {
         depositForm.value.depositNetworkSend = transformedNetworks?.[0];
         depositForm.value.depositNetworksSend = transformedNetworks;
         if (!depositForm.value.depositCurrencyReceive) {
-          const currency = options.value.find(({ value }) => value === 'USDT');
-          const transformedNetworksReceive = mapNetworks(currency.networks);
-          depositForm.value.depositCurrencyReceive = currency;
+          depositForm.value.depositCurrencyReceive = options.value.find(({ value }) => value === 'USDT');;
 
-          depositForm.value.depositNetworkReceive =
-            transformedNetworksReceive?.[0];
-          depositForm.value.depositNetworksReceive = transformedNetworksReceive;
         }
       },
       { deep: true, immediate: true },
@@ -180,7 +146,6 @@ export default {
         currencyFrom: depositCurrencySend.abbr,
         networkFrom: depositForm.value.depositNetworkSend,
         currencyTo: depositCurrencyReceive.abbr,
-        networkTo: depositForm.value.depositNetworkReceive,
         fullAmount: depositAmountSend.toString(),
         commission: import.meta.env.VITE_BASE_COMMISSION,
       });

@@ -18,13 +18,19 @@
                 <a-typography-text class="text-primary">{{payment?.id}}</a-typography-text>
               </li>
               <li class="payment__list-item">
-                <a-typography-text class="text-primary fw-bold">{{$t('payment.totalSend')}}</a-typography-text>
-                <a-typography-text class="text-primary">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.usdAmount }})</a-typography-text>
+                <a-typography-text class="text-primary fw-bold text-nowrap">{{$t('payment.totalSend')}}</a-typography-text>
+                <a-tooltip overlay-class-name="payment__list-item-tooltip">
+                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.usdAmount }})</a-typography-text></template>
+                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.usdAmount }})</a-typography-text>
+                </a-tooltip>
               </li>
               <li class="payment__list-item">
-                <a-typography-text class="text-primary fw-bold">{{$t('payment.totalReceive')}}</a-typography-text>
-                <a-typography-text class="text-primary">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}} (${{payment?.usdAmount }})</a-typography-text>
-              </li>
+                <a-typography-text class="text-primary fw-bold text-nowrap">{{$t('payment.totalReceive')}}</a-typography-text>
+                <a-tooltip overlay-class-name="payment__list-item-tooltip">
+                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}} (${{payment?.usdAmount }})</a-typography-text></template>
+                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}} (${{payment?.usdAmount }})</a-typography-text>
+                </a-tooltip>
+                </li>
               <li class="payment__list-item">
                 <a-typography-text class="text-primary fw-bold">{{$t('payment.commission')}}</a-typography-text>
                 <a-typography-text class="text-primary">{{commission}}%</a-typography-text>
@@ -158,8 +164,14 @@
 
       &-item {
         display: flex;
-        gap: var(--gutter-2);
+        gap: var(--gutter-5);
         justify-content: space-between;
+
+        &-tooltip {
+          & .ant-tooltip-inner {
+            width: fit-content;
+          }
+        }
 
         & > span {
           font-size: var(--fs-5);
