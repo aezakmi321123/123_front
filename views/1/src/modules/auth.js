@@ -65,19 +65,8 @@ export const useAuthStore = defineStore('auth', {
       if (!this.isLoggedIn) return;
       try {
         const { data } = await rest.auth.getUser(this.user.id);
-        const { data: ruble } = await rest.wallet.getRuble();
         this.user = data;
-        this.user.coins = orderBy(this.user.coins, 'type', 'desc').map(el => {
-          if (el.abbr === 'RUB') {
-            return {
-              ...el,
-              price24: ruble.RAW.USD.RUB.CHANGE24HOUR || 0,
-              price: ruble.RAW.USD.RUB.PRICE || 90,
-            };
-          } else {
-            return el;
-          }
-        });
+        this.user.coins = orderBy(this.user.coins, 'type', 'desc')
       } catch (e) {
         handleAxiosError(e);
       } finally {

@@ -249,10 +249,10 @@ export default {
       const fullSum = parseFloat(currentRate.value) * parseFloat(quantity);
 
       if (commission) {
-        return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(6);
+        return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(10);
       }
 
-      return fullSum.toFixed(6);
+      return fullSum.toFixed(10);
     };
 
     const exchange = async values => {

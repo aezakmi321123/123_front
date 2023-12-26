@@ -182,19 +182,6 @@ export default {
           rate: 1,
         };
       }
-      if (record.abbr === 'RUB') {
-        const isMinus = record.price24.indexOf?.('-');
-        return {
-          change: `${isMinus ? '-' : ''}${parseFloat(record.price24).toFixed(
-            3,
-          )}%`,
-          class: isMinus ? 'text-green' : 'text-red',
-          price:
-            parseFloat(record.coinQuantity) / parseFloat(record.price) || 0,
-          icon: isMinus ? 'down' : 'up',
-          rate: (parseFloat(record.price) || 0).toFixed(6),
-        };
-      }
 
       const currentData = socketCoinsData.value[record.abbr];
       const price = (

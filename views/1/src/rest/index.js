@@ -77,9 +77,9 @@ export default {
     updateCoins(params) {
       return call('POST', '/coins/saveCoins', params);
     },
-    getRuble() {
+    getRuble(fromCoin = 'RUB', toCoin = 'USD') {
       return axios.get(
-        'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=USD&tsyms=RUB',
+        `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${fromCoin}&tsyms=${toCoin}`,
         {
           headers: {
             authorization: `Apikey${import.meta.env.VITE_BASE_FIAT_KEY}`,

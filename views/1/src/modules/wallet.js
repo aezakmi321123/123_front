@@ -21,23 +21,66 @@ export const useWalletStore = defineStore('wallet', {
       this.isLoading = true;
       try {
         const { data } = await rest.wallet.getCoins();
-        const { data: ruble } = await rest.wallet.getRuble();
-        console.log(data);
-        this.coins = orderBy(data, 'type', 'desc').map(el => {
-          if (el.abbr === 'RUB') {
-            return {
-              ...el,
-              price24: ruble.RAW.USD.RUB.CHANGE24HOUR || 0,
-              price: ruble.RAW.USD.RUB.PRICE || 90,
-            };
-          } else {
-            return el;
-          }
-        });
+
+        this.coins = orderBy(data, 'type', 'desc')
       } catch (e) {
         handleAxiosError(e);
       } finally {
         this.isLoading = false;
+      }
+    },
+    async getRubble(){
+      const { data: { RAW } } = (await rest.wallet.getRuble()) ?? { data: { RAW: { RUB: { USD: null } } } };
+
+      if(!RAW.RUB.USD){
+        return
+      }
+
+      const {
+        FROMSYMBOL,
+        TOSYMBOL,
+        CHANGE24HOUR,
+        CHANGEPCT24HOUR,
+        MEDIAN,
+        PRICE,
+        LASTVOLUME,
+        OPEN24HOUR,
+        HIGH24HOUR,
+        LOW24HOUR,
+        VOLUME24HOUR,
+        VOLUME24HOURTO,
+        LASTTRADEID,
+        TOTALVOLUME24H,
+        LASTUPDATE, } = RAW.RUB.USD
+
+      this.wsData.coins = {
+        ...this.wsData.coins,
+        [FROMSYMBOL]: {
+          e: '[cryptocompare] 5',
+          E: Date.now(),
+          s: `${TOSYMBOL}${FROMSYMBOL}`,
+          p: CHANGE24HOUR.toString(),
+          P: CHANGEPCT24HOUR.toString(),
+          w: MEDIAN.toString(),
+          x: OPEN24HOUR.toString(),
+          c: typeof RAW.PRICE === 'number' ? PRICE.toString() : PRICE,
+          Q: LASTVOLUME.toString(),
+          b: HIGH24HOUR.toString(),
+          B: '',
+          a: HIGH24HOUR.toString(),
+          A: '',
+          o: OPEN24HOUR.toString(),
+          h: HIGH24HOUR.toString(),
+          l: LOW24HOUR.toString(),
+          v: VOLUME24HOUR.toString(),
+          q: VOLUME24HOURTO.toString(),
+          O: LASTUPDATE,
+          C: null,
+          F: null,
+          L: LASTTRADEID,
+          n: TOTALVOLUME24H,
+          time: LASTUPDATE,
+        }
       }
     },
     bindEvents() {

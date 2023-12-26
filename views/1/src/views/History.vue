@@ -65,8 +65,10 @@ export default {
         const { data } = await requestObj(val).finally(
           () => (loading.value = false),
         );
-        console.log({ data })
-        arr.value = cloneDeep(data.map(coin => ({ ...coin, fullAmountInUsdt: isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt ? 0 : coin?.fullAmountInUsdt })));
+        arr.value = cloneDeep(data.map(coin => ({
+          ...coin,
+          fullAmountInUsdt: isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt ? 0 : coin?.fullAmountInUsdt
+        })));
       },
       { immediate: true },
     );
@@ -99,10 +101,6 @@ export default {
         {
           title: t('history.depositAddress'),
           dataIndex: 'address',
-        },
-        {
-          title: t('history.receivedAddress'),
-          dataIndex: 'receivedAddress',
         },
         {
           title: t('history.fullAmount'),
