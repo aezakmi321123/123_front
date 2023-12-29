@@ -118,7 +118,6 @@
           <a-form-item name="valueNumberReceive">
             <CInputNumber
               v-model:value="exchangeForm.valueNumberReceive"
-              readonly
               @focus="onReceiveFocus"
               @blur="onReceiveBlur"
               @change="onChangeReceiveValue"

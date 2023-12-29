@@ -43,6 +43,21 @@
             </a-col>
           </a-flex>
         </a-col>
+        <a-col>
+          <a-flex vertical gap="large">
+            <a-col>
+              <a> {{ supportMail }}</a>
+            </a-col>
+            <a-col>
+              <a>
+                <img :style="{ width: '20px' }" src="telegram.png" />Telegram</a
+              >
+            </a-col>
+            <a-col>
+              <span @click="goTo('privacy')">Privacy</span>
+            </a-col>
+          </a-flex>
+        </a-col>
       </a-row>
     </div>
     <div class="reserved">Copyright 2017-2023 © Zalupa All Rights Reserved</div>
@@ -57,8 +72,10 @@ export default {
       if (!path) return router.push('/');
       router.push(`/${path}`);
     };
+    const supportMail = import.meta.env.VITE_BASE_SUPPORT_MAIL;
     return {
       goTo,
+      supportMail,
     };
   },
 };

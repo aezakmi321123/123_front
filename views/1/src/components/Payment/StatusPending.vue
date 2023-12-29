@@ -1,9 +1,10 @@
 <template>
   <div v-if="payment.currencyTo" class="payment">
-    <h2 class="payment__number">Оплата заявки: №222</h2>
+    <h2 class="payment__number">Оплата заявки: {{ payment.id }}</h2>
     <div class="payment__currency">
       <h3>
-        Обмен по курсу: 1 {{ payment.currencyFrom }} = {{ 32 }}
+        Обмен по курсу: 1 {{ payment.currencyFrom }} =
+        {{ payment.paymentRate }}
         {{ payment.currencyTo }}
       </h3>
 
@@ -30,7 +31,7 @@
               <CRadioButton>{{ payment.networkFrom }}</CRadioButton>
             </CRadioGroup>
           </div>
-          <div>32 {{ payment.currencyFrom }}</div>
+          <div>{{ payment.fullAmount }} {{ payment.currencyFrom }}</div>
         </div>
         <div class="payment__switch"><SyncOutlined /></div>
         <div class="payment__coin">
@@ -55,13 +56,13 @@
               <CRadioButton>{{ payment.networkTo }}</CRadioButton>
             </CRadioGroup>
           </div>
-          <div>32 {{ payment.currencyTo }}</div>
+          <div>{{ payment.fullAmountInCurrency }} {{ payment.currencyTo }}</div>
         </div>
       </div>
       <div class="payment__address">
         <CCopyableInput
           :prefix="t('payment.cryptoAmount')"
-          :value="payment.fullAmountCalculated"
+          :value="`${payment.fullAmount} ${payment.currencyFrom}`"
           readonly
           @copy="() => onCopy(payment.fullAmountCalculated)"
         />
@@ -159,17 +160,17 @@ export default defineComponent({
     const payment = computed(usePayment);
     const screens = Grid.useBreakpoint();
 
-    const shortAddress = address => {
-      if (!address) return;
-
-      return `${address.slice(0, 6)}...${address.slice(-6)}`;
-    };
     const isBank = computed(() => {
       return {
         send: payment.value.networkFrom?.toLowerCase() in BANKS,
         receive: payment.value.networkTo?.toLowerCase() in BANKS,
       };
     });
+    const shortAddress = address => {
+      if (!address) return;
+      if (isBank.value.receive) return address;
+      return `${address.slice(0, 6)}...${address.slice(-6)}`;
+    };
     const onCopy = async value => {
       try {
         await navigator.clipboard.writeText(value);
