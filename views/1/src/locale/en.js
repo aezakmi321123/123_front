@@ -165,7 +165,7 @@ export default {
           'You have two options to make an exchange:\n' +
           '1. You can create an account or sign in existing and in this case the money will be credited to your account\n' +
           '2. You can make an exchange without an account by indicating the details of where you want to receive your money',
-      addressPlaceholder: 'Receiving Address'
+      addressPlaceholder: 'Receiving Address or card'
     }
   },
   privacy: `

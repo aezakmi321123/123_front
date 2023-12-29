@@ -126,15 +126,17 @@
           </a-form-item>
         </a-spin>
       </div>
-      <a-form-item
-        v-if="exchangeForm.withAccount === unauthOptions[1]"
-        name="receivedAddress"
-      >
-        <CInput
-          v-model:value="exchangeForm.receivedAddress"
-          :placeholder="t('exchange.mainCard.addressPlaceholder')"
-        />
-      </a-form-item>
+      <div>
+        <a-form-item
+          v-if="exchangeForm.withAccount === unauthOptions[1]"
+          name="receivedAddress"
+        >
+          <CInput
+            v-model:value="exchangeForm.receivedAddress"
+            :placeholder="t('exchange.mainCard.addressPlaceholder')"
+          />
+        </a-form-item>
+      </div>
       <div class="exchange__card-rate">
         <div>
           {{ t('exchange.mainCard.exchangeRate') }}: 1
