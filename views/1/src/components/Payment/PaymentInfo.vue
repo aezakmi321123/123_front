@@ -14,8 +14,11 @@
                 <a-typography-text class="text-primary">{{appName}}</a-typography-text>
               </li>
               <li class="payment__list-item">
-                <a-typography-text class="text-primary fw-bold">{{$t('payment.paymentNumber')}}</a-typography-text>
-                <a-typography-text class="text-primary">{{payment?.id}}</a-typography-text>
+                <a-typography-text class="text-primary text-nowrap fw-bold">{{$t('payment.paymentNumber')}}</a-typography-text>
+                <a-tooltip overlay-class-name="payment__list-item-tooltip">
+                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.id}}</a-typography-text></template>
+                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.id}}</a-typography-text>
+                </a-tooltip>
               </li>
               <li class="payment__list-item">
                 <a-typography-text class="text-primary fw-bold text-nowrap">{{$t('payment.totalSend')}}</a-typography-text>
