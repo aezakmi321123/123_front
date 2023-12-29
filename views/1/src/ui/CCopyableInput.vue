@@ -2,6 +2,12 @@
   <CInput v-bind="$attrs" class="copyable-input">
     <slot name="prefix" />
     <template #suffix>
+      <a-popover v-if="address">
+        <template #content>
+          <a-qrcode size="170" color="#000" :value="address" />
+        </template>
+        <QrcodeOutlined />
+      </a-popover>
       <a-tooltip :title="t('ui.copyableInput.tooltip')">
         <copy-outlined @click="onCopy" />
       </a-tooltip>
@@ -10,13 +16,19 @@
 </template>
 
 <script>
-import { CopyOutlined } from '@ant-design/icons-vue';
+import { CopyOutlined, QrcodeOutlined } from '@ant-design/icons-vue';
 import { useI18n } from 'vue-i18n';
 
 import CInput from './CInput.vue';
 
 export default {
-  components: { CInput, CopyOutlined },
+  components: { CInput, CopyOutlined, QrcodeOutlined },
+  props: {
+    address: {
+      type: String,
+      default: '',
+    },
+  },
   emits: ['copy'],
   setup() {
     const { t } = useI18n();

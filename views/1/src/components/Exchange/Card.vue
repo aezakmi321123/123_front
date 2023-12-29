@@ -107,14 +107,14 @@ export default {
         return {
           icon: 'up',
           label: `+${parseFloat(props.socketData?.P || 0).toFixed(2)}%`,
-          class: 'text-green',
+          class: props.coin.type === 'fiat' ? 'text-red' : 'text-green',
         };
       }
 
       return {
         icon: 'down',
         label: `${parseFloat(props.socketData?.P || 0).toFixed(2)}%`,
-        class: 'text-red',
+        class: props.coin.type === 'fiat' ? 'text-green' : 'text-red',
       };
     });
 

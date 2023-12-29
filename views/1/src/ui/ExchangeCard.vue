@@ -32,15 +32,6 @@
             </CRadioButton>
           </CRadioGroup>
         </a-form-item>
-        <a-form-item
-          v-if="exchangeForm.withAccount === unauthOptions[1]"
-          name="receivedAddress"
-        >
-          <CInput
-            v-model:value="exchangeForm.receivedAddress"
-            :placeholder="t('exchange.mainCard.addressPlaceholder')"
-          />
-        </a-form-item>
       </a-flex>
       <div class="exchange__card-send" name="valueSend">
         <div class="title">{{ t('main.send') }}</div>
@@ -79,6 +70,7 @@
           <a-form-item name="valueNumberSend">
             <CInputNumber
               v-model:value="exchangeForm.valueNumberSend"
+              type="number"
               @change="onChangeSendValue"
             />
           </a-form-item>
@@ -126,6 +118,7 @@
           <a-form-item name="valueNumberReceive">
             <CInputNumber
               v-model:value="exchangeForm.valueNumberReceive"
+              readonly
               @focus="onReceiveFocus"
               @blur="onReceiveBlur"
               @change="onChangeReceiveValue"
@@ -133,6 +126,15 @@
           </a-form-item>
         </a-spin>
       </div>
+      <a-form-item
+        v-if="exchangeForm.withAccount === unauthOptions[1]"
+        name="receivedAddress"
+      >
+        <CInput
+          v-model:value="exchangeForm.receivedAddress"
+          :placeholder="t('exchange.mainCard.addressPlaceholder')"
+        />
+      </a-form-item>
       <div class="exchange__card-rate">
         <div>
           {{ t('exchange.mainCard.exchangeRate') }}: 1
