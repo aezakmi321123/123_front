@@ -139,7 +139,7 @@
       <div class="exchange__card-rate">
         <div>
           {{ t('exchange.mainCard.exchangeRate') }}: 1
-          {{ exchangeForm.valueSend.value }} = {{ calculateCoinQuantity() }}
+          {{ exchangeForm.valueSend.value }} = {{ calculateSendCoinQuantity() }}
           {{ exchangeForm.valueReceive.value }}
         </div>
         <div>{{ t('exchange.mainCard.ourCommission') }}: {{ commission }}%</div>
@@ -233,6 +233,7 @@ export default {
     });
     const isExchanging = ref(false);
     const receiveOnFocus = ref(false);
+    const networksIndexes = ref({ receive: 0, send: 0 });
 
     const options = computed(() =>
       walletStore.coins?.map?.(value => mapValue(value)),
@@ -248,8 +249,18 @@ export default {
 
     const commission = import.meta.env.VITE_BASE_COMMISSION;
 
-    const calculateCoinQuantity = (quantity = 1, commission) => {
+    const calculateSendCoinQuantity = (quantity = 1, commission) => {
       const fullSum = parseFloat(currentRate.value) * parseFloat(quantity);
+
+      if (commission) {
+        return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(10);
+      }
+
+      return fullSum.toFixed(10);
+    };
+
+    const calculateReceiveCoinQuantity = (quantity = 1, commission) => {
+      const fullSum = parseFloat(quantity) / parseFloat(currentRate.value);
 
       if (commission) {
         return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(10);
@@ -315,19 +326,18 @@ export default {
 
     const swapCoins = () => {
       const prevReceiveValue = { ...exchangeForm.value.valueReceive };
-      const prevReceiveNetworks = { ...exchangeForm.value.receiveNetworks };
+
+      const getNetworkIndex = (networks = [] ,valueToFind) => {
+        return Math.max(mapNetworks((networks)).findIndex(value => value === valueToFind), 0)
+      }
+
+      networksIndexes.value = {
+        send:  getNetworkIndex(exchangeForm.value.valueReceive.networks, exchangeForm.value.valueReceiveNetwork),
+        receive: getNetworkIndex(exchangeForm.value.valueSend.networks, exchangeForm.value.valueSendNetwork)
+      }
 
       exchangeForm.value.valueReceive = { ...exchangeForm.value.valueSend };
       exchangeForm.value.valueSend = { ...prevReceiveValue };
-
-      exchangeForm.value.receiveNetworks = {
-        ...exchangeForm.value.sendNetworks,
-      };
-      exchangeForm.value.valueReceiveNetwork =
-        exchangeForm.value.receiveNetworks?.[0];
-      exchangeForm.value.sendNetworks = { ...prevReceiveNetworks };
-      exchangeForm.value.valueSendNetwork =
-        exchangeForm.value.valueSendNetwork?.[0];
     };
 
     const onChangeSend = e => {
@@ -341,14 +351,14 @@ export default {
     };
 
     const onChangeSendValue = e => {
-      exchangeForm.value.valueNumberReceive = calculateCoinQuantity(
+      exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
         e || 0,
         commission,
       );
     };
 
     const onChangeReceiveValue = e => {
-      exchangeForm.value.valueNumberSend = calculateCoinQuantity(
+      exchangeForm.value.valueNumberSend = calculateReceiveCoinQuantity(
         e || 0,
         commission,
       );
@@ -385,10 +395,10 @@ export default {
           pendingExchange.valueNumberSend ||
           authStore?.user?.coins?.find?.(
             ({ abbr }) => abbr === exchangeForm.value.valueSend.value,
-          )?.coinQuantity ||
+          )?.coinQuantity || exchangeForm.value.valueNumberSend ||
           0;
 
-        exchangeForm.value.valueNumberReceive = calculateCoinQuantity(
+        exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
           exchangeForm.value.valueNumberSend,
           commission,
         );
@@ -397,7 +407,9 @@ export default {
           exchangeForm.value.valueSend.networks || [],
         );
         exchangeForm.value.sendNetworks = transformedNetworks;
-        exchangeForm.value.valueSendNetwork = transformedNetworks?.[0];
+        exchangeForm.value.valueSendNetwork = transformedNetworks?.[networksIndexes.value.send];
+
+        networksIndexes.value.send = 0
       },
       { immediate: true, deep: true },
     );
@@ -405,7 +417,7 @@ export default {
     watch(
       () => exchangeForm.value.valueReceive,
       () => {
-        exchangeForm.value.valueNumberReceive = calculateCoinQuantity(
+        exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
           exchangeForm.value.valueNumberSend,
           commission,
         );
@@ -414,7 +426,9 @@ export default {
           exchangeForm.value.valueReceive.networks || [],
         );
         exchangeForm.value.receiveNetworks = transformedNetworks;
-        exchangeForm.value.valueReceiveNetwork = transformedNetworks?.[0];
+        exchangeForm.value.valueReceiveNetwork = transformedNetworks?.[networksIndexes.value.receive];
+
+        networksIndexes.value.receive = 0
       },
       { immediate: true, deep: true },
     );
@@ -423,9 +437,9 @@ export default {
       () => currentRate.value,
       () => {
         if (!receiveOnFocus.value) {
-          exchangeForm.value.valueNumberReceive = calculateCoinQuantity(
-            exchangeForm.value.valueNumberSend,
-            commission,
+          exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
+            exchangeForm.value.valueNumberSend || 0,
+            parseFloat(commission),
           );
         }
       },
@@ -439,7 +453,7 @@ export default {
       commission,
       onChangeSend,
       onChangeReceive,
-      calculateCoinQuantity,
+      calculateSendCoinQuantity,
       onChangeSendValue,
       onChangeReceiveValue,
       isExchanging,
