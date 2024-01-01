@@ -11,7 +11,11 @@
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'name'">
-          <CoinInfo :abbr="record.abbr" :name="record.name" />
+          <CoinInfo
+            :abbr="record.abbr"
+            :name="record.name"
+            :type="record.type"
+          />
         </template>
         <template v-if="column.dataIndex === 'coinQuantity'">
           <a-flex vertical>
@@ -60,7 +64,7 @@ import { useRouter } from 'vue-router';
 
 import { useWalletStore } from '../modules/wallet.js';
 import CButton from '../ui/cbutton.vue';
-import CoinInfo from "./CoinInfo.vue";
+import CoinInfo from './CoinInfo.vue';
 export default {
   components: {
     CoinInfo,

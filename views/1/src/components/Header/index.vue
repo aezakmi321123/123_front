@@ -18,7 +18,7 @@
             >{{ t('header.homepage') }}
           </a>
           <a key="1" class="header__list-item" @click="goTo('exchange')"
-          >{{ t('header.exchange') }}
+            >{{ t('header.exchange') }}
           </a>
           <a key="2" class="header__list-item" @click="goTo('terms')"
             >Terms of use</a
@@ -31,7 +31,12 @@
           }}</a>
         </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
-          <CSelect class="select__change-lang" :value="lang" :options="languages" @change="changeLang" />
+          <CSelect
+            class="select__change-lang"
+            :value="lang"
+            :options="languages"
+            @change="changeLang"
+          />
           <router-link to="/login"
             ><CButton type="primary">{{
               t('header.signin')
@@ -44,7 +49,12 @@
           >
         </div>
         <div v-else class="header__right">
-          <CSelect class="select__change-lang" :value="lang" :options="languages" @change="changeLang" />
+          <CSelect
+            class="select__change-lang"
+            :value="lang"
+            :options="languages"
+            @change="changeLang"
+          />
           <div class="header__buttons" @click="drawer = true">
             <UserOutlined :style="{ fontSize: '20px' }" />
             <a>{{ authStore.user.fullName }}</a>
@@ -54,6 +64,7 @@
         </div>
       </div>
     </div>
+    <MarqueeC />
   </div>
   <CDrawer v-model:open="drawer">
     <div class="drawer__body">
@@ -154,6 +165,7 @@ import { useAuthStore } from '../../modules/auth.js';
 import CButton from '../../ui/CButton.vue';
 import CDrawer from '../../ui/CDrawer.vue';
 import CSelect from '../../ui/CSelect.vue';
+import MarqueeC from '../../ui/Marquee.vue';
 export default {
   components: {
     CButton,
@@ -169,6 +181,7 @@ export default {
     HomeOutlined,
     FileSearchOutlined,
     QuestionOutlined,
+    MarqueeC,
   },
   setup() {
     const { t, locale } = useI18n();

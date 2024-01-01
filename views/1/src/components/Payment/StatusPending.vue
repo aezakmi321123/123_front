@@ -1,6 +1,6 @@
 <template>
   <div v-if="payment.currencyTo" class="payment">
-    <h2 class="payment__number">Оплата заявки: {{ payment.id }}</h2>
+    <div class="payment__number">Оплата заявки: {{ payment.id }}</div>
     <div class="payment__currency">
       <h3>
         Обмен по курсу: 1 {{ payment.currencyFrom }} =
@@ -59,7 +59,12 @@
           <div>{{ payment.fullAmountInCurrency }} {{ payment.currencyTo }}</div>
         </div>
       </div>
+
       <div class="payment__address">
+        <div class="step-title">
+          <div class="step-title__step">1</div>
+          <div class="step-title__text">Совершите платеж по реквезитам</div>
+        </div>
         <CCopyableInput
           :prefix="t('payment.cryptoAmount')"
           :value="`${payment.fullAmount} ${payment.currencyFrom}`"
@@ -72,6 +77,24 @@
           readonly
           :address="payment?.address"
           @copy="() => onCopy(payment?.address)"
+        />
+      </div>
+      <div class="payment__address">
+        <div class="step-title">
+          <div class="step-title__step">2</div>
+          <div class="step-title__text">Получите валюту по реквезитам ниже</div>
+        </div>
+        <CCopyableInput
+          :prefix="t('payment.cryptoAmount')"
+          :value="`${payment.fullAmountInCurrency} ${payment.currencyTo}`"
+          readonly
+          @copy="() => onCopy(payment.fullAmountCalculated)"
+        />
+        <CCopyableInput
+          :prefix="t('payment.receivedAddress')"
+          :value="shortAddress(payment?.receivedAddress)"
+          readonly
+          @copy="() => onCopy(payment?.receivedAddress)"
         />
       </div>
     </div>
@@ -188,9 +211,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.step-title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  &__step {
+    color: var(--bg-purple);
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+    font-size: 30px;
+    border: 5px solid var(--bg-purple);
+    border-radius: 50%;
+    min-width: 50px;
+    height: 50px;
+  }
+  &__text {
+    font-size: 22px;
+  }
+}
 .payment {
-  h2 {
+  &__number {
     color: var(--text-link);
+    font-size: 24px;
   }
   &__currency {
     margin-top: 20px;

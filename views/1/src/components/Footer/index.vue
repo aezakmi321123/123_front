@@ -2,7 +2,7 @@
   <div class="container">
     <div class="footer">
       <a-row :gutter="[{ xs: 0, sm: 80 }, 40]" justify="center">
-        <a-col>
+        <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <span @click="goTo('settings')">Settings</span>
@@ -15,7 +15,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col>
+        <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <a-badge status="success" title="Success"
@@ -30,7 +30,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col>
+        <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <span @click="goTo('about')">About Us</span>
@@ -43,18 +43,16 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col>
+        <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <a> {{ supportMail }}</a>
             </a-col>
             <a-col>
-              <a>
-                <img :style="{ width: '20px' }" src="telegram.png" />Telegram</a
-              >
-            </a-col>
-            <a-col>
-              <span @click="goTo('privacy')">Privacy</span>
+              <div class="centered">
+                <img :style="{ width: '20px' }" src="telegram.png" />
+                <a> Telegram </a>
+              </div>
             </a-col>
           </a-flex>
         </a-col>
@@ -88,6 +86,11 @@ export default {
 .reserved {
   padding-bottom: 20px;
   text-align: center;
+}
+.centered {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 .footer {
   margin: 70px 0;

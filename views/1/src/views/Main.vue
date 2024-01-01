@@ -19,7 +19,9 @@
             </a-row>
           </a-col>
           <a-col :xs="20" :sm="18" :md="16" :lg="11">
-            <ExchangeCard :selected-card="exchange.pendingExchange?.coinFrom || coins?.[0]" />
+            <ExchangeCard
+              :selected-card="exchange.pendingExchange?.coinFrom || coins?.[0]"
+            />
           </a-col>
         </a-row>
       </div>
@@ -111,32 +113,70 @@
           </a-row>
         </div>
       </div>
+      <div class="main__page-coins">
+        <div class="coins">
+          <a-row justify="center" :gutter="[20, 0]">
+            <a-col :xs="20" :sm="16" :md="12">
+              <CoinTable />
+            </a-col>
+            <a-col :xs="20" :sm="8" :md="12">
+              <div class="text">
+                <div class="text-label">
+                  Your access to the top coin markets
+                </div>
+                <div class="text-p">
+                  Capitalize on trends and trade with confidence through our
+                  expansive marketplace listings.
+                </div>
+              </div>
+              <di class="buttons">
+                <CButton type="primary" @click="goTo('wallets')"
+                  >Wallet</CButton
+                >
+                <CButton type="secondary" @click="goTo('exchange')"
+                  >Exchange</CButton
+                >
+              </di>
+            </a-col>
+          </a-row>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
-import { useExchangeStore } from "../modules/exchange.js";
-import { useWalletStore } from "../modules/wallet.js";
-import ExchangeCard from "../ui/ExchangeCard.vue";
+import { useExchangeStore } from '../modules/exchange.js';
+import { useWalletStore } from '../modules/wallet.js';
+import CButton from '../ui/CButton.vue';
+import CoinTable from '../ui/CoinTable2.vue';
+import ExchangeCard from '../ui/ExchangeCard.vue';
 export default {
   components: {
-    ExchangeCard
+    ExchangeCard,
+    CoinTable,
+    CButton,
   },
   setup() {
     const { t } = useI18n();
     const wallet = useWalletStore();
-    const exchange = useExchangeStore()
-
+    const router = useRouter();
+    const exchange = useExchangeStore();
+    const goTo = (path = null) => {
+      if (!path) return router.push('/');
+      router.push(`/${path}`);
+    };
     const coins = computed(() => wallet.coins);
 
     return {
       t,
+      goTo,
       coins,
-      exchange
+      exchange,
     };
   },
 };
@@ -190,6 +230,38 @@ export default {
   &-partners {
     text-align: center;
     padding-bottom: 50px;
+    .partners {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      &__content {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+      }
+    }
+  }
+  &-coins {
+    text-align: left;
+    padding-bottom: 50px;
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+    }
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .text-label {
+      font-size: 40px;
+      font-weight: 500;
+      color: var(--text-link);
+    }
+    .text-p {
+      font-size: 18px;
+    }
     .partners {
       display: flex;
       flex-direction: column;
