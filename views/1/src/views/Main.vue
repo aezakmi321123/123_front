@@ -3,7 +3,7 @@
     <div class="main__page">
       <div class="main__page-exchnage">
         <a-row :gutter="[{ xl: 40, lg: 10 }, { md: 50 }]" justify="center">
-          <a-col :xs="20" :sm="18" :md="16" :lg="13">
+          <a-col :xs="24" :sm="18" :md="16" :lg="13">
             <a-row :gutter="[0, 20]">
               <a-col>
                 <h1>{{ t('main.label') }}</h1>
@@ -18,7 +18,7 @@
               </a-col>
             </a-row>
           </a-col>
-          <a-col :xs="20" :sm="18" :md="16" :lg="11">
+          <a-col :xs="24" :sm="18" :md="16" :lg="11">
             <ExchangeCard
               :selected-card="exchange.pendingExchange?.coinFrom || coins?.[0]"
             />
@@ -83,7 +83,7 @@
       </div>
       <div class="main__page-potential">
         <a-row :justify="{ xs: 'center' }">
-          <a-col :xs="20" :lg="12">
+          <a-col :xs="24" :lg="12">
             <div class="potential">
               <div class="potential__title">{{ t('main.potential') }}</div>
               <div class="potential__text">
@@ -99,15 +99,15 @@
       </div>
       <div class="main__page-partners">
         <div class="partners">
-          <h2>Our partners</h2>
+          <h2>{{ t('main.partners') }}</h2>
           <a-row justify="center">
-            <a-col :xs="20" :sm="12" :md="8">
+            <a-col :xs="24" :sm="12" :md="8">
               <img src="Bestchange.svg" />
             </a-col>
-            <a-col :xs="20" :sm="12" :md="8">
+            <a-col :xs="24" :sm="12" :md="8">
               <img src="AMLBot.svg" />
             </a-col>
-            <a-col :xs="20" :sm="12" :md="8">
+            <a-col :xs="24" :sm="12" :md="8">
               <img src="PerfectMoney.svg" />
             </a-col>
           </a-row>
@@ -116,25 +116,24 @@
       <div class="main__page-coins">
         <div class="coins">
           <a-row justify="center" align="middle" :gutter="[30, 30]">
-            <a-col :span="24" :order="1" :lg="{span: 14, order: 0}">
+            <a-col :span="24" :order="1" :lg="{ span: 14, order: 0 }">
               <CoinTable />
             </a-col>
-            <a-col :span="24" :order="0" :lg="{span: 10, order: 1}">
+            <a-col :span="24" :order="0" :lg="{ span: 10, order: 1 }">
               <div class="text">
                 <div class="text-label">
-                  Your access to the top coin markets
+                  {{ t('main.top_markets') }}
                 </div>
                 <div class="text-p">
-                  Capitalize on trends and trade with confidence through our
-                  expansive marketplace listings.
+                  {{ t('main.capitalize') }}
                 </div>
               </div>
               <di class="buttons">
-                <CButton type="primary" @click="goTo('wallets')"
-                  >Wallet</CButton
+                <CButton type="primary" @click="goTo('wallets')">
+                  {{ t('main.wallet') }}</CButton
                 >
-                <CButton type="secondary" @click="goTo('exchange')"
-                  >Exchange</CButton
+                <CButton type="secondary" @click="goTo('exchange')">
+                  {{ t('main.exchange') }}</CButton
                 >
               </di>
             </a-col>

@@ -7,24 +7,39 @@ export default {
     update: 'Update',
   },
   header: {
-    news: 'News',
-    homepage: 'Homepage',
-    exchange: 'Exchange',
-    top_directions: 'Top directions',
-    about_us: 'About Us',
-    signin: 'Sign in',
-    signup: 'Sign up',
+    news: 'Новости',
+    homepage: 'Главная страница',
+    exchange: 'Обмен',
+    top_directions: 'Лучшие направления',
+    about_us: 'О нас',
+    signin: 'Войти',
+    signup: 'Зарегистрироваться',
+    settings: 'Настройки',
+    history: 'История',
+    logout: 'Выйти',
+    verified: 'Email подтвержден',
+    no_verified: 'Email не подтвержден',
+    wallet: 'Кошелек',
+    terms: 'Условия использования',
+    privacy: 'Конфиденциальность',
+  },
+  footer: {
     settings: 'Settings',
     history: 'History',
-    logout: 'Log Out',
-    verified: 'Email verified',
-    no_verified: 'Email not verified',
+    main: 'Main',
+    stacking: 'Stacking',
+    exchange: 'Exchange',
     wallet: 'Wallet',
+    about_us: 'About us',
+    terms: 'Terms of use',
+    privacy: 'Privacy',
+    telegram: 'Telegram',
   },
   exchangeConfirm: {
-    title: "You have pending exchange",
-    content: "You have pending exhchange {coinFrom} - {coinTo}. Do you want to continue?",
-    notEnoughError: "Not enough coins, please deposit!"
+    title: 'You have pending exchange',
+    content:
+      'You have pending exhchange {coinFrom} - {coinTo}. Do you want to continue?',
+    notEnoughError: 'Not enough coins, please deposit!',
   },
   main: {
     label: `${import.meta.env.VITE_BASE_EXCHANGE_NAME} Cryptocurrency Exchange`,
@@ -55,7 +70,11 @@ export default {
     partners: 'Our partners',
     send: 'You send',
     receive: 'You receive',
-    exchange: 'Exchnage',
+    exchange: 'Exchange',
+    top_markets: 'Your access to the top coin markets',
+    capitalize:
+      'Capitalize on trends and trade with confidence through our expansive marketplace listings.',
+    wallet: 'Wallet',
   },
   signin: {
     login: 'Partner login',
@@ -63,6 +82,7 @@ export default {
     create: 'Create an account',
     password: 'Password',
     sign_in: 'Sign in',
+    forgot: 'Forgot passport',
   },
   sign_up: {
     register: 'Partner register',
@@ -146,27 +166,28 @@ export default {
     incorrectAddress: 'Incorrect address',
   },
   exchange: {
-    success: "Successfully exchanged",
+    success: 'Successfully exchanged',
     sameCoins: 'Chose same coins',
     card: {
       balance: 'balance',
-      qty:'qty',
-      price: "price",
-      change: "24h Change",
-      volume: "24h Volume"
+      qty: 'qty',
+      price: 'price',
+      change: '24h Change',
+      volume: '24h Volume',
     },
     mainCard: {
-      makeExchange: "Make Exchange",
+      makeExchange: 'Make Exchange',
       exchangeRate: 'Exchange rate',
       ourCommission: 'Our commission',
       with: 'With Account',
       without: 'Without Account',
-      tooltip: 'You are not currently logged in.\n' +
-          'You have two options to make an exchange:\n' +
-          '1. You can create an account or sign in existing and in this case the money will be credited to your account\n' +
-          '2. You can make an exchange without an account by indicating the details of where you want to receive your money',
-      addressPlaceholder: 'Receiving Address or card'
-    }
+      tooltip:
+        'You are not currently logged in.\n' +
+        'You have two options to make an exchange:\n' +
+        '1. You can create an account or sign in existing and in this case the money will be credited to your account\n' +
+        '2. You can make an exchange without an account by indicating the details of where you want to receive your money',
+      addressPlaceholder: 'Receiving Address or card',
+    },
   },
   privacy: `
     <h2>PRIVACY POLICY ${import.meta.env.VITE_BASE_EXCHANGE_NAME}</h2>\n

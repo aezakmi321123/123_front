@@ -5,13 +5,13 @@
         <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
-              <span @click="goTo('settings')">Settings</span>
+              <span @click="goTo('settings')">{{ t('footer.settings') }}</span>
             </a-col>
             <a-col>
-              <span @click="goTo('history')">History</span>
+              <span @click="goTo('history')">{{ t('footer.history') }}</span>
             </a-col>
             <a-col>
-              <span @click="goTo(null)">Main</span>
+              <span @click="goTo(null)">{{ t('footer.main') }}</span>
             </a-col>
           </a-flex>
         </a-col>
@@ -19,61 +19,68 @@
           <a-flex vertical gap="large">
             <a-col>
               <a-badge status="success" title="Success"
-                ><span>Stacking</span></a-badge
+                ><span>{{ t('footer.stacking') }}</span></a-badge
               >
             </a-col>
             <a-col>
-              <span>Exchange</span>
+              <span @click="goTo('exchange')">{{ t('footer.exchange') }}</span>
             </a-col>
             <a-col>
-              <span @click="goTo('wallets')">Wallet</span>
-            </a-col>
-          </a-flex>
-        </a-col>
-        <a-col :xs="24" :sm="12" :lg="6">
-          <a-flex vertical gap="large">
-            <a-col>
-              <span @click="goTo('about')">About Us</span>
-            </a-col>
-            <a-col>
-              <span @click="goTo('terms')">Terms of use</span>
-            </a-col>
-            <a-col>
-              <span @click="goTo('privacy')">Privacy</span>
+              <span @click="goTo('wallets')">{{ t('footer.wallet') }}</span>
             </a-col>
           </a-flex>
         </a-col>
         <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
-              <a> {{ supportMail }}</a>
+              <span @click="goTo('about')">{{ t('footer.about_us') }}</span>
+            </a-col>
+            <a-col>
+              <span @click="goTo('terms')">{{ t('footer.terms') }}</span>
+            </a-col>
+            <a-col>
+              <span @click="goTo('privacy')">{{ t('footer.privacy') }}</span>
+            </a-col>
+          </a-flex>
+        </a-col>
+        <a-col :xs="24" :sm="12" :lg="6">
+          <a-flex vertical gap="large">
+            <a-col>
+              <a :href="`mailto:${supportMail}`"> {{ supportMail }}</a>
             </a-col>
             <a-col>
               <div class="centered">
                 <img :style="{ width: '20px' }" src="telegram.png" />
-                <a> Telegram </a>
+                <a :href="supportTelegram" target="_blank">
+                  {{ t('footer.telegram') }}
+                </a>
               </div>
             </a-col>
           </a-flex>
         </a-col>
       </a-row>
     </div>
-    <div class="reserved">Copyright 2017-2023 © Zalupa All Rights Reserved</div>
+    <div class="reserved">Copyright 2017-2024 © Zalupa All Rights Reserved</div>
   </div>
 </template>
 <script>
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 export default {
   setup() {
     const router = useRouter();
+    const { t } = useI18n();
     const goTo = (path = null) => {
       if (!path) return router.push('/');
       router.push(`/${path}`);
     };
     const supportMail = import.meta.env.VITE_BASE_SUPPORT_MAIL;
+    const supportTelegram = import.meta.env.VITE_BASE_TELEGRAM_SUPPORT;
     return {
       goTo,
       supportMail,
+      t,
+      supportTelegram,
     };
   },
 };

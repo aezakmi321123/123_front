@@ -13,7 +13,7 @@
               <a @click="routeToRegister">{{ t('signin.create') }}</a></span
             >
             |
-            <a @click="goToResetSend">Forgot Password</a>
+            <a @click="goToResetSend">{{ t('signin.forgot') }}</a>
           </div>
           <a-form layout="vertical" :model="formState" @finish="onFinish">
             <a-form-item

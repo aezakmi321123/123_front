@@ -20,12 +20,12 @@
           <a key="1" class="header__list-item" @click="goTo('exchange')"
             >{{ t('header.exchange') }}
           </a>
-          <a key="2" class="header__list-item" @click="goTo('terms')"
-            >Terms of use</a
-          >
-          <a key="3" class="header__list-item" @click="goTo('privacy')"
-            >Privacy</a
-          >
+          <a key="2" class="header__list-item" @click="goTo('terms')">{{
+            t('header.terms')
+          }}</a>
+          <a key="3" class="header__list-item" @click="goTo('privacy')">{{
+            t('header.privacy')
+          }}</a>
           <a key="4" class="header__list-item" @click="goTo('about')">{{
             t('header.about_us')
           }}</a>
@@ -120,11 +120,19 @@
         </div>
         <div class="drawer__item show-mobile">
           <FileSearchOutlined />
-          <span>{{ t('header.news') }}</span>
+          <span @click="goTo('terms')">{{ t('header.terms') }}</span>
         </div>
         <div class="drawer__item show-mobile">
-          <QuestionOutlined />
-          <span @click="goTo('privacy')">{{ t('header.about_us') }}</span>
+          <SafetyOutlined />
+          <span @click="goTo('privacy')">{{ t('header.privacy') }}</span>
+        </div>
+        <div class="drawer__item show-mobile">
+          <TeamOutlined />
+          <span @click="goTo('about')">{{ t('header.about_us') }}</span>
+        </div>
+        <div class="drawer__item show-mobile">
+          <InteractionOutlined />
+          <span @click="goTo('exchange')">{{ t('header.exchange') }}</span>
         </div>
         <div
           v-if="authStore.isLoggedIn"
@@ -150,10 +158,12 @@ import {
   FileSearchOutlined,
   HistoryOutlined,
   HomeOutlined,
+  InteractionOutlined,
   LogoutOutlined,
   MenuOutlined,
-  QuestionOutlined,
+  SafetyOutlined,
   SettingOutlined,
+  TeamOutlined,
   UserOutlined,
   WalletOutlined,
 } from '@ant-design/icons-vue';
@@ -180,8 +190,10 @@ export default {
     HistoryOutlined,
     HomeOutlined,
     FileSearchOutlined,
-    QuestionOutlined,
+    InteractionOutlined,
     MarqueeC,
+    SafetyOutlined,
+    TeamOutlined,
   },
   setup() {
     const { t, locale } = useI18n();
