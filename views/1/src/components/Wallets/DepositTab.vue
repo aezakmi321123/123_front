@@ -36,6 +36,9 @@
         v-model:value="depositForm.depositAmountSend"
         type="number"
       />
+      <div class="text-primary mt-3">
+        {{ $t('wallets.rate') }}: {{ currentRate * depositForm.depositAmountSend || 0.00 }}
+      </div>
     </a-form-item>
     <a-form-item name="depositCurrencyReceive" label="Value receive:">
       <CAutocomplete
@@ -65,6 +68,7 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { useCurrentRate } from '../../composables/useCurrentRate';
 import { useAuthStore } from '../../modules/auth.js';
 import { usePaymentStore } from '../../modules/payment.js';
 import CAutocomplete from '../../ui/CAutocomplete.vue';
@@ -151,6 +155,13 @@ export default {
       });
     };
 
+    const currentRate = computed(() =>
+      useCurrentRate(
+        depositForm.value.depositCurrencySend?.value,
+        depositForm.value.depositCurrencyReceive?.value,
+      ),
+    );
+
     return {
       options,
       depositForm,
@@ -158,6 +169,7 @@ export default {
       t,
       onFinish,
       payment,
+      currentRate
     };
   },
 };

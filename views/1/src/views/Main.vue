@@ -115,11 +115,11 @@
       </div>
       <div class="main__page-coins">
         <div class="coins">
-          <a-row justify="center" :gutter="[20, 0]">
-            <a-col :xs="20" :sm="16" :md="12">
+          <a-row justify="center" align="middle" :gutter="[30, 30]">
+            <a-col :span="24" :order="1" :lg="{span: 14, order: 0}">
               <CoinTable />
             </a-col>
-            <a-col :xs="20" :sm="8" :md="12">
+            <a-col :span="24" :order="0" :lg="{span: 10, order: 1}">
               <div class="text">
                 <div class="text-label">
                   Your access to the top coin markets

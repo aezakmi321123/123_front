@@ -63,7 +63,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useWalletStore } from '../modules/wallet.js';
-import CButton from '../ui/cbutton.vue';
+import CButton from './CButton.vue';
 import CoinInfo from './CoinInfo.vue';
 export default {
   components: {
@@ -71,6 +71,7 @@ export default {
     ArrowUpOutlined,
     ArrowDownOutlined,
   },
+emits: ['pushCoin'],
   setup(props, { emit }) {
     const { t } = useI18n();
     const router = useRouter();
