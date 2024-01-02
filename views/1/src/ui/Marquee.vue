@@ -1,5 +1,6 @@
 <template>
-  <Vue3Marquee :duration="40">
+  <a-spin :spinning="coinsLoading">
+    <Vue3Marquee :duration="40">
     <div class="coin__wrap">
       <div v-for="opt of options" :key="opt.value">
         <div class="coin">
@@ -15,7 +16,8 @@
               :style="{ width: '16px' }"
             />
           </span>
-          <span :class="['coin__text']">
+          <a-spin :spinning="getCoinData(opt).isLoading" size="small">
+            <span :class="['coin__text']">
             <span class="">{{ opt.value }}</span>
             <span :class="getCoinData(opt).class">{{
               getCoinData(opt).change
@@ -25,10 +27,12 @@
               <ArrowDownOutlined v-if="getCoinData(opt).icon === 'down'" />
             </span>
           </span>
+          </a-spin>
         </div>
       </div>
     </div>
   </Vue3Marquee>
+  </a-spin>
 </template>
 <script>
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons-vue';
@@ -50,6 +54,7 @@ export default {
         name: '',
         networks: [],
         type: '',
+        isLoading: true
       },
     ) => ({ label: name, value: abbr, networks, type });
     const socketCoinsData = computed(() => walletStore.wsData.coins);
@@ -61,6 +66,7 @@ export default {
           price: (parseFloat(record.coinQuantity) || 0).toFixed(6),
           icon: null,
           rate: 1,
+          isLoading: false
         };
       }
 
@@ -74,6 +80,7 @@ export default {
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'up',
+            isLoading: !currentData
           }
         : {
             change: `${currentData?.P.toString()}%`,
@@ -81,6 +88,7 @@ export default {
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'down',
+            isLoading: !currentData
           };
     };
     const options = computed(() =>
@@ -91,6 +99,7 @@ export default {
     return {
       options,
       getCoinData,
+      coinsLoading: walletStore.isLoading
     };
   },
 };
