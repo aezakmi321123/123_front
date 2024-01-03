@@ -4,6 +4,12 @@ import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 export default defineConfig({
   plugins: [vue(), eslintPlugin()],
+  resolve: {
+    alias: {
+      // Create an alias for images in the public folder
+      '@images': path.resolve(__dirname, 'public'),
+    },
+  },
   alias: [
     {
       find: '@',

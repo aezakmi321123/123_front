@@ -78,7 +78,7 @@
       </div>
       <div class="exchange__card-swap">
         <div class="img" @click="swapCoins">
-          <img height="20" width="20" src="../../public/replace.svg" />
+          <img height="20" width="20" src="@images/replace.svg" />
         </div>
       </div>
       <div class="exchange__card-receive">

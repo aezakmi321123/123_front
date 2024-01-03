@@ -14,7 +14,7 @@
                 </p>
               </a-col>
               <a-col :xs="0" :lg="24">
-                <img height="430" width="460" src="../../public/bank.png" />
+                <img height="430" width="460" src="@images/bank.png" />
               </a-col>
             </a-row>
           </a-col>
@@ -38,7 +38,7 @@
           <a-col :xs="24" :sm="12" :lg="6">
             <div class="feature">
               <div class="feature__image">
-                <img src="../../public/exchange.svg" />
+                <img src="@images/exchange.svg" />
               </div>
               <div class="feature__heading">
                 {{ t('main.optimal_exchange') }}
@@ -49,7 +49,7 @@
           <a-col :xs="24" :sm="12" :lg="6">
             <div class="feature">
               <div class="feature__image">
-                <img src="../../public/trust.svg" />
+                <img src="@images/trust.svg" />
               </div>
               <div class="feature__heading">{{ t('main.time_tested') }}</div>
               <div class="feature__paragraph">
@@ -60,7 +60,7 @@
           <a-col :xs="24" :sm="12" :lg="6">
             <div class="feature">
               <div class="feature__image">
-                <img src="../../public/portmone.svg" />
+                <img src="@images/portmone.svg" />
               </div>
               <div class="feature__heading">{{ t('main.save_money') }}</div>
               <div class="feature__paragraph">
@@ -71,7 +71,7 @@
           <a-col :xs="24" :sm="12" :lg="6">
             <div class="feature">
               <div class="feature__image">
-                <img src="../../public/timer.svg" />
+                <img src="@images/timer.svg" />
               </div>
               <div class="feature__heading">{{ t('main.delay') }}</div>
               <div class="feature__paragraph">
@@ -93,11 +93,7 @@
           </a-col>
 
           <a-col :xs="0" :lg="8">
-            <img
-              height="530"
-              width="510"
-              src="../../public/crypto-planet.png"
-            />
+            <img height="530" width="510" src="@images/crypto-planet.png" />
           </a-col>
         </a-row>
       </div>
@@ -106,13 +102,13 @@
           <h2>{{ t('main.partners') }}</h2>
           <a-row justify="center">
             <a-col :xs="24" :sm="12" :md="8">
-              <img src="../../public/Bestchange.svg" />
+              <img src="@images/Bestchange.svg" />
             </a-col>
             <a-col :xs="24" :sm="12" :md="8">
-              <img src="../../public/AMLBot.svg" />
+              <img src="@images/AMLBot.svg" />
             </a-col>
             <a-col :xs="24" :sm="12" :md="8">
-              <img src="../../public/PerfectMoney.svg" />
+              <img src="@images/PerfectMoney.svg" />
             </a-col>
           </a-row>
         </div>

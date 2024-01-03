@@ -14,7 +14,7 @@
             <img
               v-if="isBank.send"
               :style="{ width: '60px' }"
-              :src="`../../../public/${payment.currencyFrom.toLowerCase()}.svg`"
+              :src="`@images/${payment.currencyFrom.toLowerCase()}.svg`"
             />
             <CryptoIcon
               v-else
@@ -24,7 +24,7 @@
             <div v-if="isBank.send">
               <img
                 :style="{ width: '60px' }"
-                :src="`../../../public/${payment.networkFrom.toLowerCase()}.svg`"
+                :src="`@images/${payment.networkFrom.toLowerCase()}.svg`"
               />
             </div>
             <CRadioGroup v-else>
@@ -39,7 +39,7 @@
             <img
               v-if="isBank.receive"
               :style="{ width: '60px' }"
-              :src="`../../../public/${payment.currencyTo.toLowerCase()}.svg`"
+              :src="`@images/${payment.currencyTo.toLowerCase()}.svg`"
             />
             <CryptoIcon
               v-else
@@ -49,7 +49,7 @@
             <div v-if="isBank.receive">
               <img
                 :style="{ width: '60px' }"
-                :src="`../../../public/${payment.networkTo.toLowerCase()}.svg`"
+                :src="`@images/${payment.networkTo.toLowerCase()}.svg`"
               />
             </div>
             <CRadioGroup v-else>

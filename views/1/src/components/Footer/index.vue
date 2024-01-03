@@ -50,10 +50,7 @@
             </a-col>
             <a-col>
               <div class="centered">
-                <img
-                  :style="{ width: '20px' }"
-                  src="../../../public/telegram.png"
-                />
+                <img :style="{ width: '20px' }" src="@images/telegram.png" />
                 <a :href="supportTelegram" target="_blank">
                   {{ t('footer.telegram') }}
                 </a>

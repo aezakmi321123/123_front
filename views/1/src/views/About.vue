@@ -78,11 +78,7 @@
       <a-row :gutter="[40, 40]">
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
-            <a-image
-              :preview="false"
-              :width="100"
-              src="../../public/support.svg"
-            />
+            <a-image :preview="false" :width="100" src="@images/support.svg" />
             <div class="card__label">{{ t('about.card1_l') }}</div>
             <div class="card__p">
               {{ t('about.card1_p') }}
@@ -91,11 +87,7 @@
         </a-col>
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
-            <a-image
-              :preview="false"
-              :width="100"
-              src="../../public/secure.svg"
-            />
+            <a-image :preview="false" :width="100" src="@images/secure.svg" />
             <div class="card__label">{{ t('about.card2_l') }}</div>
             <div class="card__p">
               {{ t('about.card2_p') }}
@@ -104,7 +96,7 @@
         </a-col>
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
-            <a-image :preview="false" :width="100" src="../../public/use.svg" />
+            <a-image :preview="false" :width="100" src="@images/use.svg" />
             <div class="card__label">{{ t('about.card3_l') }}</div>
             <div class="card__p">
               {{ t('about.card3_p') }}
@@ -113,11 +105,7 @@
         </a-col>
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
-            <a-image
-              :preview="false"
-              :width="100"
-              src="../../public/fees.svg"
-            />
+            <a-image :preview="false" :width="100" src="@images/fees.svg" />
             <div class="card__label">{{ t('about.card4_l') }}</div>
             <div class="card__p">
               {{ t('about.card4_p') }}
@@ -126,11 +114,7 @@
         </a-col>
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
-            <a-image
-              :preview="false"
-              :width="100"
-              src="../../public/trusted.svg"
-            />
+            <a-image :preview="false" :width="100" src="@images/trusted.svg" />
             <div class="card__label">{{ t('about.card5_l') }}</div>
             <div class="card__p">
               {{ t('about.card5_p') }}
@@ -139,11 +123,7 @@
         </a-col>
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
-            <a-image
-              :preview="false"
-              :width="100"
-              src="../../public/privacy.svg"
-            />
+            <a-image :preview="false" :width="100" src="@images/privacy.svg" />
             <div class="card__label">{{ t('about.card6_l') }}</div>
             <div class="card__p">
               {{ t('about.card6_p') }}
