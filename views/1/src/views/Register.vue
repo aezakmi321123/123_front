@@ -164,7 +164,7 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth.js';
 import CAutocomplete from '../ui/CAutocomplete.vue';
-import CButton from '../ui/cbutton.vue';
+import CButton from '../ui/CButton.vue';
 import CInput from '../ui/CInput.vue';
 export default {
   components: {
