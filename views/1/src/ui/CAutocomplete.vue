@@ -11,7 +11,7 @@
         <img
           v-if="!country && type === 'fiat'"
           :style="{ width: '26px' }"
-          :src="`@images/${value.toLowerCase()}.svg`"
+          :src="`${value.toLowerCase()}.svg`"
         />
         <div>{{ country ? label : value }}</div>
       </div>

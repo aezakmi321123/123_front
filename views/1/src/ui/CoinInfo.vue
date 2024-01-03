@@ -5,7 +5,11 @@
       :size="40"
       :name="abbr.toLowerCase()"
     />
-    <img v-else :src="`${abbr.toLowerCase()}.svg`" :style="{ width: '40px' }" />
+    <img
+      v-else
+      :src="`@images/${abbr.toLowerCase()}.svg`"
+      :style="{ width: '40px' }"
+    />
     <a-flex vertical>
       <a-flex align="center" gap="3">
         <a-typography-text class="text-primary">{{ abbr }}</a-typography-text>

@@ -44,7 +44,7 @@ export default {
           { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
           [
             h('img', {
-              src: `@images/${el}.svg`,
+              src: `${el.toLowerCase()}.svg`,
               style: {
                 width: '26px',
                 height: '26px',

@@ -1,37 +1,37 @@
 <template>
   <a-spin :spinning="coinsLoading">
     <Vue3Marquee :duration="40">
-    <div class="coin__wrap">
-      <div v-for="opt of options" :key="opt.value">
-        <div class="coin">
-          <span class="icon__icon">
-            <CryptoIcon
-              v-if="opt.type === 'crypto'"
-              :size="16"
-              :name="opt.value.toLowerCase()"
-            />
-            <img
-              v-else
-              :src="`${opt.value.toLowerCase()}.svg`"
-              :style="{ width: '16px' }"
-            />
-          </span>
-          <a-spin :spinning="getCoinData(opt).isLoading" size="small">
-            <span :class="['coin__text']">
-            <span class="">{{ opt.value }}</span>
-            <span :class="getCoinData(opt).class">{{
-              getCoinData(opt).change
-            }}</span>
-            <span :class="getCoinData(opt).class">
-              <ArrowUpOutlined v-if="getCoinData(opt).icon === 'up'" />
-              <ArrowDownOutlined v-if="getCoinData(opt).icon === 'down'" />
+      <div class="coin__wrap">
+        <div v-for="opt of options" :key="opt.value">
+          <div class="coin">
+            <span class="icon__icon">
+              <CryptoIcon
+                v-if="opt.type === 'crypto'"
+                :size="16"
+                :name="opt.value.toLowerCase()"
+              />
+              <img
+                v-else
+                :src="`@images/${opt.value.toLowerCase()}.svg`"
+                :style="{ width: '16px' }"
+              />
             </span>
-          </span>
-          </a-spin>
+            <a-spin :spinning="getCoinData(opt).isLoading" size="small">
+              <span :class="['coin__text']">
+                <span class="">{{ opt.value }}</span>
+                <span :class="getCoinData(opt).class">{{
+                  getCoinData(opt).change
+                }}</span>
+                <span :class="getCoinData(opt).class">
+                  <ArrowUpOutlined v-if="getCoinData(opt).icon === 'up'" />
+                  <ArrowDownOutlined v-if="getCoinData(opt).icon === 'down'" />
+                </span>
+              </span>
+            </a-spin>
+          </div>
         </div>
       </div>
-    </div>
-  </Vue3Marquee>
+    </Vue3Marquee>
   </a-spin>
 </template>
 <script>
@@ -54,7 +54,7 @@ export default {
         name: '',
         networks: [],
         type: '',
-        isLoading: true
+        isLoading: true,
       },
     ) => ({ label: name, value: abbr, networks, type });
     const socketCoinsData = computed(() => walletStore.wsData.coins);
@@ -66,7 +66,7 @@ export default {
           price: (parseFloat(record.coinQuantity) || 0).toFixed(6),
           icon: null,
           rate: 1,
-          isLoading: false
+          isLoading: false,
         };
       }
 
@@ -80,7 +80,7 @@ export default {
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'up',
-            isLoading: !currentData
+            isLoading: !currentData,
           }
         : {
             change: `${currentData?.P.toString()}%`,
@@ -88,7 +88,7 @@ export default {
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'down',
-            isLoading: !currentData
+            isLoading: !currentData,
           };
     };
     const options = computed(() =>
@@ -99,7 +99,7 @@ export default {
     return {
       options,
       getCoinData,
-      coinsLoading: walletStore.isLoading
+      coinsLoading: walletStore.isLoading,
     };
   },
 };

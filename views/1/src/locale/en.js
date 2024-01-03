@@ -354,6 +354,7 @@ export default {
     If you have any queries on this Privacy Policy or any other queries in relation to how we may manage, protect and/or process your personal data, please do not hesitate to contact our Data Protection Officer at <a href="href="mailto:${
       import.meta.env.VITE_SUPPORT_MAIL
     }"">support@${import.meta.env.VITE_BASE_URL}</a>.</p>
+    
   `,
   terms: `
     <p>
