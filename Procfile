@@ -1,1 +1,1 @@
-web: node server.js
+web: cd app/views/1 && node start.js
