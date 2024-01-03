@@ -147,7 +147,7 @@
       </a-col>
       <a-col :xs="0" :lg="10" :xl="12">
         <div class="auth__image">
-          <img :style="{ width: '100%' }" src="wow.png" />
+          <img :style="{ width: '100%' }" src="../../public/wow.png" />
         </div>
       </a-col>
     </a-row>
@@ -207,7 +207,7 @@ export default {
           el => formState.countryCode === el.countryCodes[0],
         ).country,
       };
-      authStore.signUp(data).then(() => router.push({ path: '/wallets' }))
+      authStore.signUp(data).then(() => router.push({ path: '/wallets' }));
     };
     const routeToLogin = () => {
       router.push({ path: '/login' });

@@ -78,7 +78,7 @@
       </div>
       <div class="exchange__card-swap">
         <div class="img" @click="swapCoins">
-          <img height="20" width="20" src="replace.svg" />
+          <img height="20" width="20" src="../../public/replace.svg" />
         </div>
       </div>
       <div class="exchange__card-receive">
@@ -327,14 +327,23 @@ export default {
     const swapCoins = () => {
       const prevReceiveValue = { ...exchangeForm.value.valueReceive };
 
-      const getNetworkIndex = (networks = [] ,valueToFind) => {
-        return Math.max(mapNetworks((networks)).findIndex(value => value === valueToFind), 0)
-      }
+      const getNetworkIndex = (networks = [], valueToFind) => {
+        return Math.max(
+          mapNetworks(networks).findIndex(value => value === valueToFind),
+          0,
+        );
+      };
 
       networksIndexes.value = {
-        send:  getNetworkIndex(exchangeForm.value.valueReceive.networks, exchangeForm.value.valueReceiveNetwork),
-        receive: getNetworkIndex(exchangeForm.value.valueSend.networks, exchangeForm.value.valueSendNetwork)
-      }
+        send: getNetworkIndex(
+          exchangeForm.value.valueReceive.networks,
+          exchangeForm.value.valueReceiveNetwork,
+        ),
+        receive: getNetworkIndex(
+          exchangeForm.value.valueSend.networks,
+          exchangeForm.value.valueSendNetwork,
+        ),
+      };
 
       exchangeForm.value.valueReceive = { ...exchangeForm.value.valueSend };
       exchangeForm.value.valueSend = { ...prevReceiveValue };
@@ -395,7 +404,8 @@ export default {
           pendingExchange.valueNumberSend ||
           authStore?.user?.coins?.find?.(
             ({ abbr }) => abbr === exchangeForm.value.valueSend.value,
-          )?.coinQuantity || exchangeForm.value.valueNumberSend ||
+          )?.coinQuantity ||
+          exchangeForm.value.valueNumberSend ||
           0;
 
         exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
@@ -407,9 +417,10 @@ export default {
           exchangeForm.value.valueSend.networks || [],
         );
         exchangeForm.value.sendNetworks = transformedNetworks;
-        exchangeForm.value.valueSendNetwork = transformedNetworks?.[networksIndexes.value.send];
+        exchangeForm.value.valueSendNetwork =
+          transformedNetworks?.[networksIndexes.value.send];
 
-        networksIndexes.value.send = 0
+        networksIndexes.value.send = 0;
       },
       { immediate: true, deep: true },
     );
@@ -426,9 +437,10 @@ export default {
           exchangeForm.value.valueReceive.networks || [],
         );
         exchangeForm.value.receiveNetworks = transformedNetworks;
-        exchangeForm.value.valueReceiveNetwork = transformedNetworks?.[networksIndexes.value.receive];
+        exchangeForm.value.valueReceiveNetwork =
+          transformedNetworks?.[networksIndexes.value.receive];
 
-        networksIndexes.value.receive = 0
+        networksIndexes.value.receive = 0;
       },
       { immediate: true, deep: true },
     );

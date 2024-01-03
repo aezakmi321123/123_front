@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix ./src"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix ./src",
+    "start": "node serve.js"
   },
   "dependencies": {
     "@cryptofonts/cryptofont": "^1.3.5",
@@ -20,6 +21,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-vue": "^9.17.0",
     "eterex-crypto-icons": "^0.1.6",
+    "express": "^4.18.2",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "maska": "^2.1.10",
