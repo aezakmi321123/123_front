@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/reset-send',
     name: 'ResetSend',
-    component: async () => await import('../views/EMailSend.vue'),
+    component: async () => await import('../views/EmailSend.vue'),
     meta: {
       requiresAuth: false,
     },
