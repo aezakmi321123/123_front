@@ -108,7 +108,7 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth.js';
-import CButton from '../ui/Cbutton.vue';
+import CButton from '../ui/CButton.vue';
 import CInput from '../ui/CInput.vue';
 export default {
   components: {
