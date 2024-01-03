@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth';
-const Home = () => import('../views/Main.vue');
-const Login = () => import('../views/Login.vue');
-const Register = () => import('../views/Register.vue');
-const Settings = () => import('../views/Settings.vue');
-const EMailSend = () => import('../views/EmailSend.vue');
-const ForgotPassword = () => import('../views/ForgotPassword.vue');
-const Exchange = () => import('../views/Exchange.vue');
-const Wallets = () => import('../views/Wallets.vue');
-const Payment = () => import('../views/Payment.vue');
-const Privacy = () => import('../views/Privacy.vue');
-const Terms = () => import('../views/Terms.vue');
-const About = () => import('../views/About.vue');
-const History = () => import('../views/History.vue');
+// const Home = () => import('../views/Main.vue');
+// const Login = () => import('../views/Login.vue');
+// const Register = () => import('../views/Register.vue');
+// const Settings = () => import('../views/Settings.vue');
+// const EMailSend = () => import('../views/EmailSend.vue');
+// const ForgotPassword = () => import('../views/ForgotPassword.vue');
+// const Exchange = () => import('../views/Exchange.vue');
+// const Wallets = () => import('../views/Wallets.vue');
+// const Payment = () => import('../views/Payment.vue');
+// // const Privacy = async () => await import('../views/Privacy.vue');
+// const Terms = () => import('../views/Terms.vue');
+// const About = () => import('../views/About.vue');
+// const History = () => import('../views/History.vue');
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: async () => await import('../views/Main.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -26,7 +26,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: async () => await import('../views/Login.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -34,7 +34,7 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: async () => await import('../views/Register.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -42,7 +42,7 @@ const routes = [
   {
     path: '/settings',
     name: 'Settings',
-    component: Settings,
+    component: async () => await import('../views/Settings.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -50,7 +50,7 @@ const routes = [
   {
     path: '/reset-send',
     name: 'ResetSend',
-    component: EMailSend,
+    component: async () => await import('../views/EMailSend.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -58,7 +58,7 @@ const routes = [
   {
     path: '/forgotPassword',
     name: 'ForgotPassword',
-    component: ForgotPassword,
+    component: async () => await import('../views/ForgotPassword.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -66,7 +66,7 @@ const routes = [
   {
     path: '/wallets',
     name: 'Wallets',
-    component: Wallets,
+    component: async () => await import('../views/Wallets.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -74,7 +74,7 @@ const routes = [
   {
     path: '/exchange',
     name: 'Exchange',
-    component: Exchange,
+    component: async () => await import('../views/Exchange.vue'),
     meta: {
       requiresAuth: true,
     },
@@ -82,7 +82,7 @@ const routes = [
   {
     path: '/payment/:id',
     name: 'Payment',
-    component: Payment,
+    component: async () => await import('../views/Payment.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -90,7 +90,7 @@ const routes = [
   {
     path: '/privacy',
     name: 'Privacy',
-    component: Privacy,
+    component: async () => await import('../views/Privacy.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -98,7 +98,7 @@ const routes = [
   {
     path: '/terms',
     name: 'Terms',
-    component: Terms,
+    component: async () => await import('../views/Terms.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -106,7 +106,7 @@ const routes = [
   {
     path: '/about',
     name: 'about',
-    component: About,
+    component: async () => await import('../views/About.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -114,7 +114,7 @@ const routes = [
   {
     path: '/history',
     name: 'history',
-    component: History,
+    component: async () => await import('../views/History.vue'),
     meta: {
       requiresAuth: true,
     },
