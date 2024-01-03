@@ -1,1 +1,1 @@
-web: node views/1/start.cjs
+web: node views/1/server.cjs
