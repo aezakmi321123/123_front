@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "heroku-prebuild": "cd app/views/1 && yarn && yarn build"
+    "heroku-prebuild": "cd views/1 && yarn && yarn build"
   },
   "dependencies": {
     "express": "^4.18.2"
