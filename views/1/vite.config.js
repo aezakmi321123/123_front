@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       // Create an alias for images in the public folder
-      '@images': path.resolve(__dirname, 'public'),
+      '@images': path.resolve(__dirname, 'src/assets/icons'),
     },
   },
   alias: [
