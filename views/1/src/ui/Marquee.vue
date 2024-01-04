@@ -36,6 +36,7 @@
 </template>
 <script>
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons-vue';
+import CryptoIcon from 'eterex-crypto-icons';
 import { computed } from 'vue';
 import { Vue3Marquee } from 'vue3-marquee';
 
@@ -45,6 +46,7 @@ export default {
     Vue3Marquee,
     ArrowDownOutlined,
     ArrowUpOutlined,
+    CryptoIcon,
   },
   setup() {
     const walletStore = useWalletStore();
