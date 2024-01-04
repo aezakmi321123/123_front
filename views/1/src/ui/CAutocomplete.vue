@@ -40,6 +40,13 @@ export default {
 .ant-select-arrow .anticon:not(.ant-select-suffix) {
   pointer-events: none !important;
 }
+.ant-select-selection-item {
+  font-size: 20px !important;
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+  display: flex;
+  align-items: center;
+}
 .c-autocomplete {
   .ant-input {
     font-size: 20px !important;

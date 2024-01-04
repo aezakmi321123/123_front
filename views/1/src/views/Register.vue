@@ -186,7 +186,7 @@ export default {
         phone: '',
       },
       captcha: '',
-      countryCode: '',
+      countryCode: import.meta.env.VITE_BASE_DEFAULT_COUNTRY_CODE,
     });
 
     const router = useRouter();
