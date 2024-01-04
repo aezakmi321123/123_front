@@ -104,4 +104,7 @@ export default {
   align-items: center;
   gap: 10px;
 }
+.ant-select-arrow .anticon:not(.ant-select-suffix) {
+  pointer-events: none !important;
+}
 </style>

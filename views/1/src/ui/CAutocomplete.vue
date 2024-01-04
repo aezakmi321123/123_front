@@ -37,6 +37,9 @@ export default {
 </script>
 <style lang="scss">
 /* clears the ‘X’ from Internet Explorer */
+.ant-select-arrow .anticon:not(.ant-select-suffix) {
+  pointer-events: none !important;
+}
 .c-autocomplete {
   .ant-input {
     font-size: 20px !important;
