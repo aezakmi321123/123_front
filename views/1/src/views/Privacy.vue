@@ -1,14 +1,15 @@
 <template>
-  <div class="container privacy" v-html="text"></div>
+  <div class="container privacy">
+    <div v-html="t('privacy')"></div>
+    <div v-html="t('privacy2')"></div>
+  </div>
 </template>
 <script>
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 export default {
   setup() {
     const { t } = useI18n();
-    const text = computed(() => `${t('privacy')}${t('privacy2')}`);
-    return { t, text };
+    return { t };
   },
 };
 </script>
