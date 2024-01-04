@@ -227,40 +227,6 @@ export default {
       import.meta.env.VITE_BASE_URL
     } or that of its affiliates/related corporations;\n
     (s)to create reports with respect to our transactions with you, and/or producing statistics and research of such transactions for internal and/or statutory reporting and/or record-keeping requirements;\n
-    (t)dealing with and/or facilitating a business asset transaction or a potential business asset transaction, where such transaction involves ${
-      import.meta.env.VITE_BASE_URL
-    } as a participant or involves only a related corporation or affiliated company of ${
-    import.meta.env.VITE_BASE_URL
-  } as a participant or involves ${
-    import.meta.env.VITE_BASE_URL
-  } and/or any one or more of ${
-    import.meta.env.VITE_BASE_URL
-  }’s related corporations or affiliated companies as participant(s), and there may be other third party organisations who are participants in such transaction. “business asset transaction” means the purchase, sale, lease, merger or amalgamation or any other acquisition, disposal or financing of an organisation or a portion of an organisation or of any of the business or assets of an organisation;\n
-    (u)anonymization of your personal data. In this regard, you acknowledge that personal data that has been anonymized is no longer personal data and the requirements of applicable local data protection law (i.e. the DPA) would no longer apply to such anonymized data;\n
-    (v)${import.meta.env.VITE_BASE_URL}, ${
-    import.meta.env.VITE_BASE_URL
-  } Group Companies’ reporting purposes including but not limited to reporting on ${
-    import.meta.env.VITE_BASE_URL
-  }’s business performance (“${
-    import.meta.env.VITE_BASE_URL
-  } Group Companies” means ${
-    import.meta.env.VITE_BASE_URL
-  }, its affiliates, related corporations and associated companies globally); including producing statistics and research for internal and/or statutory reporting and/or record-keeping requirements, of ${
-    import.meta.env.VITE_BASE_URL
-  } or of its affiliates/related corporations; and/or
-    (the purposes set out above shall be collectively referred to as the “Purposes”).\n
-    18.${
-      import.meta.env.VITE_BASE_URL
-    } may/will need to disclose your personal data to third parties, whether located within or outside United States of America, for one or more of the above Purposes, as such third parties, would be processing your personal data for one or more of the above Purposes. In this regard, you hereby acknowledge, agree and consent that we may/are permitted to disclose your personal data to such third parties (whether located within or outside United States of America) for one or more of the above Purposes and for the said third parties to subsequently collect, use, disclose and/or process your personal data for one or more of the above Purposes. Without limiting the generality of the foregoing or of paragraph 17, such third parties include:\n
-    (a)our associated or affiliated organisations or related corporations;\n
-    (b)any of our agents, contractors or third party service providers that process or will be processing your personal data on our behalf including but not limited to those which provide administrative or other services to us such as mailing houses, telecommunication companies, information technology companies and data centres;\n
-    (c)third parties to whom disclosure by us is for one or more of the Purposes and such third parties would in turn be collecting and processing your personal data for one or more of the Purposes.\n
-    19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at <a href="href="mailto:${
-      import.meta.env.VITE_SUPPORT_MAIL
-    }"">support@${
-    import.meta.env.VITE_BASE_URL
-  }</a>. We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
-  
   `,
   terms: `
     <p>
