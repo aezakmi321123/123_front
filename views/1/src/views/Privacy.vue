@@ -1,8 +1,5 @@
 <template>
-  <div class="container privacy">
-    <div v-html="t('privacy')"></div>
-    <div v-html="t('privacy2')"></div>
-  </div>
+  <div class="container privacy" v-html="t('privacy')"></div>
 </template>
 <script>
 import { useI18n } from 'vue-i18n';
