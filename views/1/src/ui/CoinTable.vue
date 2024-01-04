@@ -260,21 +260,11 @@ export default {
   border-bottom: 1px solid var(--bg-base) !important;
 }
 .ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
-  background: var(--bg-input) !important;
+  background: var(--bg-select) !important;
 }
 .ant-table-thead > tr > th {
   background: var(--button-primary) !important;
   color: var(--text-link) !important;
-}
-:where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
-  .ant-table-tbody
-  > tr.ant-table-row:hover
-  > td,
-:where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
-  .ant-table-tbody
-  > tr
-  > td.ant-table-cell-row-hover {
-  background: var(--bg-select);
 }
 .ant-table-tbody > tr > td {
   cursor: pointer;
@@ -283,6 +273,15 @@ export default {
 }
 .ant-table {
   background: var(--bg-input) !important;
+}
+.ant-table-row.ant-table-row-level-0.active {
+  background: var(--bg-select) !important;
+}
+.ant-table-wrapper
+  .ant-table-tbody
+  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+  > td {
+  background: var(--bg-select) !important;
 }
 .ant-table-cell {
   background: var(--bg-input) !important;
