@@ -75,7 +75,7 @@ export default {
 
       return currentData?.P?.indexOf?.('-')
         ? {
-            change: `+${currentData?.P.toString()}%`,
+            change: `+${(currentData?.P || 0).toString()}%`,
             class: 'text-green',
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
@@ -83,7 +83,7 @@ export default {
             isLoading: !currentData,
           }
         : {
-            change: `${currentData?.P.toString()}%`,
+            change: `${(currentData?.P || 0).toString()}%`,
             class: 'text-red',
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
