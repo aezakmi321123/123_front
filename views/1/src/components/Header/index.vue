@@ -116,7 +116,7 @@
         </div>
         <div class="drawer__item show-mobile">
           <HomeOutlined />
-          <span>{{ t('header.homepage') }}</span>
+          <span @click="goTo('')">{{ t('header.homepage') }}</span>
         </div>
         <div class="drawer__item show-mobile">
           <FileSearchOutlined />
@@ -167,9 +167,9 @@ import {
   UserOutlined,
   WalletOutlined,
 } from '@ant-design/icons-vue';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { useAuthStore } from '../../modules/auth.js';
 import CButton from '../../ui/CButton.vue';
@@ -199,6 +199,8 @@ export default {
     const { t, locale } = useI18n();
     const authStore = useAuthStore();
     const router = useRouter();
+    const route = useRoute();
+
     const openMobile = ref(false);
     const lang = ref('en');
     const drawer = ref(false);
@@ -212,6 +214,11 @@ export default {
         drawer.value = false;
       }
     };
+    watch(
+      () => route.fullPath,
+      () => (drawer.value = false),
+      { deep: true },
+    );
     const languages = computed(() =>
       ['en', 'ru'].map(el => ({ label: el, value: el })),
     );
