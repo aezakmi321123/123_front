@@ -197,7 +197,7 @@ export default {
   (b)any of our agents, contractors or third party service providers that process or will be processing your personal data on our behalf including but not limited to those which provide administrative or other services to us such as mailing houses, telecommunication companies, information technology companies and data centres;\n
   (c)third parties to whom disclosure by us is for one or more of the Purposes and such third parties would in turn be collecting and processing your personal data for one or more of the Purposes.\n
   19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at <a href="href="mailto:${
-    import.meta.env.VITE_SUPPORT_MAIL
+    import.meta.env.VITE_BASE_SUPPORT_MAIL
   }"">support@${
     import.meta.env.VITE_BASE_URL
   }</a>. We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
