@@ -300,9 +300,7 @@ export default {
     (b)any of our agents, contractors or third party service providers that process or will be processing your personal data on our behalf including but not limited to those which provide administrative or other services to us such as mailing houses, telecommunication companies, information technology companies and data centres;\n
     (c)third parties to whom disclosure by us is for one or more of the Purposes and such third parties would in turn be collecting and processing your personal data for one or more of the Purposes.\n
     19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at 
-    <a>support@${
-      import.meta.env.VITE_BASE_URL
-    }</a>.We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
+  We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
     20.We may collect, use, disclose or process your personal data for other purposes that do not appear above. However, we will notify you of such other purpose at the time of obtaining your consent, unless processing of your personal data without your consent is permitted by the DPA or by law.\n
     21.We may/will also be collecting from sources other than yourself, personal data about you, for one or more of the above Purposes, and thereafter using, disclosing and/or processing such personal data for one or more of the above Purposes. We may combine information we receive from other sources with information you give to us and information we collect about you. We may use this information and the combined information for the Purposes set out above (depending on the types of information we receive).\n
     </p>\n
@@ -318,12 +316,8 @@ export default {
     </p>
     <h2>Rights</h2>\n
     <p>
-    26.You have the right to ask us not to use your personal data for marketing purposes. Please let us know if you want to withdraw your consent by emailing us at <a>support@${
-      import.meta.env.VITE_BASE_URL
-    }</a>.\n
-    27.You have the right to access and/or correct any personal data that we hold about you, subject to exceptions under the law. This right can be exercised at any time by emailing us at <a>support@${
-      import.meta.env.VITE_BASE_URL
-    }</a>. We will need enough information from you in order to ascertain your identity as well as the nature of your request, so as to be able to deal with your request. With respect to your access request, we may charge a fee in order to process it.\n
+    26.You have the right to ask us not to use your personal data for marketing purposes. Please let us know if you want to withdraw your consent by emailing us at \n
+    27.You have the right to access and/or correct any personal data that we hold about you, subject to exceptions under the law. This right can be exercised at any time by emailing us at . We will need enough information from you in order to ascertain your identity as well as the nature of your request, so as to be able to deal with your request. With respect to your access request, we may charge a fee in order to process it.\n
     28.For a request to access personal data, once we have sufficient information from you to deal with the request, we will seek to provide you with the relevant personal data within 30 days. Where we are unable to respond to you within the said 30 days, we will notify you of the soonest possible time within which we can provide you with the information requested.\n
     29.For a request to correct personal data, once we have sufficient information from you to deal with the request, we will correct your personal data within 30 days. Where we are unable to do so within the said 30 days, we will notify you of the soonest practicable time within which we can make the correction. We will send the corrected personal data to every other organization to which the personal data was disclosed by us within a year before the date the correction was made, unless that other organization does not need the corrected personal data for any legal or business purpose.\n
     30.We hold and deal with your data in accordance with the DPA.\n
@@ -331,9 +325,7 @@ export default {
     <h2>Complaint Process</h2>\n
     <p>
     31.If you have any complaint or grievance regarding about how we are handling your personal data or about how we are complying with the DPA (when in force), we welcome you to contact us with your complaint or grievance.\n
-    32.Please contact us with your complaint or grievance by emailing us at <a >support@${
-      import.meta.env.VITE_BASE_URL
-    }</a>.\n
+    32.Please contact us with your complaint or grievance by emailing us at .\n
     33.Where you are sending an email in which you are submitting a complaint, your indication at the subject header that it is a DPA complaint would assist us in attending to your complaint speedily by passing it on to the relevant staff in our organization to handle. For example, you could insert the subject header as “DPA Complaint”.\n
     34.We will certainly strive to deal with any complaint or grievance that you may have speedily and fairly.</p>\n
     <h2>Changes to this privacy policy</h2>\n
@@ -348,9 +340,7 @@ export default {
       import.meta.env.VITE_BASE_URL
     } with regard to processing of your personal data.\n
     38.For the avoidance of doubt, in the event that United States of America data protection law permits an organisation such as us to collect, use or disclose your personal data without your consent, such permission granted by the law shall continue to apply.\n
-    If you have any queries on this Privacy Policy or any other queries in relation to how we may manage, protect and/or process your personal data, please do not hesitate to contact our Data Protection Officer at <a>support@${
-      import.meta.env.VITE_BASE_URL
-    }</a>.</p>
+    If you have any queries on this Privacy Policy or any other queries in relation to how we may manage, protect and/or process your personal data, please do not hesitate to contact our Data Protection Officer at .</p>
   `,
   terms: `
     <p>
