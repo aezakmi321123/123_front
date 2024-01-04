@@ -1,12 +1,13 @@
 <template>
-  <div class="container privacy" v-html="t('privacy')"></div>
+  <div class="container privacy" v-html="t('privacy', { mail })"></div>
 </template>
 <script>
 import { useI18n } from 'vue-i18n';
 export default {
   setup() {
+    const mail = import.meta.env.VITE_BASE_SUPPORT_MAIL;
     const { t } = useI18n();
-    return { t };
+    return { t, mail };
   },
 };
 </script>
