@@ -7,7 +7,7 @@ import { useI18n } from 'vue-i18n';
 export default {
   setup() {
     const { t } = useI18n();
-    const text = computed(() => t('privacy'));
+    const text = computed(() => `${t('privacy')}${t('privacy2')}`);
     return { t, text };
   },
 };
