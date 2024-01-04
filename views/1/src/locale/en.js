@@ -190,43 +190,41 @@ export default {
     },
   },
   privacy: `
-    17.${
-      import.meta.env.VITE_BASE_URL
-    } will/may collect, use, disclose and/or process your personal data for one or more of the following purposes:\n
-    (a)administering, facilitating, processing and/or dealing in any matters relating to your use or access of the Site, including identifying you for login to the Site, our portals and other online services provided by or on behalf of us;\n
-    (b)monitoring, processing and/or tracking your use of the Site in order to provide you with a seamless experience, facilitating or administering your use of the Site, and/or to assist us in improving your experience in using the Site;\n
-    (c)assessing and processing your request for the purchase of and/or subscription to our products and/or services;\n
-    (d)registering you as a customer of ${
-      import.meta.env.VITE_BASE_URL
-    } and/or to deal with, process and/or administer the account that you may open with us, whether a membership account or otherwise, including to facilitate your transactions or activities on the Site, or your transactions or activities with us;\n
-    (e)administering, facilitating, processing and/or dealing with your relationship with us, any transactions or activities carried out by you on the Site or with us. This includes processing your application, orders and payment transactions; implementing transactions and the supply of products and/or services to you that you have requested;\n
-    (f)carrying out your instructions or responding to any enquiry given by (or purported to be given by) you or on your behalf including responding to your enquiries and complaints; or responding to or dealing with your interactions with us;\n
-    (g)contacting you or communicating with you via phone/voice call, text message and/or fax message, email and/or postal mail for the purposes of administering and/or managing your use of the Site, your membership and/or account with us, your relationship with us or any transactions made by you with us. You acknowledge and agree that such communication by us could be by way of the mailing of correspondence, documents or notices to you, which could involve disclosure of certain personal data about you to bring about delivery of the same as well as on the external cover of envelopes/mail packages;\n
-    (h)providing services to you as our account holder, as our customer, or when requested by you; dealing with or administering your participation in contests, gamification, social events organized by us;\n
-    (i)understanding your interests, concerns and preferences;\n
-    (j)identifying you and assisting you in your use of our products, services and website services;\n
-    (k)for marketing purpose and in this regard, we would be providing you with marketing, advertising and promotional information, materials and/or documents relating to products, contests, services and/or events (including those of third party organisations with which ${
-      import.meta.env.VITE_BASE_URL
-    } may collaborate with) that ${
-    import.meta.env.VITE_BASE_URL
-  } (including its affiliates/related corporations) or such third party organisations may be selling, marketing, offering, organizing, involved in or promoting, whether such products, services and/or events exist now or are created in the future:\n
-    (i)by way of postal mail, electronic transmission to your email address(es), and/or through other modes of communication that is not the 3 DNC Modes, in compliance with applicable local data protection law (i.e. the DPA). You may opt out of this or withdraw from this at any time by sending an email to our Data Protection Officer. For the avoidance of doubt, the application of or your acceptance of or your consent to, this Privacy Policy, constitutes your consent to this subparagraph (i);\n
-    (ii)if you have separately expressly consented to one or more of the following 3 DNC Modes, by way of the 3 modes of communications of voice calls, text messages or faxes (the “3 DNC Modes”) to your telephone number, in compliance with the requirements of applicable local data protection law (i.e. the DPA); and/or\n
-    (iii)Notwithstanding (ii) above, regardless that you have not separately provided express consent as aforementioned in (ii) above, ${
-      import.meta.env.VITE_BASE_URL
-    } reserves its right to send a specified fax message and/or a specified text message (i.e. a marketing fax message or marketing text message) to your telephone number, to which ${
-    import.meta.env.VITE_BASE_URL
-  } reserves the right for final interpretation;\n
-    (l)carrying out due diligence or other screening activities (including background checks) in accordance with legal or regulatory obligations (whether United States of America or foreign country) applicable to us or our affiliates/associated companies, the requirements or guidelines of governmental authorities (whether United States of America or foreign country) which we determine are applicable to us or our affiliates/associated companies, and/or our risk management procedures that may be required by law (whether United States of America or foreign country) or that may have been put in place by us or our affiliates/associated companies;\n
-    (m)to prevent or investigate any fraud, unlawful activity or omission or misconduct, whether or not there is any suspicion of the aforementioned; dealing with conflict of interests; or dealing with and/or investigating complaints;\n
-    (n)complying with or as required by any applicable law, court order, order of a regulatory body, governmental or regulatory requirements, of any jurisdiction applicable to us or our affiliates/associated companies, including meeting the requirements to make disclosure under the requirements of any law binding on us or our affiliates/associated companies, and/or for the purposes of any guidelines issued by regulatory or other authorities (whether of United States of America or elsewhere), with which we or our affiliates/associated companies are expected to comply;\n
-    (o)complying with or as required by any request or direction of any governmental authority (whether United States of America or foreign country) which we are expected to comply with; or responding to requests for information from public agencies, ministries, statutory boards or other similar authorities (whether United States of America or foreign country). For the avoidance of doubt, this means that we may/will disclose your personal data to such parties upon their request or direction;\n
-    (p)conducting research (including customer research), surveys, market surveys, analysis and/or development activities (including but not limited to data analytics, surveys and/or profiling) to improve our services and facilities, or to improve our understanding of your interests, concerns and preferences, in order to enhance any continued interaction between yourself and us connected or in relation to the Site, or improve any of our products or services;\n
-    (q)storing, hosting, backing up (whether for disaster recovery or otherwise) of your personal data, whether within or outside United States of America;\n
-    (r)facilitating, dealing with and/or administering external audit(s) or internal audit(s) of the business of ${
-      import.meta.env.VITE_BASE_URL
-    } or that of its affiliates/related corporations;\n
     (s)to create reports with respect to our transactions with you, and/or producing statistics and research of such transactions for internal and/or statutory reporting and/or record-keeping requirements;\n
+    (t)dealing with and/or facilitating a business asset transaction or a potential business asset transaction, where such transaction involves ${
+      import.meta.env.VITE_BASE_URL
+    } as a participant or involves only a related corporation or affiliated company of ${
+    import.meta.env.VITE_BASE_URL
+  } as a participant or involves ${
+    import.meta.env.VITE_BASE_URL
+  } and/or any one or more of ${
+    import.meta.env.VITE_BASE_URL
+  }’s related corporations or affiliated companies as participant(s), and there may be other third party organisations who are participants in such transaction. “business asset transaction” means the purchase, sale, lease, merger or amalgamation or any other acquisition, disposal or financing of an organisation or a portion of an organisation or of any of the business or assets of an organisation;\n
+    (u)anonymization of your personal data. In this regard, you acknowledge that personal data that has been anonymized is no longer personal data and the requirements of applicable local data protection law (i.e. the DPA) would no longer apply to such anonymized data;\n
+    (v)${import.meta.env.VITE_BASE_URL}, ${
+    import.meta.env.VITE_BASE_URL
+  } Group Companies’ reporting purposes including but not limited to reporting on ${
+    import.meta.env.VITE_BASE_URL
+  }’s business performance (“${
+    import.meta.env.VITE_BASE_URL
+  } Group Companies” means ${
+    import.meta.env.VITE_BASE_URL
+  }, its affiliates, related corporations and associated companies globally); including producing statistics and research for internal and/or statutory reporting and/or record-keeping requirements, of ${
+    import.meta.env.VITE_BASE_URL
+  } or of its affiliates/related corporations; and/or
+    (the purposes set out above shall be collectively referred to as the “Purposes”).\n
+    18.${
+      import.meta.env.VITE_BASE_URL
+    } may/will need to disclose your personal data to third parties, whether located within or outside United States of America, for one or more of the above Purposes, as such third parties, would be processing your personal data for one or more of the above Purposes. In this regard, you hereby acknowledge, agree and consent that we may/are permitted to disclose your personal data to such third parties (whether located within or outside United States of America) for one or more of the above Purposes and for the said third parties to subsequently collect, use, disclose and/or process your personal data for one or more of the above Purposes. Without limiting the generality of the foregoing or of paragraph 17, such third parties include:\n
+    (a)our associated or affiliated organisations or related corporations;\n
+    (b)any of our agents, contractors or third party service providers that process or will be processing your personal data on our behalf including but not limited to those which provide administrative or other services to us such as mailing houses, telecommunication companies, information technology companies and data centres;\n
+    (c)third parties to whom disclosure by us is for one or more of the Purposes and such third parties would in turn be collecting and processing your personal data for one or more of the Purposes.\n
+    19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at <a href="href="mailto:${
+      import.meta.env.VITE_SUPPORT_MAIL
+    }"">support@${
+    import.meta.env.VITE_BASE_URL
+  }</a>. We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
+  
   `,
   terms: `
     <p>
