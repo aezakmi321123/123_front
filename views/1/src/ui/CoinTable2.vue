@@ -71,7 +71,7 @@ export default {
     ArrowUpOutlined,
     ArrowDownOutlined,
   },
-emits: ['pushCoin'],
+  emits: ['pushCoin'],
   setup(props, { emit }) {
     const { t } = useI18n();
     const router = useRouter();
@@ -209,6 +209,9 @@ emits: ['pushCoin'],
 .wallet-table__switch {
   display: flex;
   gap: 20px;
+}
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: var(--bg-base) !important;
 }
 .ant-table-cell::before {
   background-color: var(--bg-base) !important;
