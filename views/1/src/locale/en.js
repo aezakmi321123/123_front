@@ -299,26 +299,6 @@ export default {
     (a)our associated or affiliated organisations or related corporations;\n
     (b)any of our agents, contractors or third party service providers that process or will be processing your personal data on our behalf including but not limited to those which provide administrative or other services to us such as mailing houses, telecommunication companies, information technology companies and data centres;\n
     (c)third parties to whom disclosure by us is for one or more of the Purposes and such third parties would in turn be collecting and processing your personal data for one or more of the Purposes.\n
-    19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at <a href="href="mailto:${
-      import.meta.env.VITE_BASE_SUPPORT_MAIL
-    }"">support@${
-    import.meta.env.VITE_BASE_URL
-  }</a>. We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
-    20.We may collect, use, disclose or process your personal data for other purposes that do not appear above. However, we will notify you of such other purpose at the time of obtaining your consent, unless processing of your personal data without your consent is permitted by the DPA or by law.\n
-    21.We may/will also be collecting from sources other than yourself, personal data about you, for one or more of the above Purposes, and thereafter using, disclosing and/or processing such personal data for one or more of the above Purposes. We may combine information we receive from other sources with information you give to us and information we collect about you. We may use this information and the combined information for the Purposes set out above (depending on the types of information we receive).\n
-    </p>\n
-    <h2>How we protect your personal data</h2>\n
-    <p>
-    22.We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of your personal data, username, password, transaction information and data stored on our Site.\n
-    23.Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures. Our Site is functioning in compliance with PCI vulnerability standards in order to create as secure of an environment as possible for Users.\n
-    24.We will put in place measures such that your personal data in our possession or under our control is destroyed and/or anonymized as soon as it is reasonable to assume that (i) the purpose for which that personal data was collected is no longer being served by the retention of such personal data; and (ii) retention is no longer necessary for any other legal or business purposes.\n
-    </p>\n
-    <h2>Sharing your personal information</h2>\n
-    <p>
-    25.We do not sell, trade, or rent Users’ personally identifiable information to others. We may share generic aggregated demographic information not linked to any personally identifiable information regarding visitors and users with our business partners, trusted affiliates and advertisers for the purposes outlined above.\n
-    </p>
-    <h2>Rights</h2>\n
-    <p>
   `,
   terms: `
     <p>
