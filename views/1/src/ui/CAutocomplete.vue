@@ -2,12 +2,12 @@
   <a-select style="width: 100%" class="c-autocomplete" v-bind="$attrs">
     <template #option="{ value, label, type }">
       <div class="aligned">
-        <CryptoIcon
+        <img
           v-if="!country && type === 'crypto'"
           :size="24"
-          :name="value.toLowerCase()"
+          :style="{ width: '26px' }"
+          :src="`crypto/${value.toLowerCase()}.svg`"
         />
-
         <img
           v-if="!country && type === 'fiat'"
           :style="{ width: '26px' }"

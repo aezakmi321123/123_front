@@ -16,10 +16,10 @@
               :style="{ width: '60px' }"
               :src="`@images/${payment.currencyFrom.toLowerCase()}.svg`"
             />
-            <CryptoIcon
+            <img
               v-else
-              :size="60"
-              :name="payment.currencyFrom.toLowerCase()"
+              :style="{ width: '60px' }"
+              :src="`@images/crypto/${payment.currencyFrom.toLowerCase()}.svg`"
             />
             <div v-if="isBank.send">
               <img
@@ -41,10 +41,10 @@
               :style="{ width: '60px' }"
               :src="`@images/${payment.currencyTo.toLowerCase()}.svg`"
             />
-            <CryptoIcon
+            <img
               v-else
-              :size="60"
-              :name="payment.currencyTo.toLowerCase()"
+              :style="{ width: '60px' }"
+              :src="`@images/crypto/${payment.currencyTo.toLowerCase()}.svg`"
             />
             <div v-if="isBank.receive">
               <img

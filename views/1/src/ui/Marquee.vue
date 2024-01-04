@@ -5,14 +5,8 @@
         <div v-for="opt of options" :key="opt.value">
           <div class="coin">
             <span class="icon__icon">
-              <CryptoIcon
-                v-if="opt.type === 'crypto'"
-                :size="16"
-                :name="opt.value.toLowerCase()"
-              />
               <img
-                v-else
-                :src="`@images/${opt.value.toLowerCase()}.svg`"
+                :src="`crypto/${opt.value.toLowerCase()}.svg`"
                 :style="{ width: '16px' }"
               />
             </span>
@@ -36,7 +30,6 @@
 </template>
 <script>
 import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons-vue';
-import CryptoIcon from 'eterex-crypto-icons';
 import { computed } from 'vue';
 import { Vue3Marquee } from 'vue3-marquee';
 
@@ -46,7 +39,6 @@ export default {
     Vue3Marquee,
     ArrowDownOutlined,
     ArrowUpOutlined,
-    CryptoIcon,
   },
   setup() {
     const walletStore = useWalletStore();

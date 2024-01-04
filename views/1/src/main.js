@@ -2,7 +2,6 @@
 
 // import 'ant-design-vue/dist/reset.css';
 import Antd from 'ant-design-vue';
-import CryptoIcon from 'eterex-crypto-icons';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate';
 import { createApp, markRaw } from 'vue';
@@ -34,9 +33,8 @@ pinia.use(({ store }) => {
   store.$router = markRaw(router);
 });
 
-app.use(router)
+app.use(router);
 app.use(Antd);
-app.use(CryptoIcon);
 app.use(VueClickAway);
 app.mount('#app');
 

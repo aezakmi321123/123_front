@@ -1,15 +1,11 @@
 <template>
   <a-flex gap="10" align="center">
-    <CryptoIcon
-      v-if="type === 'crypto'"
-      :size="40"
-      :name="abbr.toLowerCase()"
-    />
     <img
-      v-else
-      :src="`@images/${abbr.toLowerCase()}.svg`"
+      v-if="type === 'crypto'"
+      :src="`crypto/${abbr.toLowerCase()}.svg`"
       :style="{ width: '40px' }"
     />
+    <img v-else :src="`${abbr.toLowerCase()}.svg`" :style="{ width: '40px' }" />
     <a-flex vertical>
       <a-flex align="center" gap="3">
         <a-typography-text class="text-primary">{{ abbr }}</a-typography-text>
