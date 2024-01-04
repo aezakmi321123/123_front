@@ -240,6 +240,9 @@ export default {
   color: var(--text-primary);
   border-top: 1px solid var(--bg-base) !important;
 }
+.ant-table-cell {
+  background: var(--bg-input) !important;
+}
 .ant-table {
   background: var(--bg-input) !important;
 }

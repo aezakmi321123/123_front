@@ -260,7 +260,7 @@ export default {
   border-bottom: 1px solid var(--bg-base) !important;
 }
 .ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
-  background-color: var(--button-primary) !important;
+  background: var(--bg-input) !important;
 }
 .ant-table-thead > tr > th {
   background: var(--button-primary) !important;
@@ -282,6 +282,9 @@ export default {
   border-top: 1px solid var(--bg-base) !important;
 }
 .ant-table {
+  background: var(--bg-input) !important;
+}
+.ant-table-cell {
   background: var(--bg-input) !important;
 }
 :where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
