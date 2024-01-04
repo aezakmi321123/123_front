@@ -190,50 +190,6 @@ export default {
     },
   },
   privacy: `
-    <h2>PRIVACY POLICY ${import.meta.env.VITE_BASE_EXCHANGE_NAME}</h2>\n
-    <p>
-    1.The purpose of this Privacy Policy is to inform you and provide you with an understanding of how Mek Global Limited (“${
-      import.meta.env.VITE_BASE_URL
-    }” or “we” or “us” or “our”) handles, collects, uses, discloses and deals with personal data about you (“User”) that you give us, that we receive through third parties or that is in our possession. Further, this Privacy Policy governs the manner in which ${
-    import.meta.env.VITE_BASE_URL
-  } collects, uses, maintains and/or discloses personal data collected from Users of the ${
-    import.meta.env.VITE_BASE_URL
-  } website (“Site”). To provide you with our Services, we might need (and sometimes obliged by the law) to collect your personal data.\n
-    2.We take our responsibilities under the Constitution of United States of Amerie seriously. We also recognize the importance of the personal data you have entrusted to us and believe that it is our responsibility to properly manage, protect and process your personal data.\n
-    3.This privacy policy applies to the Site and all Services offered by ${
-      import.meta.env.VITE_BASE_URL
-    }.\n
-    </p>
-    <h2>Personally identifiable information</h2>\n
-    <p>4.We may collect personally identifiable information from Users in a variety of ways, including, but not limited to, when Users visit our Site, register on the Site, place an order, and in connection with other activities, services, features or resources we make available on our Site. Users may be asked for, as appropriate, name, email address, mailing address, phone number. Users may, however, visit our Site anonymously. When interacting with us on the Site, Users can always refuse to supply personal data to us, except that it may prevent them from engaging in certain Site related activities or transactions.</p>\n
-    <h2>Non-personally identifiable information</h2>\n
-    <p>5.We may collect non-personally identifiable information about Users when they interact with our Site.</p>\n
-    <h2>What Information Do We Collect?</h2>\n
-    <p>6.“Personal data” used in this Privacy Policy is to mean data, whether true or not, about an individual who can be identified from that data, or from that data and other information to which an organization has or is likely to have access. ${
-      import.meta.env.VITE_BASE_URL
-    } collects information about you when you use our websites (including the Site) and other online products and services and throughout other interactions and services you have with us. Personal data which we may collect include:\n
-    1.Name\n
-    2.Home Address\n 
-    3.Contact Information\n 
-    4.Transactional Information\n  
-    5.Usage and Preferences\n  
-    6.Identification number\n  
-    We will collect your personal data in accordance with the legislative purpose of the DPA.\n
-    7.We may also collect and store certain information automatically when you visit the Site. Examples include the internet protocol (IP) address used to connect your computer or device to the internet, connection information such as browser type and version, your operating system and platform, a unique reference number linked to the data you enter on our system, login details, the full URL clickstream to, through and from the Site (including date and time), cookie number and your activity on our Site, including the pages you visited, the searches you made and, if relevant, the products/services you purchased.\n
-    8.We may receive information about you from third parties if you use any websites or social media platforms operated by third parties (for example, Facebook, Instagram, Twitter etc.) and, if such functionality is available, you have chosen to link your profile on the Site with your profile on those other websites or social media platforms.</p>\n
-    <h2>Cookies</h2>\n
-    <p>
-    9.We may use cookies to identify you from other users on the Site.\n
-    10.A cookie is a small file of letters and numbers that we store on your browser or the hard drive of your computer or device.\n
-    11.You can block or deactivate cookies in your browser settings.\n
-    12.We use log-in cookies in order to remember you when you have logged in for a seamless experience.\n
-    13.We use session cookies to track your movements from page to page and in order to store your selected inputs so you are not constantly asked for the same information.\n
-    14.This Site uses Google Analytics which is one of the most widespread and trusted analytics solution on the web for helping us to understand how you use the Site and ways that we can improve your experience. These cookies may track things such as how long you spend on the Site and the pages that you visit so we can continue to produce engaging content.\n
-    15.By continuing to use the Site, you are agreeing to the use of cookies on the Site as outlined above. However, please note that we have no control over the cookies used by third parties.\n
-    16.For further information on types of cookies and how they work visit www.allaboutcookies.org\n
-    </p>\n
-    <h2>Purposes For Collection, Use, Disclosure And Processing Of Your Personal Data</h2>\n
-    <p>
     17.${
       import.meta.env.VITE_BASE_URL
     } will/may collect, use, disclose and/or process your personal data for one or more of the following purposes:\n
@@ -304,21 +260,7 @@ export default {
     }"">support@${
     import.meta.env.VITE_BASE_URL
   }</a>. We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
-    20.We may collect, use, disclose or process your personal data for other purposes that do not appear above. However, we will notify you of such other purpose at the time of obtaining your consent, unless processing of your personal data without your consent is permitted by the DPA or by law.\n
-    21.We may/will also be collecting from sources other than yourself, personal data about you, for one or more of the above Purposes, and thereafter using, disclosing and/or processing such personal data for one or more of the above Purposes. We may combine information we receive from other sources with information you give to us and information we collect about you. We may use this information and the combined information for the Purposes set out above (depending on the types of information we receive).\n
-    </p>\n
-    <h2>How we protect your personal data</h2>\n
-    <p>
-    22.We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of your personal data, username, password, transaction information and data stored on our Site.\n
-    23.Sensitive and private data exchange between the Site and its Users happens over a SSL secured communication channel and is encrypted and protected with digital signatures. Our Site is functioning in compliance with PCI vulnerability standards in order to create as secure of an environment as possible for Users.\n
-    24.We will put in place measures such that your personal data in our possession or under our control is destroyed and/or anonymized as soon as it is reasonable to assume that (i) the purpose for which that personal data was collected is no longer being served by the retention of such personal data; and (ii) retention is no longer necessary for any other legal or business purposes.\n
-    </p>\n
-    <h2>Sharing your personal information</h2>\n
-    <p>
-    25.We do not sell, trade, or rent Users’ personally identifiable information to others. We may share generic aggregated demographic information not linked to any personally identifiable information regarding visitors and users with our business partners, trusted affiliates and advertisers for the purposes outlined above.\n
-    </p>
-    <h2>Rights</h2>\n
-    <p>
+  
   `,
   terms: `
     <p>
