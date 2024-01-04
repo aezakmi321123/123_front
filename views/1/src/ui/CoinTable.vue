@@ -260,7 +260,7 @@ export default {
   border-bottom: 1px solid var(--bg-base) !important;
 }
 .ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
-  background-color: var(--bg-base) !important;
+  background-color: var(--button-primary) !important;
 }
 .ant-table-thead > tr > th {
   background: var(--button-primary) !important;

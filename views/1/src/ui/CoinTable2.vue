@@ -211,7 +211,7 @@ export default {
   gap: 20px;
 }
 .ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
-  background-color: var(--bg-base) !important;
+  background-color: var(--button-primary) !important;
 }
 .ant-table-cell::before {
   background-color: var(--bg-base) !important;
