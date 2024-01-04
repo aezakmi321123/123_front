@@ -50,6 +50,9 @@ export default {
     height: 50px !important;
   }
 }
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border: 1px solid transparent !important;
+}
 .ant-select-selection-search-input {
   font-size: 20px !important;
   color: var(--text-primary) !important;

@@ -299,11 +299,10 @@ export default {
     (a)our associated or affiliated organisations or related corporations;\n
     (b)any of our agents, contractors or third party service providers that process or will be processing your personal data on our behalf including but not limited to those which provide administrative or other services to us such as mailing houses, telecommunication companies, information technology companies and data centres;\n
     (c)third parties to whom disclosure by us is for one or more of the Purposes and such third parties would in turn be collecting and processing your personal data for one or more of the Purposes.\n
-    19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at <a href="mailto:${
-      import.meta.env.VITE_BASE_SUPPORT_MAIL
-    }">support@${
+    19.You may withdraw your consent for the collection, use and/or disclosure of your personal data in our possession or under our control by emailing us at 
+    <a href="mailto:${import.meta.env.VITE_BASE_SUPPORT_MAIL}">support@${
     import.meta.env.VITE_BASE_URL
-  }</a>. We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
+  }</a>.We will process your request [within a reasonable time] from such a request for withdrawal of consent being made, and will thereafter not collect, use and/or disclose your personal data in the manner stated in your request, unless an exception under the law or a provision in the law permits us to. However, your withdrawal of consent could result in certain legal consequences arising from such withdrawal, including us being unable to perform the transactions requested by you in the Site.\n
     20.We may collect, use, disclose or process your personal data for other purposes that do not appear above. However, we will notify you of such other purpose at the time of obtaining your consent, unless processing of your personal data without your consent is permitted by the DPA or by law.\n
     21.We may/will also be collecting from sources other than yourself, personal data about you, for one or more of the above Purposes, and thereafter using, disclosing and/or processing such personal data for one or more of the above Purposes. We may combine information we receive from other sources with information you give to us and information we collect about you. We may use this information and the combined information for the Purposes set out above (depending on the types of information we receive).\n
     </p>\n
@@ -351,7 +350,7 @@ export default {
       import.meta.env.VITE_BASE_URL
     } with regard to processing of your personal data.\n
     38.For the avoidance of doubt, in the event that United States of America data protection law permits an organisation such as us to collect, use or disclose your personal data without your consent, such permission granted by the law shall continue to apply.\n
-    If you have any queries on this Privacy Policy or any other queries in relation to how we may manage, protect and/or process your personal data, please do not hesitate to contact our Data Protection Officer at <a ="mailto:${
+    If you have any queries on this Privacy Policy or any other queries in relation to how we may manage, protect and/or process your personal data, please do not hesitate to contact our Data Protection Officer at <a href="mailto:${
       import.meta.env.VITE_BASE_SUPPORT_MAIL
     }">support@${import.meta.env.VITE_BASE_URL}</a>.</p>
   `,
