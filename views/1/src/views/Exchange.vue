@@ -3,7 +3,7 @@
     <a-row :gutter="[{ xl: 40, lg: 20 }, { md: 50 }]" justify="center">
       <a-col :lg="{ span: 11, offset: 2 }" span="24">
         <a-flex class="exchange-main-card">
-          <ExchangeCard :selected-card="selectedCard" />
+          <ExchangeCard :selected-card="selectedCard" is-wallet />
         </a-flex>
       </a-col>
       <a-col :lg="9" span="24">

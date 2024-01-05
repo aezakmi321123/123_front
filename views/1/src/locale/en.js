@@ -103,6 +103,9 @@ export default {
     confirm_btn: 'Confirm Email',
   },
   payment: {
+    pay: 'Payment for the application at the rate: 1',
+    make_pay: 'Make a payment using the details',
+    take_pay: 'Receive the currency using the details below',
     back: 'Back',
     title: 'Payment details',
     description:

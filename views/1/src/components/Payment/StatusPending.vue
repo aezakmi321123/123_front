@@ -3,28 +3,28 @@
     <div class="payment__number">Оплата заявки: {{ payment.id }}</div>
     <div class="payment__currency">
       <h3>
-        Обмен по курсу: 1 {{ payment.currencyFrom }} =
+        {{ t('payment.pay') }} {{ payment.currencyFrom }} =
         {{ payment.paymentRate }}
         {{ payment.currencyTo }}
       </h3>
 
-      <div class="payment__coins">
-        <div class="payment__coin">
+      <a-row :gutter="[{ xs: 0, sm: 20 }, { xs: 30 }]" class="payment__coins">
+        <a-col :xs="24" :md="10" class="payment__coin">
           <div class="payment__coin-info">
             <img
               v-if="isBank.send"
               :style="{ width: '60px' }"
-              :src="`@images/${payment.currencyFrom.toLowerCase()}.svg`"
+              :src="`../../../../../public/${payment.currencyFrom.toLowerCase()}.svg`"
             />
             <img
               v-else
               :style="{ width: '60px' }"
-              :src="`@images/crypto/${payment.currencyFrom.toLowerCase()}.svg`"
+              :src="`../../../../../public/crypto/${payment.currencyFrom.toLowerCase()}.svg`"
             />
             <div v-if="isBank.send">
               <img
                 :style="{ width: '60px' }"
-                :src="`@images/${payment.networkFrom.toLowerCase()}.svg`"
+                :src="`../../../../../public/${payment.networkFrom.toLowerCase()}.svg`"
               />
             </div>
             <CRadioGroup v-else>
@@ -32,24 +32,24 @@
             </CRadioGroup>
           </div>
           <div>{{ payment.fullAmount }} {{ payment.currencyFrom }}</div>
-        </div>
-        <div class="payment__switch"><SyncOutlined /></div>
-        <div class="payment__coin">
+        </a-col>
+        <a-col :xs="24" :md="4" class="payment__switch"><SyncOutlined /></a-col>
+        <a-col :xs="24" :md="10" class="payment__coin end">
           <div class="payment__coin-info">
             <img
               v-if="isBank.receive"
               :style="{ width: '60px' }"
-              :src="`@images/${payment.currencyTo.toLowerCase()}.svg`"
+              :src="`../../../../../public/${payment.currencyTo.toLowerCase()}.svg`"
             />
             <img
               v-else
               :style="{ width: '60px' }"
-              :src="`@images/crypto/${payment.currencyTo.toLowerCase()}.svg`"
+              :src="`../../../../../public/crypto/${payment.currencyTo.toLowerCase()}.svg`"
             />
             <div v-if="isBank.receive">
               <img
                 :style="{ width: '60px' }"
-                :src="`@images/${payment.networkTo.toLowerCase()}.svg`"
+                :src="`${payment.networkTo.toLowerCase()}.svg`"
               />
             </div>
             <CRadioGroup v-else>
@@ -57,13 +57,13 @@
             </CRadioGroup>
           </div>
           <div>{{ payment.fullAmountInCurrency }} {{ payment.currencyTo }}</div>
-        </div>
-      </div>
+        </a-col>
+      </a-row>
 
       <div class="payment__address">
         <div class="step-title">
           <div class="step-title__step">1</div>
-          <div class="step-title__text">Совершите платеж по реквезитам</div>
+          <div class="step-title__text">{{ t('payment.make_pay') }}</div>
         </div>
         <CCopyableInput
           :prefix="t('payment.cryptoAmount')"
@@ -82,7 +82,7 @@
       <div class="payment__address">
         <div class="step-title">
           <div class="step-title__step">2</div>
-          <div class="step-title__text">Получите валюту по реквезитам ниже</div>
+          <div class="step-title__text">{{ t('payment.take_pay') }}</div>
         </div>
         <CCopyableInput
           :prefix="t('payment.cryptoAmount')"
@@ -231,6 +231,7 @@ export default defineComponent({
   }
 }
 .payment {
+  min-width: 100%;
   &__number {
     color: var(--text-link);
     font-size: 24px;
@@ -242,7 +243,7 @@ export default defineComponent({
     margin-top: 20px;
     display: flex;
     align-items: center;
-    gap: 50px;
+    // gap: 50px;
   }
   &__coin {
     display: flex;
@@ -251,6 +252,9 @@ export default defineComponent({
     font-size: 20px;
     font-weight: 500;
     color: var(--text-link);
+    &.end {
+      align-items: flex-end;
+    }
   }
   &__coin-info {
     display: flex;
@@ -259,6 +263,8 @@ export default defineComponent({
   }
   &__switch {
     font-size: 40px;
+    display: flex;
+    justify-content: center;
     color: var(--bg-purple);
   }
   &__address {

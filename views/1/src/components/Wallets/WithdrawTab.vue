@@ -27,7 +27,8 @@
       <CAutocomplete
         class="select1"
         :options="options"
-        :value="withdrawForm.withdrawCurrency"
+        option-label-prop="title"
+        :value="withdrawForm.withdrawCurrency.value"
         @change="changeCoin"
       />
     </a-form-item>
@@ -111,7 +112,7 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue';
+import { computed, h, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '../../modules/auth.js';
@@ -147,7 +148,27 @@ export default {
     const withdraw = useWithdrawStore();
     const commission = import.meta.env.VITE_BASE_COMMISSION;
 
-    const mapValue = el => ({ label: el.name, value: el.abbr, ...el });
+    const mapValue = el => ({
+      label: el.name,
+      value: el.abbr,
+      ...el,
+      title: h(
+        'div',
+        { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
+        [
+          h('img', {
+            src: `${
+              el.type === 'fiat' ? '' : 'crypto'
+            }/${el.abbr?.toLowerCase()}.svg`,
+            style: {
+              width: '26px',
+              height: '26px',
+            },
+          }),
+          h('span', {}, el.abbr?.toUpperCase()),
+        ],
+      ),
+    });
     const mapNetworks = networks => networks?.map(({ name }) => name) || [];
     const withdrawForm = ref({
       withdrawCurrency: undefined,

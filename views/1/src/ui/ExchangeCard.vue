@@ -38,13 +38,18 @@
         <a-spin :spinning="isWalletLoading">
           <a-form-item class="exchange__card-select" name="valueSend">
             <CAutocomplete
-              :value="exchangeForm.valueSend"
+              :value="exchangeForm.valueSend.value"
+              option-label-prop="title"
               :options="options"
               @change="onChangeSend"
             />
           </a-form-item>
           <a-form-item
-            v-if="exchangeForm.sendNetworks.length"
+            v-if="
+              exchangeForm.sendNetworks.length &&
+              !isWallet &&
+              exchangeForm.withAccount !== 'with'
+            "
             class="exchange__card-networks"
             name="valueSendNetwork"
           >
@@ -86,13 +91,18 @@
         <a-spin :spinning="isWalletLoading">
           <a-form-item class="exchange__card-select" name="valueReceive">
             <CAutocomplete
-              :value="exchangeForm.valueReceive"
+              :value="exchangeForm.valueReceive.value"
               :options="options"
+              option-label-prop="title"
               @change="onChangeReceive"
             />
           </a-form-item>
           <a-form-item
-            v-if="exchangeForm.receiveNetworks.length"
+            v-if="
+              exchangeForm.receiveNetworks.length &&
+              !isWallet &&
+              exchangeForm.withAccount !== 'with'
+            "
             class="exchange__card-networks"
             name="valueReceiveNetwork"
           >
@@ -164,7 +174,7 @@
 </template>
 <script>
 import { InfoCircleOutlined } from '@ant-design/icons-vue';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, h, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -193,6 +203,10 @@ export default {
     InfoCircleOutlined,
   },
   props: {
+    isWallet: {
+      type: Boolean,
+      default: false,
+    },
     selectedCard: {
       type: Object,
       default: () => ({}),
@@ -215,7 +229,28 @@ export default {
         networks: [],
         type: '',
       },
-    ) => ({ label: name, value: abbr, networks, type });
+    ) => ({
+      label: name,
+      value: abbr,
+      networks,
+      type,
+      title: h(
+        'div',
+        { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
+        [
+          h('img', {
+            src: `${
+              type === 'fiat' ? '' : 'crypto'
+            }/${abbr?.toLowerCase()}.svg`,
+            style: {
+              width: '26px',
+              height: '26px',
+            },
+          }),
+          h('span', {}, abbr?.toUpperCase()),
+        ],
+      ),
+    });
     const mapNetworks = networks => networks?.map(({ name }) => name) || [];
     const unauthOptions = ['with', 'without'];
 

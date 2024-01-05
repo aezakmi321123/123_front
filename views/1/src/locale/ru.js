@@ -101,6 +101,9 @@ export default {
     confirm_btn: 'Подтвердить Email',
   },
   payment: {
+    pay: 'Оплата заявки по курсу: 1',
+    make_pay: 'Совершите платеж по реквезитам',
+    take_pay: 'Получите валюту по реквезитам ниже',
     back: 'Назад',
     title: 'Детали платежа',
     description:

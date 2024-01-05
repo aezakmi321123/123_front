@@ -4,7 +4,8 @@
       <CAutocomplete
         class="select1"
         :options="options"
-        :value="depositForm.depositCurrencySend"
+        option-label-prop="title"
+        :value="depositForm.depositCurrencySend.value"
         @change="changeCoin($event)"
       />
     </a-form-item>
@@ -37,14 +38,16 @@
         type="number"
       />
       <div class="text-primary mt-3">
-        {{ $t('wallets.rate') }}: {{ currentRate * depositForm.depositAmountSend || 0.00 }}
+        {{ $t('wallets.rate') }}:
+        {{ currentRate * depositForm.depositAmountSend || 0.0 }}
       </div>
     </a-form-item>
     <a-form-item name="depositCurrencyReceive" label="Value receive:">
       <CAutocomplete
         class="select1"
         :options="options"
-        :value="depositForm.depositCurrencyReceive"
+        option-label-prop="title"
+        :value="depositForm.depositCurrencyReceive.value"
         @change="changeCoin($event, true)"
       />
     </a-form-item>
@@ -65,7 +68,7 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue';
+import { computed, h, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useCurrentRate } from '../../composables/useCurrentRate';
@@ -97,7 +100,27 @@ export default {
     const authStore = useAuthStore();
     const payment = usePaymentStore();
 
-    const mapValue = el => ({ label: el.name, value: el.abbr, ...el });
+    const mapValue = el => ({
+      label: el.name,
+      value: el.abbr,
+      ...el,
+      title: h(
+        'div',
+        { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
+        [
+          h('img', {
+            src: `${
+              el.type === 'fiat' ? '' : 'crypto'
+            }/${el.abbr?.toLowerCase()}.svg`,
+            style: {
+              width: '26px',
+              height: '26px',
+            },
+          }),
+          h('span', {}, el.abbr?.toUpperCase()),
+        ],
+      ),
+    });
     const depositForm = ref({
       depositCurrencySend: undefined,
       depositAmountSend: 0,
@@ -136,8 +159,9 @@ export default {
         depositForm.value.depositNetworkSend = transformedNetworks?.[0];
         depositForm.value.depositNetworksSend = transformedNetworks;
         if (!depositForm.value.depositCurrencyReceive) {
-          depositForm.value.depositCurrencyReceive = options.value.find(({ value }) => value === 'USDT');;
-
+          depositForm.value.depositCurrencyReceive = options.value.find(
+            ({ value }) => value === 'USDT',
+          );
         }
       },
       { deep: true, immediate: true },
@@ -169,7 +193,7 @@ export default {
       t,
       onFinish,
       payment,
-      currentRate
+      currentRate,
     };
   },
 };

@@ -1,10 +1,7 @@
 <template>
   <div class="container auth">
-    <a-row
-      :gutter="[100, 0]"
-      :justify="{ xs: 'center', sm: 'center', md: 'center' }"
-    >
-      <a-col :xs="20" :sm="18" :md="16" :lg="14" :xl="12">
+    <a-row :gutter="[{ xs: 0, lg: 100 }]" :justify="{ xs: 'center' }">
+      <a-col :xs="24" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">Enter new password</h2>
           <a-form layout="vertical" :model="formState" @finish="onFinish">

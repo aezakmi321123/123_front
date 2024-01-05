@@ -1,10 +1,10 @@
 <template>
   <div class="container auth">
     <a-row
-      :gutter="[100, 0]"
+      :gutter="[{ xs: 0, lg: 100 }]"
       :justify="{ xs: 'center', sm: 'center', md: 'center' }"
     >
-      <a-col :xs="20" :sm="18" :md="16" :lg="14" :xl="12">
+      <a-col :xs="24" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">Reset password</h2>
           <div class="auth__card-registered">

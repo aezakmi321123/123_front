@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <a-row :gutter="[30, 30]">
-      <a-col :lg="{ order: 0, span: 16 }" :order="1">
+      <a-col :lg="{ order: 0, span: 16 }" :sm="24" :order="1">
         <a-flex class="payment__left-side" vertical>
           <a-spin
             :spinning="payment.isLoading"
