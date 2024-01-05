@@ -1,13 +1,16 @@
 <template>
   <a-spin :spinning="coinsLoading">
-    <Vue3Marquee :duration="40">
+    <Vue3Marquee
+      :duration="40"
+      :style="{ background: 'var(--button-primary)' }"
+    >
       <div class="coin__wrap">
         <div v-for="opt of options" :key="opt.value">
           <div class="coin">
-            <span class="icon__icon">
+            <span class="coin__icon">
               <img
                 :src="`crypto/${opt.value.toLowerCase()}.svg`"
-                :style="{ width: '16px' }"
+                :style="{ width: '18px' }"
               />
             </span>
             <a-spin :spinning="getCoinData(opt).isLoading" size="small">
