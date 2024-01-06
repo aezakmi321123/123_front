@@ -4,8 +4,8 @@
       class="exchange__card"
       :model="exchangeForm"
       layout="vertical"
-      @finish="exchange"
       novalidate="true"
+      @finish="exchange"
     >
       <a-flex vertical class="exchange__card-title">
         <a-flex align="center">
