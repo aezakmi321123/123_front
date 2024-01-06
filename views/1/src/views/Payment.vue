@@ -15,7 +15,7 @@
           </a-spin>
         </a-flex>
       </a-col>
-      <RightSide />
+      <PaymentInfo />
     </a-row>
   </div>
 </template>
@@ -28,7 +28,7 @@ import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 
 import BackButton from '../components/Payment/BackButton.vue';
-import RightSide from '../components/Payment/PaymentInfo.vue';
+import PaymentInfo from '../components/Payment/PaymentInfo.vue';
 import StatusPending from '../components/Payment/StatusPending.vue';
 import StatusRejected from '../components/Payment/StatusRejected.vue';
 import StatusSuccess from '../components/Payment/StatusSuccess.vue';
@@ -45,7 +45,7 @@ export default {
     StatusPending,
     StatusRejected,
     StatusSuccess,
-    RightSide,
+    PaymentInfo,
   },
   setup() {
     const { t } = useI18n();

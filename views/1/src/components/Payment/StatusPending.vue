@@ -73,7 +73,7 @@
         />
         <CCopyableInput
           :prefix="t('payment.walletAddress')"
-          :value="shortAddress(payment?.address)"
+          :value="payment?.address"
           readonly
           :address="payment?.address"
           @copy="() => onCopy(payment?.address)"
@@ -92,7 +92,7 @@
         />
         <CCopyableInput
           :prefix="t('payment.receivedAddress')"
-          :value="shortAddress(payment?.receivedAddress)"
+          :value="payment?.receivedAddress"
           readonly
           @copy="() => onCopy(payment?.receivedAddress)"
         />

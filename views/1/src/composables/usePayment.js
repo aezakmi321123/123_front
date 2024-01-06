@@ -1,6 +1,7 @@
 import { storeToRefs } from "pinia";
 import { computed, toValue } from "vue";
 
+import { getFixedNumber } from "../heplers/numbers.js";
 import { usePaymentStore } from "../modules/payment.js";
 import { useCurrentRate } from "./useCurrentRate.js";
 
@@ -9,10 +10,16 @@ export const usePayment = () => {
 
     const { payment, isLoading } = storeToRefs(paymentStore)
     const paymentData = toValue(payment);
-    const currentRate = computed(() => useCurrentRate(paymentData?.currencyFrom, paymentData?.currencyTo))
-    const usdAmount = computed(() => (useCurrentRate(paymentData?.currencyFrom) * parseFloat(paymentData?.fullAmount || 1).toFixed(4)))
-    const coinToFullQuantity = (currentRate.value *  parseFloat(paymentData?.fullAmount || 1)).toFixed(4)
-    const coinToReceivedQuantity = (currentRate.value *  parseFloat(paymentData?.receivedAmount || 0)).toFixed(4)
+
+    paymentData.fullAmount = getFixedNumber(paymentData.fullAmount)
+    paymentData.fullAmountInUsdt = getFixedNumber(paymentData.fullAmountInUsdt)
+    paymentData.fullAmountInCurrency = getFixedNumber(paymentData.fullAmountInCurrency)
+    paymentData.receivedAmount = getFixedNumber(paymentData.receivedAmount)
+
+    const currentRate = computed(() => getFixedNumber(useCurrentRate(paymentData?.currencyFrom, paymentData?.currencyTo)))
+    const usdAmount = computed(() => getFixedNumber((useCurrentRate(paymentData?.currencyFrom) * parseFloat(paymentData?.fullAmount || 1))))
+    const coinToFullQuantity = getFixedNumber(currentRate.value *  parseFloat(paymentData?.fullAmount || 1))
+    const coinToReceivedQuantity = getFixedNumber(currentRate.value *  parseFloat(paymentData?.receivedAmount || 0))
 
     return {
         ...paymentData,
