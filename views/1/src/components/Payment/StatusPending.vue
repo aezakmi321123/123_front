@@ -52,7 +52,7 @@
                 :src="`${payment.networkTo.toLowerCase()}.svg`"
               />
             </div>
-            <CRadioGroup v-else>
+            <CRadioGroup v-if="payment.networkTo && !isBank.receive">
               <CRadioButton>{{ payment.networkTo }}</CRadioButton>
             </CRadioGroup>
           </div>
@@ -91,6 +91,13 @@
           @copy="() => onCopy(payment.fullAmountCalculated)"
         />
         <CCopyableInput
+            :prefix="t('payment.totalAmountReceived')"
+            :value="payment?.receivedAmountCalculated"
+            readonly
+            @copy="() => onCopy(payment?.receivedAmountCalculated)"
+        />
+        <CCopyableInput
+          v-if="payment?.receivedAddress"
           :prefix="t('payment.receivedAddress')"
           :value="payment?.receivedAddress"
           readonly

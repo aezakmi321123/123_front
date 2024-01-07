@@ -29,6 +29,7 @@ const routes = [
     component: Login,
     meta: {
       requiresAuth: false,
+      isAuth: true,
     },
   },
   {
@@ -37,6 +38,7 @@ const routes = [
     component: Register,
     meta: {
       requiresAuth: false,
+      isAuth: true,
     },
   },
   {
@@ -53,6 +55,7 @@ const routes = [
     component: EMailSend,
     meta: {
       requiresAuth: false,
+      isAuth: true,
     },
   },
   {
@@ -133,6 +136,7 @@ router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
   if (authStore.user?.id) authStore.getUser();
   if (to.meta.requiresAuth && !authStore.isLoggedIn) next({ name: 'Login' });
+  if (to.meta.isAuth && authStore.isLoggedIn) next({ name: 'Home' });
   else next();
 });
 export default router;
