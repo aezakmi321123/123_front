@@ -245,7 +245,6 @@ export default {
   justify-content: center;
 }
 .ant-tabs-tab-btn {
-  width: 49% !important;
   text-align: center;
   font-size: 18px;
 
