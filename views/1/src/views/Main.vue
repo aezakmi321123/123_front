@@ -2,7 +2,7 @@
   <div class="container">
     <div class="main__page">
       <div class="main__page-exchnage">
-        <a-row :gutter="[{ xl: 40, lg: 10 }, { md: 50 }]" justify="center">
+        <a-row :gutter="[{ xl: 40, lg: 10 }, 50]" justify="center">
           <a-col :xs="24" :sm="18" :md="16" :lg="13">
             <a-row :gutter="[0, 20]">
               <a-col>
@@ -31,8 +31,8 @@
         </div>
         <a-row
           :gutter="[
-            { lg: 50, md: 20 },
-            { lg: 20, md: 40 },
+            { lg: 50, xs: 20 },
+            { lg: 20, xs: 40 },
           ]"
         >
           <a-col :xs="24" :sm="12" :lg="6">
@@ -115,7 +115,7 @@
       </div>
       <div class="main__page-coins">
         <div class="coins">
-          <a-row justify="center" align="middle" :gutter="[30, 30]">
+          <a-row justify="center" align="middle" :gutter="[{md: 30, xs: 10}, 30]">
             <a-col :span="24" :order="1" :lg="{ span: 14, order: 0 }">
               <CoinTable />
             </a-col>

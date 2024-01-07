@@ -7,7 +7,7 @@
           {{ t('about.paragraph') }}
         </div>
       </div>
-      <a-row class="about__history" justify="center" :gutter="[50, 50]">
+      <a-row class="about__history" justify="center" :gutter="[{md: 40, xs: 10}, 40]">
         <a-col :sm="24" :md="12">
           <div class="about__history__text">
             <h2>{{ t('about.history') }}</h2>
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <a-row :gutter="[40, 40]">
+      <a-row :gutter="[{md: 40, xs: 10}, 40]">
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
             <img :width="100" src="@images/support.svg" />

@@ -4,6 +4,11 @@
       <a-col :xs="24" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
           <h2 class="auth__card-label">Enter new password</h2>
+          <div class="auth__card-registered">
+            <span
+            >Remember Password? <a @click="routeToLogin">{{ t('sign_up.login') }}</a></span
+            >
+          </div>
           <a-form layout="vertical" :model="formState" @finish="onFinish">
             <a-form-item
               :name="['newPassword']"
@@ -33,7 +38,7 @@
 <script>
 import { reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { cMessage } from '../heplers/message.js';
 import rest from '../rest/index.js';
@@ -46,22 +51,27 @@ export default {
   },
   setup() {
     const { t } = useI18n();
+    const router = useRouter();
 
     const formState = reactive({
       newPassword: '',
     });
     const route = useRoute();
+
+    const routeToLogin = () => {
+      router.push({ path: '/login' });
+    };
     const onFinish = async ({ newPassword }) => {
       try {
         // console.log({
         //   token: route.query.token,
         //   newPassword,
         // });
-        await rest.auth.resetPassword({
+        const res = await rest.auth.resetPassword({
           token: route.query.token,
           newPassword,
         });
-        await cMessage('success', 'хуй');
+        await cMessage('success',res?.data?.message || t('success'));
       } catch (e) {
         console.log(e);
       }
@@ -71,6 +81,7 @@ export default {
       formState,
       onFinish,
       t,
+      routeToLogin
     };
   },
 };

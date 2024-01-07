@@ -46,7 +46,7 @@
               ></CInput>
             </a-form-item>
             <a-form-item label="Captcha">
-              <a-row :gutter="[{ sm: 20 }, { sm: 20 }]">
+              <a-row :gutter="[{ xs: 20 }, { xs: 20 }]">
                 <a-col :xs="24" :sm="14" :md="12">
                   <VueClientRecaptcha
                     hide-lines

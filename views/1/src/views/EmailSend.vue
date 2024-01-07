@@ -9,7 +9,7 @@
           <h2 class="auth__card-label">Reset password</h2>
           <div class="auth__card-registered">
             <span
-              >Remember Password? <a>{{ t('sign_up.login') }}</a></span
+              >Remember Password? <a @click="routeToLogin">{{ t('sign_up.login') }}</a></span
             >
           </div>
           <a-form layout="vertical" :model="formState" @finish="onFinish">
@@ -62,13 +62,16 @@ export default {
     const router = useRouter();
     const onFinish = async params => {
       try {
-        await rest.auth.forgotPassword(params);
-        await cMessage('success', 'хуй');
+        const res = await rest.auth.forgotPassword(params);
+        await cMessage('success', res?.data?.message || t('success'));
       } catch (e) {
         console.log(e);
       }
     };
 
+    const routeToLogin = () => {
+      router.push({ path: '/login' });
+    };
     const routeToRegister = () => {
       router.push({ path: '/register' });
     };
@@ -81,6 +84,7 @@ export default {
       routeToRegister,
       t,
       goToResetSend,
+      routeToLogin
     };
   },
 };
