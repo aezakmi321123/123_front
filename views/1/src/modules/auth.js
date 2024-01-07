@@ -15,7 +15,10 @@ export const useAuthStore = defineStore('auth', {
     async refreshTokens() {
       try {
         const { data } = await rest.auth.refreshTokens();
-        if (!data) await this.logOut();
+        if (!data) {
+          return await this.logOut()
+        }
+        this.isLoggedIn = true
       } catch (e) {
         await this.logOut();
         handleAxiosError(e);

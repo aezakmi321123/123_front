@@ -72,6 +72,7 @@ export default {
           newPassword,
         });
         await cMessage('success',res?.data?.message || t('success'));
+        routeToLogin()
       } catch (e) {
         console.log(e);
       }

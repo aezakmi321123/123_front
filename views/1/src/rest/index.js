@@ -15,8 +15,14 @@ client.interceptors.response.use(
   async error => {
     const auth = useAuthStore();
     if (error.response.status === 401 && auth.isLoggedIn) {
-      await auth.refreshTokens();
-      return client(error.config);
+      try {
+        auth.isLoggedIn = false
+        await auth.refreshTokens();
+        return client(error.config);
+      }
+      catch (e){
+        console.log(e)
+      }
     }
     return Promise.reject(error);
   },
