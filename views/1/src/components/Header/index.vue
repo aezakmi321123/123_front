@@ -35,6 +35,7 @@
             class="select__change-lang"
             :value="lang"
             :options="languages"
+            option-label-prop="title"
             @change="changeLang"
           />
           <router-link to="/login"
@@ -53,6 +54,7 @@
             class="select__change-lang"
             :value="lang"
             :options="languages"
+            option-label-prop="title"
             @change="changeLang"
           />
           <div class="header__buttons" @click="drawer = true">
@@ -146,8 +148,9 @@
           class="show-mobile select__change-lang"
           :value="lang"
           :options="languages"
+          option-label-prop="title"
           @change="changeLang"
-        />
+        ></CSelect>
       </div>
     </div>
   </CDrawer>
@@ -167,7 +170,7 @@ import {
   UserOutlined,
   WalletOutlined,
 } from '@ant-design/icons-vue';
-import { computed, ref, watch } from 'vue';
+import { computed, h, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -176,6 +179,7 @@ import CButton from '../../ui/CButton.vue';
 import CDrawer from '../../ui/CDrawer.vue';
 import CSelect from '../../ui/CSelect.vue';
 import MarqueeC from '../../ui/Marquee.vue';
+const defaultLang = import.meta.env.VITE_BASE_DEFAULT_LANG;
 export default {
   components: {
     CButton,
@@ -202,7 +206,7 @@ export default {
     const route = useRoute();
 
     const openMobile = ref(false);
-    const lang = ref('en');
+    const lang = ref(defaultLang || 'en');
     const drawer = ref(false);
     const logout = async () => {
       try {
@@ -220,7 +224,24 @@ export default {
       { deep: true },
     );
     const languages = computed(() =>
-      ['en', 'ru'].map(el => ({ label: el, value: el })),
+      ['en', 'ru'].map(el => ({
+        label: el,
+        value: el,
+        title: h(
+          'div',
+          { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
+          [
+            h('img', {
+              src: `${el.toLowerCase()}.svg`,
+              style: {
+                width: '26px',
+                height: '26px',
+              },
+            }),
+            h('span', {}, el.toUpperCase()),
+          ],
+        ),
+      })),
     );
     const changeLang = el => {
       lang.value = el;

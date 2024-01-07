@@ -1,8 +1,11 @@
 <template>
   <div class="container">
     <div class="footer">
-      <a-row :gutter="[{ xs: 0, sm: 80 }, 40]" justify="center">
-        <a-col :xs="24" :sm="12" :lg="6">
+      <a-row
+        :gutter="[{ xs: 0, sm: 80 }, 40]"
+        :justify="{ md: 'center', xs: 'space-between' }"
+      >
+        <a-col :xs="12" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <span @click="goTo('settings')">{{ t('footer.settings') }}</span>
@@ -15,7 +18,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col :xs="24" :sm="12" :lg="6">
+        <a-col :xs="12" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <a-badge status="success" title="Success"
@@ -30,7 +33,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col :xs="24" :sm="12" :lg="6">
+        <a-col :xs="12" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <span @click="goTo('about')">{{ t('footer.about_us') }}</span>
@@ -43,7 +46,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col :xs="24" :sm="12" :lg="6">
+        <a-col :xs="12" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <a :href="`mailto:${supportMail}`"> {{ supportMail }}</a>

@@ -82,7 +82,6 @@ export default {
 }
 .ant-select-selection-item {
   font-size: 20px !important;
-  padding-top: 10px !important;
   color: var(--text-primary) !important;
   font-weight: 700 !important;
   height: 50px !important;

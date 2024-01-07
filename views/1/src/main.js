@@ -11,8 +11,8 @@ import VueClickAway from 'vue3-click-away';
 import en from './locale/en';
 import ru from './locale/ru';
 const i18nInstance = createI18n({
-  locale: 'en', // set locale
-  fallbackLocale: 'en', // set fallback locale
+  locale: import.meta.env.VITE_BASE_DEFAULT_LANG, // set locale
+  fallbackLocale: import.meta.env.VITE_BASE_DEFAULT_LANG, // set fallback locale
   legacy: false,
   useScope: 'global',
   messages: {

@@ -20,8 +20,11 @@
 .c-input {
   .ant-input {
     color: var(--text-primary) !important;
-    font-size: 24px !important;
+    font-size: 20px !important;
     font-weight: 700 !important;
+    @include mq(575px, max-width) {
+      font-size: 14px !important;
+    }
     &::placeholder {
       color: var(--text-link);
       opacity: 0.8;
