@@ -5,9 +5,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'CRadioButton'
-  }
+export default {
+  name: 'CRadioButton',
+};
 </script>
 
 <style lang="scss">
@@ -16,7 +16,7 @@
   display: flex;
   flex-shrink: 0;
   background: var(--bg-base) !important;
-  border-color: var(--bg-base);
+  border: 1px solid var(--bg-base);
   color: var(--text-primary);
   & .ant-radio-button + span {
     display: block;
@@ -24,10 +24,10 @@
     width: 100%;
   }
 
-  &.ant-radio-button-wrapper{
+  &.ant-radio-button-wrapper {
     padding-inline: 15px;
 
-    &:first-of-type{
+    &:first-of-type {
       border-inline-color: var(--bg-base);
     }
 
