@@ -14,7 +14,7 @@
   &:focus {
     outline: unset;
   }
-  &[disabled]{
+  &[disabled] {
     background: var(--text-quaternary);
     pointer-events: none;
     cursor: auto;
@@ -36,6 +36,7 @@
   font-weight: 700;
   background: var(--button-primary);
   font-family: 'Inter' !important;
+  box-shadow: unset !important;
   &:hover {
     opacity: 0.8;
     background: var(--button-primary);
