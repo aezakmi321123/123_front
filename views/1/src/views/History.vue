@@ -67,7 +67,9 @@ export default {
         );
         arr.value = cloneDeep(data.map(coin => ({
           ...coin,
-          fullAmountInUsdt: isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt ? 0 : coin?.fullAmountInUsdt
+          fullAmountInUsdt: isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt ? 0 : coin?.fullAmountInUsdt,
+          networkTo: coin.coinTo || coin.networkTo,
+          networkFrom: coin.coinFrom || coin.networkFrom || coin.currency,
         })));
       },
       { immediate: true },
@@ -137,6 +139,10 @@ export default {
         {
           title: t('history.currency'),
           dataIndex: 'currency',
+        },
+        {
+          title: t('history.networkFrom'),
+          dataIndex: 'networkFrom',
         },
         {
           title: t('history.status'),
