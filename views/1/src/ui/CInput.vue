@@ -51,6 +51,9 @@
 .ant-input-affix-wrapper {
   border: 1px solid rgba(0, 0, 0, 0) !important;
 }
+.ant-input-affix-wrapper-status-error {
+  border-color: #ff4d4f !important;
+}
 .ant-input-focused,
 .ant-input-affix-wrapper-focused {
   box-shadow: unset !important;
