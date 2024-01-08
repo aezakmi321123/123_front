@@ -19,8 +19,11 @@
 }
 .ant-input-number-input {
   height: 50px !important;
-  font-size: 24px !important;
+  font-size: 20px !important;
   font-weight: 700 !important;
+  @include mq(575px, max-width) {
+    font-size: 14px !important;
+  }
   background-color: var(--bg-input) !important;
   color: var(--text-primary) !important;
   border-radius: 4px !important;
