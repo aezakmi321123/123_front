@@ -8,10 +8,7 @@
         <div v-for="opt of options" :key="opt.value">
           <div class="coin">
             <span class="coin__icon">
-              <img
-                :src="`crypto/${opt.value.toLowerCase()}.svg`"
-                :style="{ width: '18px' }"
-              />
+              <img :src="loadImage(opt.value)" :style="{ width: '18px' }" />
             </span>
             <a-spin :spinning="getCoinData(opt).isLoading" size="small">
               <span :class="['coin__text']">
@@ -55,6 +52,12 @@ export default {
       },
     ) => ({ label: name, value: abbr, networks, type });
     const socketCoinsData = computed(() => walletStore.wsData.coins);
+
+    const loadImage = name => {
+      const image = `../../public/crypto/${name.toLowerCase()}.svg`;
+      return image;
+    };
+
     const getCoinData = record => {
       if (record.value === 'USDT') {
         return {
@@ -96,6 +99,7 @@ export default {
     return {
       options,
       getCoinData,
+      loadImage,
       coinsLoading: walletStore.isLoading,
     };
   },

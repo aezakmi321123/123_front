@@ -14,17 +14,17 @@
             <img
               v-if="isBank.send"
               :style="{ width: '60px' }"
-              :src="`../../../../../public/${payment.currencyFrom.toLowerCase()}.svg`"
+              :src="loadImage(payment.currencyFrom)"
             />
             <img
               v-else
               :style="{ width: '60px' }"
-              :src="`../../../../../public/crypto/${payment.currencyFrom.toLowerCase()}.svg`"
+              :src="loadImage(payment.currencyFrom, true)"
             />
             <div v-if="isBank.send">
               <img
                 :style="{ width: '60px' }"
-                :src="`../../../../../public/${payment.networkFrom.toLowerCase()}.svg`"
+                :src="loadImage(payment.networkFrom)"
               />
             </div>
             <CRadioGroup v-else>
@@ -39,12 +39,12 @@
             <img
               v-if="isBank.receive"
               :style="{ width: '60px' }"
-              :src="`../../../../../public/${payment.currencyTo.toLowerCase()}.svg`"
+              :src="loadImage(payment.currencyTo)"
             />
             <img
               v-else
               :style="{ width: '60px' }"
-              :src="`../../../../../public/crypto/${payment.currencyTo.toLowerCase()}.svg`"
+              :src="loadImage(payment.currencyTo, true)"
             />
             <div v-if="isBank.receive">
               <img
@@ -91,10 +91,10 @@
           @copy="() => onCopy(payment.fullAmountCalculated)"
         />
         <CCopyableInput
-            :prefix="t('payment.totalAmountReceived')"
-            :value="payment?.receivedAmountCalculated"
-            readonly
-            @copy="() => onCopy(payment?.receivedAmountCalculated)"
+          :prefix="t('payment.totalAmountReceived')"
+          :value="payment?.receivedAmountCalculated"
+          readonly
+          @copy="() => onCopy(payment?.receivedAmountCalculated)"
         />
         <CCopyableInput
           v-if="payment?.receivedAddress"
@@ -196,6 +196,12 @@ export default defineComponent({
         receive: payment.value.networkTo?.toLowerCase() in BANKS,
       };
     });
+    const loadImage = (name, crypto = false) => {
+      const image = crypto
+        ? `../../../../../public/crypto/${name.toLowerCase()}.svg`
+        : `../../../../../public/${name.toLowerCase()}.svg`;
+      return image;
+    };
     const shortAddress = address => {
       if (!address) return;
       if (isBank.value.receive) return address;
@@ -212,7 +218,7 @@ export default defineComponent({
       }
     };
 
-    return { t, payment, shortAddress, onCopy, screens, isBank };
+    return { t, payment, shortAddress, onCopy, screens, isBank, loadImage };
   },
 });
 </script>

@@ -8,7 +8,7 @@ export default {
   },
   header: {
     news: 'Новости',
-    homepage: 'Главная страница',
+    homepage: 'Главная',
     exchange: 'Обмен',
     top_directions: 'Лучшие направления',
     about_us: 'О нас',

@@ -33,7 +33,7 @@ export default {
 
     onMounted(async () => {
       await wallet.getCoins();
-      await wallet.getRubble()
+      await wallet.getRubble();
 
       wallet.bindEvents();
     });

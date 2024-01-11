@@ -1,10 +1,10 @@
 <template>
-  <a-select class="c-select" v-bind="$attrs">
+  <a-select class="c-autocomplete" v-bind="$attrs">
     <template #option="{ value }">
       <div class="aligned">
         <img
           :style="{ width: '26px', height: '26px' }"
-          :src="`${value.toLowerCase()}.svg`"
+          :src="loadImage(value)"
         />
         <div>{{ value.toUpperCase() }}</div>
       </div>
@@ -21,21 +21,27 @@ export default {
   components: {
     CaretDownFilled,
   },
+  setup() {
+    const loadImage = name => {
+      const image = `@images/${name.toLowerCase()}.svg`;
+      return image;
+    };
+    return { loadImage };
+  },
 };
 </script>
 <style lang="scss">
 .ant-select-arrow .anticon:not(.ant-select-suffix) {
   pointer-events: none !important;
 }
-.ant-select-selector.ant-select-selection-item {
+.ant-select-selection-item {
   font-size: 20px !important;
   color: var(--text-primary) !important;
   font-weight: 700 !important;
   display: flex;
-  padding-top: 0px !important;
   align-items: center;
 }
-.c-select {
+.c-autocomplete {
   .ant-input {
     font-size: 20px !important;
     color: var(--text-primary) !important;
