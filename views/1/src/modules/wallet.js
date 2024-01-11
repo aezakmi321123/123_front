@@ -11,6 +11,7 @@ export const useWalletStore = defineStore('wallet', {
   state: () => ({
     isLoading: false,
     coins: [],
+    rates: {},
     wsData: {
       isConnected: false,
       coins: {},
@@ -51,7 +52,10 @@ export const useWalletStore = defineStore('wallet', {
         VOLUME24HOURTO,
         LASTTRADEID,
         TOTALVOLUME24H,
-        LASTUPDATE, } = RAW.RUB.USD
+        LASTUPDATE,
+      } = RAW.RUB.USD
+
+      const c = (typeof RAW.PRICE === 'number' ? PRICE : parseFloat(PRICE)) * this.rates?.RUB | 1;
 
       this.wsData.coins = {
         ...this.wsData.coins,
@@ -63,7 +67,7 @@ export const useWalletStore = defineStore('wallet', {
           P: CHANGEPCT24HOUR.toString(),
           w: MEDIAN.toString(),
           x: OPEN24HOUR.toString(),
-          c: typeof RAW.PRICE === 'number' ? PRICE.toString() : PRICE,
+          c: c.toString(),
           Q: LASTVOLUME.toString(),
           b: HIGH24HOUR.toString(),
           B: '',
@@ -83,6 +87,9 @@ export const useWalletStore = defineStore('wallet', {
         }
       }
     },
+    setRates(rates){
+      this.rates = rates
+    },
     bindEvents() {
       socket.init(websocketUrl);
 
@@ -99,11 +106,13 @@ export const useWalletStore = defineStore('wallet', {
       });
       socket.addEventListener('message', event => {
         const data = JSON.parse(event.data);
+        const symbol = data.s.replace('USDT', '')
+        const c = parseFloat(data?.c) * this.rates[symbol]
 
         if (data.e === '24hrTicker') {
           this.wsData.coins = {
             ...this.wsData.coins,
-            [data.s.slice(0, -4)]: { ...data },
+            [symbol]: { ...data, c },
           };
         }
       });

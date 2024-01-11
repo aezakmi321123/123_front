@@ -119,4 +119,9 @@ export default {
       return call('GET', `/withdrawals/userWithdrawalsInfo/${id}`);
     },
   },
+  domain: {
+    getDomain(domain) {
+      return call('GET', `/domains/${domain}`);
+    },
+  }
 };

@@ -15,6 +15,7 @@ import CFooter from './components/Footer/index.vue';
 import CHeader from './components/Header/index.vue';
 import { cMessage } from './heplers/message.js';
 import { useAuthStore } from './modules/auth.js';
+import { useDomainStore } from "./modules/domaines.js";
 import { useExchangeStore } from './modules/exchange.js';
 import { useWalletStore } from './modules/wallet.js';
 
@@ -26,6 +27,7 @@ export default {
   },
   setup() {
     const wallet = useWalletStore();
+    const domain = useDomainStore()
     const exchange = useExchangeStore();
     const auth = useAuthStore();
     const { t } = useI18n();
@@ -33,8 +35,11 @@ export default {
 
     onMounted(async () => {
       await wallet.getCoins();
-      await wallet.getRubble()
+      await domain.getDomain()
 
+      wallet.setRates(domain.domain?.rates)
+
+      await wallet.getRubble()
       wallet.bindEvents();
     });
     onBeforeUnmount(() => {
