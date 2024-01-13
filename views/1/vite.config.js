@@ -4,16 +4,7 @@ import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 export default defineConfig({
-  plugins: [
-    vue({
-      template: {
-        transformAssetUrls: {
-          includeAbsolute: false,
-        },
-      },
-    }),
-    eslintPlugin(),
-  ],
+  plugins: [vue(), eslintPlugin()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
