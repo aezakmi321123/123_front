@@ -5,8 +5,16 @@ import eslintPlugin from 'vite-plugin-eslint';
 // import ViteSvgLoader from 'vite-svg-loader';
 
 export default defineConfig({
-  plugins: [vue(), eslintPlugin()],
-  base: '',
+  plugins: [
+    vue({
+      template: {
+        transformAssetUrls: {
+          includeAbsolute: false,
+        },
+      },
+    }),
+    eslintPlugin(),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
