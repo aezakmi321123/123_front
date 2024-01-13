@@ -6,12 +6,12 @@
           v-if="!country && type === 'crypto'"
           :size="24"
           :style="{ width: '26px' }"
-          :src="`crypto/${value.toLowerCase()}.svg`"
+          :src="getImageUrl(value)"
         />
         <img
           v-if="!country && type === 'fiat'"
           :style="{ width: '26px' }"
-          :src="`${value.toLowerCase()}.svg`"
+          :src="getImageUrl(value, false)"
         />
         <div>{{ country ? label : value }}</div>
       </div>
@@ -32,6 +32,17 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  setup() {
+    const getImageUrl = (name, isCrypto = true) => {
+      const url = isCrypto
+        ? `../assets/icons/crypto/${name.toLowerCase()}.svg`
+        : `../assets/icons/${name.toLowerCase()}.svg`;
+      return new URL(url, import.meta.url).href;
+    };
+    return {
+      getImageUrl,
+    };
   },
 };
 </script>

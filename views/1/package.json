@@ -31,6 +31,7 @@
     "sass-loader": "^13.3.2",
     "vite": "^4.4.5",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-svg-loader": "^5.1.0",
     "vue": "^3.3.4",
     "vue-client-recaptcha": "^1.1.4",
     "vue-cryptoicon": "^0.18.1",

@@ -10,7 +10,7 @@
       <div class="aligned">
         <img
           :style="{ width: '26px', height: '26px' }"
-          :src="`${value.toLowerCase()}.svg`"
+          :src="getImageUrl(value, false)"
         />
         <div>{{ label }}</div>
       </div>
@@ -36,6 +36,12 @@ export default {
     },
   },
   setup(props) {
+    const getImageUrl = (name, isCrypto = true) => {
+      const url = isCrypto
+        ? `../assets/icons/crypto/${name.toLowerCase()}.svg`
+        : `../assets/icons/${name.toLowerCase()}.svg`;
+      return new URL(url, import.meta.url).href;
+    };
     const mapBanks = banks =>
       banks.map(el => ({
         label: BANKS[el.toLowerCase()],
@@ -44,7 +50,7 @@ export default {
           { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
           [
             h('img', {
-              src: `${el.toLowerCase()}.svg`,
+              src: getImageUrl(el, false),
               style: {
                 width: '26px',
                 height: '26px',
@@ -60,6 +66,7 @@ export default {
     });
     return {
       mappedOptions,
+      getImageUrl,
     };
   },
 };

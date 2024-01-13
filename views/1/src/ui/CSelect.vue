@@ -4,7 +4,7 @@
       <div class="aligned">
         <img
           :style="{ width: '26px', height: '26px' }"
-          :src="loadImage(value)"
+          :src="getImageUrl(value)"
         />
         <div>{{ value.toUpperCase() }}</div>
       </div>
@@ -22,11 +22,13 @@ export default {
     CaretDownFilled,
   },
   setup() {
-    const loadImage = name => {
-      const image = `@images/${name.toLowerCase()}.svg`;
-      return image;
+    const getImageUrl = name => {
+      return new URL(
+        `../assets/icons/${name.toLowerCase()}.svg`,
+        import.meta.url,
+      ).href;
     };
-    return { loadImage };
+    return { getImageUrl };
   },
 };
 </script>

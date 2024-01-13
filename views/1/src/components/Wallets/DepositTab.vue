@@ -99,7 +99,12 @@ export default {
     const { t } = useI18n();
     const authStore = useAuthStore();
     const payment = usePaymentStore();
-
+    const getImageUrl = (name, isCrypto = true) => {
+      const url = isCrypto
+        ? `../../assets/icons/crypto/${name.toLowerCase()}.svg`
+        : `../../assets/icons/${name.toLowerCase()}.svg`;
+      return new URL(url, import.meta.url).href;
+    };
     const mapValue = el => ({
       label: el.name,
       value: el.abbr,
@@ -109,9 +114,7 @@ export default {
         { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
         [
           h('img', {
-            src: `${
-              el.type === 'fiat' ? '' : 'crypto'
-            }/${el.abbr?.toLowerCase()}.svg`,
+            src: getImageUrl(el.abbr, el.type === 'crypto'),
             style: {
               width: '26px',
               height: '26px',

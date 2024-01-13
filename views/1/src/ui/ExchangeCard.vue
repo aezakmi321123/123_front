@@ -84,7 +84,7 @@
       </div>
       <div class="exchange__card-swap">
         <div class="img" @click="swapCoins">
-          <img height="20" width="20" src="@images/replace.svg" />
+          <img height="20" width="20" :src="getImageUrl('replace', false)" />
         </div>
       </div>
       <div class="exchange__card-receive">
@@ -222,7 +222,12 @@ export default {
     const pendingExchange = { ...exchangeStore.pendingExchange };
 
     const { t } = useI18n();
-
+    const getImageUrl = (name, isCrypto = true) => {
+      const url = isCrypto
+        ? `../assets/icons/crypto/${name.toLowerCase()}.svg`
+        : `../assets/icons/${name.toLowerCase()}.svg`;
+      return new URL(url, import.meta.url).href;
+    };
     const mapValue = (
       { abbr, name, networks, type } = {
         abbr: '',
@@ -240,9 +245,7 @@ export default {
         { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
         [
           h('img', {
-            src: `${
-              type === 'fiat' ? '' : 'crypto'
-            }/${abbr?.toLowerCase()}.svg`,
+            src: getImageUrl(abbr, type === 'crypto'),
             style: {
               width: '26px',
               height: '26px',
@@ -512,6 +515,7 @@ export default {
       receiveOnFocus,
       onReceiveFocus,
       onReceiveBlur,
+      getImageUrl,
     };
   },
 };

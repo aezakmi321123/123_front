@@ -12,19 +12,13 @@
         <a-col :xs="24" :md="10" class="payment__coin">
           <div class="payment__coin-info">
             <img
-              v-if="isBank.send"
               :style="{ width: '60px' }"
-              :src="loadImage(payment.currencyFrom)"
-            />
-            <img
-              v-else
-              :style="{ width: '60px' }"
-              :src="loadImage(payment.currencyFrom, true)"
+              :src="getImageUrl(payment.currencyFrom, !isBank.send)"
             />
             <div v-if="isBank.send">
               <img
                 :style="{ width: '60px' }"
-                :src="loadImage(payment.networkFrom)"
+                :src="getImageUrl(payment.networkFrom, false)"
               />
             </div>
             <CRadioGroup v-else>
@@ -37,19 +31,13 @@
         <a-col :xs="24" :md="10" class="payment__coin end">
           <div class="payment__coin-info">
             <img
-              v-if="isBank.receive"
               :style="{ width: '60px' }"
-              :src="loadImage(payment.currencyTo)"
-            />
-            <img
-              v-else
-              :style="{ width: '60px' }"
-              :src="loadImage(payment.currencyTo, true)"
+              :src="getImageUrl(payment.currencyTo, !isBank.receive)"
             />
             <div v-if="isBank.receive">
               <img
                 :style="{ width: '60px' }"
-                :src="`${payment.networkTo.toLowerCase()}.svg`"
+                :src="getImageUrl(payment.networkTo, false)"
               />
             </div>
             <CRadioGroup v-if="payment.networkTo && !isBank.receive">
@@ -196,11 +184,11 @@ export default defineComponent({
         receive: payment.value.networkTo?.toLowerCase() in BANKS,
       };
     });
-    const loadImage = (name, crypto = false) => {
-      const image = crypto
-        ? `../../../../../public/crypto/${name.toLowerCase()}.svg`
-        : `../../../../../public/${name.toLowerCase()}.svg`;
-      return image;
+    const getImageUrl = (name, isCrypto = true) => {
+      const url = isCrypto
+        ? `../../assets/icons/crypto/${name.toLowerCase()}.svg`
+        : `../../assets/icons/${name.toLowerCase()}.svg`;
+      return new URL(url, import.meta.url).href;
     };
     const shortAddress = address => {
       if (!address) return;
@@ -218,7 +206,15 @@ export default defineComponent({
       }
     };
 
-    return { t, payment, shortAddress, onCopy, screens, isBank, loadImage };
+    return {
+      t,
+      payment,
+      shortAddress,
+      onCopy,
+      screens,
+      isBank,
+      getImageUrl,
+    };
   },
 });
 </script>

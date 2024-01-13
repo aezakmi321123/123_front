@@ -1,11 +1,9 @@
 <template>
   <a-flex gap="10" align="center">
     <img
-      v-if="type === 'crypto'"
-      :src="`crypto/${abbr.toLowerCase()}.svg`"
+      :src="getImageUrl(abbr, type === 'crypto')"
       :style="{ width: '40px' }"
     />
-    <img v-else :src="`${abbr.toLowerCase()}.svg`" :style="{ width: '40px' }" />
     <a-flex vertical>
       <a-flex align="center" gap="3">
         <a-typography-text class="text-primary">{{ abbr }}</a-typography-text>
@@ -24,6 +22,15 @@ export default {
     abbr: { type: String, default: '' },
     name: { type: String, default: '' },
     type: { type: String, default: '' },
+  },
+  setup() {
+    const getImageUrl = (name, isCrypto = true) => {
+      const url = isCrypto
+        ? `../assets/icons/crypto/${name.toLowerCase()}.svg`
+        : `../assets/icons/${name.toLowerCase()}.svg`;
+      return new URL(url, import.meta.url).href;
+    };
+    return { getImageUrl };
   },
 };
 </script>

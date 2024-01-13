@@ -2,7 +2,7 @@
   <div class="main-header">
     <div class="header__mobile">
       <div class="header__mobile-image">
-        <a @click="goToMainPage"><img src="@images/mainLogo.svg" /></a>
+        <a @click="goToMainPage"><img src="@assets/icons/mainLogo.svg" /></a>
       </div>
       <div class="header__mobile-menu">
         <MenuOutlined :style="{ fontSize: '30px' }" @click="drawer = true" />
@@ -11,7 +11,7 @@
     <div>
       <div :class="['header container show-desktop', { open: openMobile }]">
         <a class="header__logo"
-          ><img src="@images/mainLogo.svg" @click="goToMainPage"
+          ><img src="@assets/icons/mainLogo.svg" @click="goToMainPage"
         /></a>
         <div mode="horizontal" class="header__list">
           <a key="1" class="header__list-item" @click="goToMainPage"
@@ -208,6 +208,12 @@ export default {
     const openMobile = ref(false);
     const lang = ref(defaultLang || 'en');
     const drawer = ref(false);
+    const getImageUrl = name => {
+      return new URL(
+        `../../assets/icons/${name.toLowerCase()}.svg`,
+        import.meta.url,
+      ).href;
+    };
     const logout = async () => {
       try {
         await authStore.logOut();
@@ -232,7 +238,7 @@ export default {
           { style: { display: 'flex', 'align-items': 'center', gap: '10px' } },
           [
             h('img', {
-              src: `${el.toLowerCase()}.svg`,
+              src: getImageUrl(el),
               style: {
                 width: '26px',
                 height: '26px',
@@ -270,6 +276,7 @@ export default {
       changeLang,
       drawer,
       goTo,
+      getImageUrl,
     };
   },
 };

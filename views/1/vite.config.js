@@ -2,28 +2,35 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
+// import ViteSvgLoader from 'vite-svg-loader';
+
 export default defineConfig({
   plugins: [vue(), eslintPlugin()],
   resolve: {
     alias: {
-      // Create an alias for images in the public folder
-      '@images': path.resolve(__dirname, '/public'),
+      '@': path.resolve(__dirname, 'src'),
+      '@images': path.resolve(__dirname, 'src/assets/icons'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
     },
   },
-  alias: [
-    {
-      find: '@',
-      replacement: path.resolve(__dirname, 'src'),
+  optimizeDeps: {
+    esbuildOptions: {
+      target: 'es2020',
     },
-  ],
+  },
+
+  build: {
+    target: 'es2020',
+    outDir: 'dist',
+  },
   css: {
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "./src/assets/scss/index.scss";
-          @import "./src/assets/scss/vars.scss";
-          @import "./src/assets/scss/layout.scss";
-      `,
+          @import "@/assets/scss/index.scss";
+          @import "@/assets/scss/vars.scss";
+          @import "@/assets/scss/layout.scss";
+        `,
       },
     },
   },

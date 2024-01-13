@@ -29,12 +29,7 @@
         <div class="title">
           <h2>{{ t('main.features') }}</h2>
         </div>
-        <a-row
-          :gutter="[
-            { lg: 50, xs: 20 },
-            { xs: 20 },
-          ]"
-        >
+        <a-row :gutter="[{ lg: 50, xs: 20 }, { xs: 20 }]">
           <a-col :xs="24" :sm="12" :lg="6">
             <div class="feature">
               <div class="feature__image">
@@ -115,7 +110,11 @@
       </div>
       <div class="main__page-coins">
         <div class="coins">
-          <a-row justify="center" align="middle" :gutter="[{md: 30, xs: 10}, 30]">
+          <a-row
+            justify="center"
+            align="middle"
+            :gutter="[{ md: 30, xs: 10 }, 30]"
+          >
             <a-col :span="24" :order="1" :lg="{ span: 14, order: 0 }">
               <CoinTable />
             </a-col>
