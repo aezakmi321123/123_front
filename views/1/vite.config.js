@@ -1,9 +1,9 @@
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
+// import ViteSvgLoader from 'vite-svg-loader';
+import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
-// import ViteSvgLoader from 'vite-svg-loader';
-
 export default defineConfig({
   plugins: [
     vue({
@@ -17,9 +17,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@images': path.resolve(__dirname, 'src/assets/icons'),
-      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@images': fileURLToPath(new URL('./src/assets/icons', import.meta.url)),
+      '@assets': fileURLToPath(new URL('./src/assets', import.meta.url)),
     },
   },
   optimizeDeps: {
@@ -29,8 +29,9 @@ export default defineConfig({
   },
 
   build: {
+    outDir: '../dist',
     target: 'es2020',
-    outDir: 'dist',
+    emptyOutDir: true,
   },
   css: {
     preprocessorOptions: {
