@@ -1,5 +1,4 @@
 import vue from '@vitejs/plugin-vue';
-import path from 'path';
 // import ViteSvgLoader from 'vite-svg-loader';
 import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
@@ -29,9 +28,8 @@ export default defineConfig({
   },
 
   build: {
-    outDir: '../dist',
     target: 'es2020',
-    emptyOutDir: true,
+    outDir: 'dist',
   },
   css: {
     preprocessorOptions: {
