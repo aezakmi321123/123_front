@@ -2,7 +2,7 @@
   <div class="main-header">
     <div class="header__mobile">
       <div class="header__mobile-image">
-        <a @click="goToMainPage"><img src="@assets/icons/mainLogo.svg" /></a>
+        <a @click="goToMainPage"><img src="@images/mainLogo.svg" /></a>
       </div>
       <div class="header__mobile-menu">
         <MenuOutlined :style="{ fontSize: '30px' }" @click="drawer = true" />
@@ -11,7 +11,7 @@
     <div>
       <div :class="['header container show-desktop', { open: openMobile }]">
         <a class="header__logo"
-          ><img src="@assets/icons/mainLogo.svg" @click="goToMainPage"
+          ><img src="@images/mainLogo.svg" @click="goToMainPage"
         /></a>
         <div mode="horizontal" class="header__list">
           <a key="1" class="header__list-item" @click="goToMainPage"
@@ -210,7 +210,7 @@ export default {
     const drawer = ref(false);
     const getImageUrl = name => {
       return new URL(
-        `../../assets/icons/${name.toLowerCase()}.svg`,
+        `/public/assets/${name.toLowerCase()}.svg`,
         import.meta.url,
       ).href;
     };

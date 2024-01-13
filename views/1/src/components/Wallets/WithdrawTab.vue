@@ -149,8 +149,8 @@ export default {
     const commission = import.meta.env.VITE_BASE_COMMISSION;
     const getImageUrl = (name, isCrypto = true) => {
       const url = isCrypto
-        ? `../../assets/icons/crypto/${name.toLowerCase()}.svg`
-        : `../../assets/icons/${name.toLowerCase()}.svg`;
+        ? `/public/assets/crypto/${name.toLowerCase()}.svg`
+        : `/public/assets/${name.toLowerCase()}.svg`;
       return new URL(url, import.meta.url).href;
     };
     const mapValue = el => ({

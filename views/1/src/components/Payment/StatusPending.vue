@@ -186,8 +186,8 @@ export default defineComponent({
     });
     const getImageUrl = (name, isCrypto = true) => {
       const url = isCrypto
-        ? `../../assets/icons/crypto/${name.toLowerCase()}.svg`
-        : `../../assets/icons/${name.toLowerCase()}.svg`;
+        ? `/public/assets/crypto/${name.toLowerCase()}.svg`
+        : `/public/assets/icons/${name.toLowerCase()}.svg`;
       return new URL(url, import.meta.url).href;
     };
     const shortAddress = address => {

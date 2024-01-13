@@ -24,7 +24,7 @@ export default {
   setup() {
     const getImageUrl = name => {
       return new URL(
-        `../assets/icons/${name.toLowerCase()}.svg`,
+        `/public/assets/${name.toLowerCase()}.svg`,
         import.meta.url,
       ).href;
     };
