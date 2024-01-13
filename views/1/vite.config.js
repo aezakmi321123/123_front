@@ -2,10 +2,10 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
-// import ViteSvgLoader from 'vite-svg-loader';
+import ViteSvgLoader from 'vite-svg-loader';
 
 export default defineConfig({
-  plugins: [vue(), eslintPlugin()],
+  plugins: [vue(), eslintPlugin(), ViteSvgLoader()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
