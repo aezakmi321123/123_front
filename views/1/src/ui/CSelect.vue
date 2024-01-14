@@ -23,10 +23,7 @@ export default {
   },
   setup() {
     const getImageUrl = name => {
-      return new URL(
-        `/public/assets/${name.toLowerCase()}.svg`,
-        import.meta.url,
-      ).href;
+      return new URL(`/assets/${name.toLowerCase()}.svg`, import.meta.url).href;
     };
     return { getImageUrl };
   },

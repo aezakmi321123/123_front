@@ -6,7 +6,7 @@
           v-if="!country && type === 'crypto'"
           :size="24"
           :style="{ width: '26px' }"
-          :src="`/assets/crypto/${value.toLowerCase()}.svg`"
+          :src="getImageUrl(value)"
         />
         <img
           v-if="!country && type === 'fiat'"
@@ -36,8 +36,8 @@ export default {
   setup() {
     const getImageUrl = (name, isCrypto = true) => {
       const url = isCrypto
-        ? `/public/assets/crypto/${name.toLowerCase()}.svg`
-        : `/public/assets/${name.toLowerCase()}.svg`;
+        ? `/assets/crypto/${name.toLowerCase()}.svg`
+        : `/assets/${name.toLowerCase()}.svg`;
       return new URL(url, import.meta.url).href;
     };
     return {

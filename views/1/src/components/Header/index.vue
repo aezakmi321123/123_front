@@ -209,10 +209,7 @@ export default {
     const lang = ref(defaultLang || 'en');
     const drawer = ref(false);
     const getImageUrl = name => {
-      return new URL(
-        `/public/assets/${name.toLowerCase()}.svg`,
-        import.meta.url,
-      ).href;
+      return new URL(`/assets/${name.toLowerCase()}.svg`, import.meta.url).href;
     };
     const logout = async () => {
       try {
