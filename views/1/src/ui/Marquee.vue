@@ -54,7 +54,7 @@ export default {
     const socketCoinsData = computed(() => walletStore.wsData.coins);
     const getImageUrl = name => {
       return new URL(
-        `/assets/crypto/${name.toLowerCase()}.svg`,
+        `/public/assets/crypto/${name.toLowerCase()}.svg`,
         import.meta.url,
       ).href;
     };
