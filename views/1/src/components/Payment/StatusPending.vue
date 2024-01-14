@@ -1,5 +1,5 @@
 <template>
-  <div v-if="payment.currencyTo" class="payment">
+  <div :key="payment.currencyTo" class="payment">
     <div class="payment__number">Оплата заявки: {{ payment.id }}</div>
     <div class="payment__currency">
       <h3>
