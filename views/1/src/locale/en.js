@@ -102,6 +102,11 @@ export default {
     confirmed: 'Email Confirmed',
     confirm_btn: 'Confirm Email',
   },
+  reset: {
+    remember: 'Remember Password?',
+    reset: 'Remember Password?',
+    enter: 'Enter email',
+  },
   payment: {
     pay: 'Payment for the application at the rate: 1',
     make_pay: 'Make a payment using the details',

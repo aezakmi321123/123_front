@@ -81,6 +81,7 @@ export default {
     create: 'Создать аккаунт',
     password: 'Пароль',
     sign_in: 'Войти',
+    forgot: 'Забыли пароль',
   },
   sign_up: {
     register: 'Регистрация партнера',
@@ -89,6 +90,11 @@ export default {
     full_name: 'Полное имя',
     sign_up: 'Зарегистрироваться',
     password: 'Пароль',
+  },
+  reset: {
+    remember: 'Забыли пароль?',
+    reset: 'Сбросить пароль',
+    enter: 'Введите электронную почту',
   },
   settings: {
     title: 'Настройки пользователя',

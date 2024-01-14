@@ -6,10 +6,11 @@
     >
       <a-col :xs="24" :sm="18" :md="16" :lg="14" :xl="12">
         <div class="auth__card">
-          <h2 class="auth__card-label">Reset password</h2>
+          <h2 class="auth__card-label">{{ t('reset.reset') }}</h2>
           <div class="auth__card-registered">
             <span
-              >Remember Password? <a @click="routeToLogin">{{ t('sign_up.login') }}</a></span
+              >{{ t('reset.remember') }}
+              <a @click="routeToLogin">{{ t('sign_up.login') }}</a></span
             >
           </div>
           <a-form layout="vertical" :model="formState" @finish="onFinish">
@@ -22,12 +23,12 @@
             >
               <CInput
                 v-model:value="formState.email"
-                placeholder="Ender email"
+                :placeholder="t('reset.enter')"
               ></CInput>
             </a-form-item>
-            <CButton html-type="submit" size="large" type="secondary" block
-              >Reset Password</CButton
-            >
+            <CButton html-type="submit" size="large" type="secondary" block>{{
+              t('reset.reset')
+            }}</CButton>
           </a-form>
         </div>
       </a-col>
@@ -84,7 +85,7 @@ export default {
       routeToRegister,
       t,
       goToResetSend,
-      routeToLogin
+      routeToLogin,
     };
   },
 };
