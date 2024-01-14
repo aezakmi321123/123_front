@@ -23,18 +23,22 @@ export const useWalletStore = defineStore('wallet', {
       try {
         const { data } = await rest.wallet.getCoins();
 
-        this.coins = orderBy(data, 'type', 'desc')
+        this.coins = orderBy(data, 'type', 'desc');
       } catch (e) {
         handleAxiosError(e);
       } finally {
         this.isLoading = false;
       }
     },
-    async getRubble(){
-      const { data: { RAW } } = (await rest.wallet.getRuble()) ?? { data: { RAW: { RUB: { USD: null } } } };
+    async getRubble() {
+      const {
+        data: { RAW },
+      } = (await rest.wallet.getRuble()) ?? {
+        data: { RAW: { RUB: { USD: null } } },
+      };
 
-      if(!RAW.RUB.USD){
-        return
+      if (!RAW.RUB.USD) {
+        return;
       }
 
       const {
@@ -53,9 +57,12 @@ export const useWalletStore = defineStore('wallet', {
         LASTTRADEID,
         TOTALVOLUME24H,
         LASTUPDATE,
-      } = RAW.RUB.USD
+      } = RAW.RUB.USD;
 
-      const c = (typeof RAW.PRICE === 'number' ? PRICE : parseFloat(PRICE)) * this.rates?.RUB | 1;
+      const c =
+        ((typeof RAW.PRICE === 'number' ? PRICE : parseFloat(PRICE)) *
+          this.rates?.RUB) |
+        1;
 
       this.wsData.coins = {
         ...this.wsData.coins,
@@ -84,11 +91,11 @@ export const useWalletStore = defineStore('wallet', {
           L: LASTTRADEID,
           n: TOTALVOLUME24H,
           time: LASTUPDATE,
-        }
-      }
+        },
+      };
     },
-    setRates(rates){
-      this.rates = rates
+    setRates(rates) {
+      this.rates = rates;
     },
     bindEvents() {
       socket.init(websocketUrl);
@@ -106,8 +113,8 @@ export const useWalletStore = defineStore('wallet', {
       });
       socket.addEventListener('message', event => {
         const data = JSON.parse(event.data);
-        const symbol = data.s.replace('USDT', '')
-        const c = parseFloat(data?.c) * this.rates[symbol]
+        const symbol = data.s?.replace('USDT', '');
+        const c = parseFloat(data?.c) * this.rates[symbol];
 
         if (data.e === '24hrTicker') {
           this.wsData.coins = {
