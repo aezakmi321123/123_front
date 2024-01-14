@@ -11,7 +11,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix ./src"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue": "^3.2.3",
     "ant-design-vue": "^4.0.7",
     "axios": "^1.5.1",
     "country-calling-code": "^0.0.3",
