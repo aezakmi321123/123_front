@@ -33,7 +33,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col :xs="12" :sm="12" :lg="6">
+        <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <span @click="goTo('about')">{{ t('footer.about_us') }}</span>
@@ -46,7 +46,7 @@
             </a-col>
           </a-flex>
         </a-col>
-        <a-col :xs="12" :sm="12" :lg="6">
+        <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
             <a-col>
               <a :href="`mailto:${supportMail}`"> {{ supportMail }}</a>
