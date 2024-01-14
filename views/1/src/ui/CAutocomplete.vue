@@ -38,7 +38,7 @@ export default {
       const url = isCrypto
         ? `/public/assets/crypto/${name.toLowerCase()}.svg`
         : `/public/assets/${name.toLowerCase()}.svg`;
-      return url;
+      return new URL(url, import.meta.url).href;
     };
     return {
       getImageUrl,
