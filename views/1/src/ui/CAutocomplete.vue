@@ -6,7 +6,7 @@
           v-if="!country && type === 'crypto'"
           :size="24"
           :style="{ width: '26px' }"
-          :src="getImageUrl(value)"
+          :src="`/assets/crypto/${value.toLowerCase()}.svg`"
         />
         <img
           v-if="!country && type === 'fiat'"
