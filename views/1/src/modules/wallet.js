@@ -59,10 +59,7 @@ export const useWalletStore = defineStore('wallet', {
         LASTUPDATE,
       } = RAW.RUB.USD;
 
-      const c =
-        ((typeof RAW.PRICE === 'number' ? PRICE : parseFloat(PRICE)) *
-          this.rates?.RUB) |
-        1;
+      const c = (typeof RAW.PRICE === 'number' ? PRICE : parseFloat(PRICE)) * (this.rates?.RUB || 1);
 
       this.wsData.coins = {
         ...this.wsData.coins,
