@@ -475,9 +475,6 @@ export default {
         timeoutSet(true);
         exchangeForm.value.valueNumberSend =
           pendingExchange.valueNumberSend ||
-          authStore?.user?.coins?.find?.(
-            ({ abbr }) => abbr === exchangeForm.value.valueSend.value,
-          )?.coinQuantity ||
           exchangeForm.value.valueNumberSend ||
           0;
 
