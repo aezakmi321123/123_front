@@ -453,9 +453,11 @@ export default {
       receiveOnFocus.value = false;
     };
 
-    exchangeForm.value.valueReceive = mapValue(
-      pendingExchange.coinTo || walletStore?.coins?.[1],
-    );
+    watch(() => pendingExchange.coinTo || walletStore?.coins?.[1], () => {
+      exchangeForm.value.valueReceive = mapValue(
+          pendingExchange.coinTo || walletStore?.coins?.[1],
+      );
+    }, { immediate: true })
 
     watch(
       () => props.selectedCard,
