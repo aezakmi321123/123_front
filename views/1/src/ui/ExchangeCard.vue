@@ -148,12 +148,23 @@
         </a-form-item>
       </div>
       <div class="exchange__card-rate">
-        <div>
-          {{ t('exchange.mainCard.exchangeRate') }}: 1
-          {{ exchangeForm.valueSend.value }} = {{ calculateSendCoinQuantity() }}
-          {{ exchangeForm.valueReceive.value }}
+        <div class="exchange__card-rate-text">
+          <div>
+            {{ t('exchange.mainCard.exchangeRate') }}: 1
+            {{ exchangeForm.valueSend.value }} =
+            {{ calculateSendCoinQuantity() }}
+            {{ exchangeForm.valueReceive.value }}
+          </div>
+          <div>
+            {{ t('exchange.mainCard.ourCommission') }}: {{ commission }}%
+          </div>
         </div>
-        <div>{{ t('exchange.mainCard.ourCommission') }}: {{ commission }}%</div>
+        <a-progress
+          type="circle"
+          :percent="percent"
+          :format="percent => `${percent / 4}s`"
+          :size="50"
+        />
       </div>
       <a-form-item class="exchange__card-exchnage">
         <CButton
@@ -175,7 +186,7 @@
 </template>
 <script>
 import { InfoCircleOutlined } from '@ant-design/icons-vue';
-import { computed, h, ref, watch } from 'vue';
+import { computed, h, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -192,6 +203,7 @@ import CInputNumber from '../ui/CInputNumber.vue';
 import CInput from './CInput.vue';
 import CRadioButton from './CRadioButton.vue';
 import CRadioGroup from './CRadioGroup.vue';
+let interval;
 export default {
   components: {
     CInput,
@@ -220,7 +232,8 @@ export default {
     const paymentStore = usePaymentStore();
     const router = useRouter();
     const pendingExchange = { ...exchangeStore.pendingExchange };
-
+    const percent = ref(100);
+    let currentRate = ref(null);
     const { t } = useI18n();
     const getImageUrl = (name, isCrypto = true) => {
       const url = isCrypto
@@ -257,7 +270,27 @@ export default {
     });
     const mapNetworks = networks => networks?.map(({ name }) => name) || [];
     const unauthOptions = ['with', 'without'];
-
+    const timeoutSet = isChange => {
+      if (isChange) {
+        getCurrentRate();
+        clearInterval(interval);
+        percent.value = 100;
+      }
+      interval = setInterval(() => {
+        percent.value -= 4;
+        if (percent.value === 0) {
+          percent.value = 100;
+          getCurrentRate();
+        }
+      }, 1000);
+    };
+    onMounted(() => {
+      getCurrentRate();
+      timeoutSet(100);
+    });
+    onUnmounted(() => {
+      clearInterval(interval);
+    });
     const exchangeForm = ref({
       valueSend: {},
       valueNumberSend: 0,
@@ -279,18 +312,17 @@ export default {
     );
     const isWalletLoading = computed(() => walletStore.isLoading);
     const isUserAuthed = computed(() => authStore.isLoggedIn);
-    const currentRate = computed(() =>
-      useCurrentRate(
+    const getCurrentRate = () => {
+      currentRate.value = useCurrentRate(
         exchangeForm.value.valueSend?.value,
         exchangeForm.value.valueReceive?.value,
-      ),
-    );
+      );
+    };
 
     const commission = import.meta.env.VITE_BASE_COMMISSION;
 
     const calculateSendCoinQuantity = (quantity = 1, commission) => {
       const fullSum = parseFloat(currentRate.value) * parseFloat(quantity);
-
       if (commission) {
         return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(10);
       }
@@ -300,7 +332,6 @@ export default {
 
     const calculateReceiveCoinQuantity = (quantity = 1, commission) => {
       const fullSum = parseFloat(quantity) / parseFloat(currentRate.value);
-
       if (commission) {
         return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(10);
       }
@@ -399,6 +430,7 @@ export default {
     };
 
     const onChangeSendValue = e => {
+      timeoutSet(true);
       exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
         e || 0,
         commission,
@@ -406,6 +438,7 @@ export default {
     };
 
     const onChangeReceiveValue = e => {
+      timeoutSet(true);
       exchangeForm.value.valueNumberSend = calculateReceiveCoinQuantity(
         e || 0,
         commission,
@@ -437,6 +470,7 @@ export default {
     watch(
       () => exchangeForm.value.valueSend,
       () => {
+        timeoutSet(true);
         exchangeForm.value.valueNumberSend =
           pendingExchange.valueNumberSend ||
           authStore?.user?.coins?.find?.(
@@ -465,6 +499,7 @@ export default {
     watch(
       () => exchangeForm.value.valueReceive,
       () => {
+        timeoutSet(true);
         exchangeForm.value.valueNumberReceive = calculateSendCoinQuantity(
           exchangeForm.value.valueNumberSend,
           commission,
@@ -516,6 +551,7 @@ export default {
       onReceiveFocus,
       onReceiveBlur,
       getImageUrl,
+      percent,
     };
   },
 };
@@ -561,10 +597,15 @@ export default {
   }
   &-rate {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-size: 12px;
-    color: var(--text-quaternary);
+    justify-content: space-between;
+    align-items: center;
+    &-text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-quaternary);
+    }
   }
   &-send,
   &-receive {
