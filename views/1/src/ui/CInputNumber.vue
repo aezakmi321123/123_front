@@ -18,6 +18,10 @@
   }
 }
 .ant-input-number-input {
+  &::placeholder {
+    color: var(--text-link) !important;
+    opacity: 0.8;
+  }
   height: 50px !important;
   font-size: 20px !important;
   font-weight: 700 !important;

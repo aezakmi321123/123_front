@@ -36,10 +36,19 @@
       <CInputNumber
         v-model:value="depositForm.depositAmountSend"
         type="number"
+        @change="timeoutSet(true)"
       />
-      <div class="text-primary mt-3">
-        {{ $t('wallets.rate') }}:
-        {{ currentRate * depositForm.depositAmountSend || 0.0 }}
+      <div class="text-primary mt-3 centered">
+        <div>
+          {{ $t('wallets.rate') }}:
+          {{ currentRate * depositForm.depositAmountSend || 0.0 }}
+        </div>
+        <a-progress
+          type="circle"
+          :percent="percent"
+          :format="percent => `${percent / 4}s`"
+          :size="30"
+        />
       </div>
     </a-form-item>
     <a-form-item name="depositCurrencyReceive" label="Value receive:">
@@ -68,7 +77,7 @@
 </template>
 
 <script>
-import { computed, h, ref, watch } from 'vue';
+import { computed, h, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { useCurrentRate } from '../../composables/useCurrentRate';
@@ -80,6 +89,7 @@ import CButton from '../../ui/CButton.vue';
 import CInputNumber from '../../ui/CInputNumber.vue';
 import CRadioButton from '../../ui/CRadioButton.vue';
 import CRadioGroup from '../../ui/CRadioGroup.vue';
+let interval;
 export default {
   components: {
     CRadioButton,
@@ -99,6 +109,35 @@ export default {
     const { t } = useI18n();
     const authStore = useAuthStore();
     const payment = usePaymentStore();
+    const percent = ref(100);
+    let currentRate = ref(null);
+    const getCurrentRate = () => {
+      currentRate.value = useCurrentRate(
+        depositForm.value.depositCurrencySend?.value,
+        depositForm.value.depositCurrencyReceive?.value,
+      );
+    };
+    const timeoutSet = isChange => {
+      if (isChange) {
+        getCurrentRate();
+        clearInterval(interval);
+        percent.value = 100;
+      }
+      interval = setInterval(() => {
+        percent.value -= 4;
+        if (percent.value === 0) {
+          percent.value = 100;
+          getCurrentRate();
+        }
+      }, 1000);
+    };
+    onMounted(() => {
+      getCurrentRate();
+      timeoutSet(100);
+    });
+    onUnmounted(() => {
+      clearInterval(interval);
+    });
     const getImageUrl = (name, isCrypto = true) => {
       const url = isCrypto
         ? `/assets/crypto/${name.toLowerCase()}.svg`
@@ -139,6 +178,7 @@ export default {
       authStore.user.coins.map(value => mapValue(value)),
     );
     const changeCoin = (e, isReceive = false) => {
+      timeoutSet(true);
       if (isReceive) {
         depositForm.value.depositCurrencyReceive =
           options.value.find(({ abbr }) => abbr === e) || e;
@@ -156,6 +196,7 @@ export default {
     watch(
       () => props.coin,
       e => {
+        timeoutSet(true);
         const transformedNetworks = mapNetworks(e.networks);
 
         depositForm.value.depositCurrencySend = mapValue(e);
@@ -182,13 +223,6 @@ export default {
       });
     };
 
-    const currentRate = computed(() =>
-      useCurrentRate(
-        depositForm.value.depositCurrencySend?.value,
-        depositForm.value.depositCurrencyReceive?.value,
-      ),
-    );
-
     return {
       options,
       depositForm,
@@ -197,9 +231,17 @@ export default {
       onFinish,
       payment,
       currentRate,
+      percent,
+      timeoutSet,
     };
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.centered {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

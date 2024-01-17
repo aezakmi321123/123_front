@@ -59,7 +59,7 @@
           />
           <div class="header__buttons" @click="drawer = true">
             <UserOutlined :style="{ fontSize: '20px' }" />
-            <a>{{ authStore.user.fullName }}</a>
+            <a>{{ shortName(authStore.user.fullName) }}</a>
             <CaretDownFilled />
             <!-- <LogoutOutlined :style="{ fontSize: '20px' }" @click="logout" /> -->
           </div>
@@ -208,6 +208,12 @@ export default {
     const openMobile = ref(false);
     const lang = ref(defaultLang || 'en');
     const drawer = ref(false);
+    const shortName = name => {
+      if (name.length > 10) {
+        return `${name.slice(0, 10)}...`;
+      }
+      return name;
+    };
     const getImageUrl = name => {
       return new URL(
         `/public/assets/${name.toLowerCase()}.svg`,
@@ -277,6 +283,7 @@ export default {
       drawer,
       goTo,
       getImageUrl,
+      shortName,
     };
   },
 };

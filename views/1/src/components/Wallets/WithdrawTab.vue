@@ -1,5 +1,14 @@
 <template>
   <a-form layout="vertical" :model="withdrawForm" @finish="onFinish">
+    <a-form-item name="withdrawCurrency" :label="t('wallets.currency')">
+      <CAutocomplete
+        class="select1"
+        :options="options"
+        option-label-prop="title"
+        :value="withdrawForm.withdrawCurrency.value"
+        @change="changeCoin"
+      />
+    </a-form-item>
     <a-form-item
       v-if="withdrawForm.withdrawNetworks.length"
       name="withdrawNetwork"
@@ -21,15 +30,6 @@
         v-else
         v-model:value="withdrawForm.withdrawNetwork"
         :options="withdrawForm.withdrawNetworks"
-      />
-    </a-form-item>
-    <a-form-item name="withdrawCurrency" :label="t('wallets.currency')">
-      <CAutocomplete
-        class="select1"
-        :options="options"
-        option-label-prop="title"
-        :value="withdrawForm.withdrawCurrency.value"
-        @change="changeCoin"
       />
     </a-form-item>
     <a-form-item name="withdrawAmount" :label="t('wallets.w_amount')">

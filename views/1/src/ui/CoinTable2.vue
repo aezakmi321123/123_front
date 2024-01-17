@@ -23,8 +23,8 @@
               record.coinQuantity
             }}</a-typography-paragraph>
             <a-typography-paragraph class="text-nowrap text-grey mb-0"
-              >{{ getCoinData(record).price }}$</a-typography-paragraph
-            >
+              >{{ getCoinData(record).price }}$
+            </a-typography-paragraph>
           </a-flex>
         </template>
         <template v-if="column.dataIndex === 'change'">
@@ -40,7 +40,7 @@
             :class="getCoinData(record).class"
             class="mb-0 text-nowrap"
           >
-            {{ getCoinData(record).rate }}
+            {{ getCoinData(record).rate }}$
           </a-typography-paragraph>
         </template>
         <template v-if="column.dataIndex === 'direction'">
@@ -151,14 +151,14 @@ export default {
       return currentData?.P?.indexOf?.('-')
         ? {
             change: `+${currentData?.P}%`,
-            class: 'text-green',
+            class: record.type === 'crypto' ? 'text-green' : 'text-red',
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'up',
           }
         : {
             change: `${currentData?.P}%`,
-            class: 'text-red',
+            class: record.type === 'crypto' ? 'text-red' : 'text-green',
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'down',

@@ -191,14 +191,14 @@ export default {
       return currentData?.P?.indexOf?.('-')
         ? {
             change: `+${currentData?.P}%`,
-            class: 'text-green',
+            class: record.type === 'crypto' ? 'text-green' : 'text-red',
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'up',
           }
         : {
             change: `${currentData?.P}%`,
-            class: 'text-red',
+            class: record.type === 'crypto' ? 'text-red' : 'text-green',
             price,
             rate: parseFloat(currentData?.c || 0).toFixed(6),
             icon: 'down',

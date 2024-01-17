@@ -136,13 +136,30 @@
           </a-form-item>
         </a-spin>
       </div>
-      <div>
+      <div v-if="exchangeForm.withAccount === unauthOptions[1]">
         <a-form-item
-          v-if="exchangeForm.withAccount === unauthOptions[1]"
+          v-if="exchangeForm.valueReceive.type === 'crypto'"
           name="receivedAddress"
         >
           <CInput
             v-model:value="exchangeForm.receivedAddress"
+            :placeholder="t('exchange.mainCard.addressPlaceholder')"
+          />
+        </a-form-item>
+        <a-form-item
+          v-else
+          name="receivedAddress"
+          :rules="[
+            {
+              validator: validateInput,
+              trigger: 'blur',
+            },
+          ]"
+        >
+          <CInputNumber
+            v-model:value="exchangeForm.receivedAddress"
+            :formatter="cardInput"
+            :parser="parseCard"
             :placeholder="t('exchange.mainCard.addressPlaceholder')"
           />
         </a-form-item>
@@ -191,6 +208,12 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useCurrentRate } from '../composables/useCurrentRate.js';
+import {
+  cardInput,
+  parseCard,
+  validateCryptoAddress,
+  validateInput,
+} from '../heplers/format';
 import { cMessage } from '../heplers/message.js';
 import { useAuthStore } from '../modules/auth.js';
 import { useExchangeStore } from '../modules/exchange.js';
@@ -376,7 +399,7 @@ export default {
             currencyTo: values.valueReceive.value,
             networkTo: values.valueReceiveNetwork,
             fullAmount: values.valueNumberSend.toString(),
-            receivedAddress: values.receivedAddress,
+            receivedAddress: values.receivedAddress.toString(),
             commission,
           });
         } else {
@@ -396,7 +419,7 @@ export default {
 
     const swapCoins = () => {
       const prevReceiveValue = { ...exchangeForm.value.valueReceive };
-
+      exchangeForm.value.receivedAddress = '';
       const getNetworkIndex = (networks = [], valueToFind) => {
         return Math.max(
           mapNetworks(networks).findIndex(value => value === valueToFind),
@@ -453,11 +476,15 @@ export default {
       receiveOnFocus.value = false;
     };
 
-    watch(() => pendingExchange.coinTo || walletStore?.coins?.[1], () => {
-      exchangeForm.value.valueReceive = mapValue(
+    watch(
+      () => pendingExchange.coinTo || walletStore?.coins?.[1],
+      () => {
+        exchangeForm.value.valueReceive = mapValue(
           pendingExchange.coinTo || walletStore?.coins?.[1],
-      );
-    }, { immediate: true })
+        );
+      },
+      { immediate: true },
+    );
 
     watch(
       () => props.selectedCard,
@@ -551,6 +578,10 @@ export default {
       onReceiveBlur,
       getImageUrl,
       percent,
+      cardInput,
+      parseCard,
+      validateInput,
+      validateCryptoAddress,
     };
   },
 };
