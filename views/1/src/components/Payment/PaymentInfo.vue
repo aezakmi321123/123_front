@@ -23,15 +23,15 @@
               <li class="payment__list-item">
                 <a-typography-text class="text-primary fw-bold text-nowrap">{{$t('payment.totalSend')}}</a-typography-text>
                 <a-tooltip overlay-class-name="payment__list-item-tooltip">
-                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.usdAmount }})</a-typography-text></template>
-                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.usdAmount }})</a-typography-text>
+                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.fullAmountInCurrency }})</a-typography-text></template>
+                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.fullAmount}} {{payment?.currencyFrom}} (${{payment?.fullAmountInCurrency }})</a-typography-text>
                 </a-tooltip>
               </li>
               <li class="payment__list-item">
                 <a-typography-text class="text-primary fw-bold text-nowrap">{{$t('payment.totalReceive')}}</a-typography-text>
                 <a-tooltip overlay-class-name="payment__list-item-tooltip">
-                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}} (${{payment?.usdAmount }})</a-typography-text></template>
-                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.coinToFullQuantity}} {{payment?.currencyTo}} (${{payment?.usdAmount }})</a-typography-text>
+                  <template #title><a-typography-text class="text-primary text-nowrap">{{payment?.fullAmountInCurrency}} {{payment?.currencyTo}} (${{payment?.fullAmountInCurrency }})</a-typography-text></template>
+                  <a-typography-text class="text-primary text-nowrap-ellipsis">{{payment?.fullAmountInCurrency}} {{payment?.currencyTo}} (${{payment?.fullAmountInCurrency }})</a-typography-text>
                 </a-tooltip>
                 </li>
               <li class="payment__list-item">
