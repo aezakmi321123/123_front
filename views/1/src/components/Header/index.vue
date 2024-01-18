@@ -3,7 +3,7 @@
     <div class="header__mobile">
       <div class="header__mobile-image">
         <a @click="goToMainPage"
-          ><img :style="{ width: '200px' }" src="@images/logo.svg"
+          ><img :style="{ width: '160px' }" src="@images/logo.svg"
         /></a>
       </div>
       <div class="header__mobile-menu">
@@ -15,7 +15,7 @@
         <a class="header__logo"
           ><img
             src="@images/logo.svg"
-            :style="{ width: '200px' }"
+            :style="{ width: '160px' }"
             @click="goToMainPage"
         /></a>
         <div mode="horizontal" class="header__list">
@@ -385,6 +385,12 @@ export default {
   &__list-item {
     font-weight: 500;
     font-size: 14px;
+    @include mq(1642px, max-width) {
+      font-size: 12px !important;
+    }
+    @include mq(1502px, max-width) {
+      font-size: 10px !important;
+    }
     cursor: pointer;
     text-decoration: none;
     color: var(--text-link);
