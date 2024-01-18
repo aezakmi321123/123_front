@@ -34,7 +34,7 @@
       </a-col>
       <a-col :xs="0" :lg="10" :xl="12">
         <div class="auth__image">
-          <img :style="{ width: '100%' }" src="@images/wow.png" />
+          <img :style="{ width: '80%' }" src="@images/wow.png" />
         </div>
       </a-col>
     </a-row>
@@ -105,7 +105,8 @@ export default {
   justify-content: flex-start;
 }
 .auth__image {
-  margin-top: -70px;
+  display: flex;
+  align-items: center;
 }
 .auth__card {
   display: flex;

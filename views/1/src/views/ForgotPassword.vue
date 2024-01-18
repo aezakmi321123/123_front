@@ -6,7 +6,8 @@
           <h2 class="auth__card-label">Enter new password</h2>
           <div class="auth__card-registered">
             <span
-            >Remember Password? <a @click="routeToLogin">{{ t('sign_up.login') }}</a></span
+              >Remember Password?
+              <a @click="routeToLogin">{{ t('sign_up.login') }}</a></span
             >
           </div>
           <a-form layout="vertical" :model="formState" @finish="onFinish">
@@ -29,7 +30,7 @@
       </a-col>
       <a-col :xs="0" :lg="10" :xl="12">
         <div class="auth__image">
-          <img :style="{ width: '100%' }" src="@images/wow.png" />
+          <img :style="{ width: '80%' }" src="@images/wow.png" />
         </div>
       </a-col>
     </a-row>
@@ -71,8 +72,8 @@ export default {
           token: route.query.token,
           newPassword,
         });
-        await cMessage('success',res?.data?.message || t('success'));
-        routeToLogin()
+        await cMessage('success', res?.data?.message || t('success'));
+        routeToLogin();
       } catch (e) {
         console.log(e);
       }
@@ -82,7 +83,7 @@ export default {
       formState,
       onFinish,
       t,
-      routeToLogin
+      routeToLogin,
     };
   },
 };
@@ -102,7 +103,8 @@ export default {
   justify-content: flex-start;
 }
 .auth__image {
-  margin-top: -70px;
+  display: flex;
+  align-items: center;
 }
 .auth__card {
   display: flex;

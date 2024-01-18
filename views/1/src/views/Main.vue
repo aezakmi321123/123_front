@@ -14,7 +14,7 @@
                 </p>
               </a-col>
               <a-col :xs="0" :lg="24">
-                <img height="430" width="460" src="@images/bank.png" />
+                <img height="430" width="460" src="@images/wallet.png" />
               </a-col>
             </a-row>
           </a-col>
@@ -77,7 +77,7 @@
         </a-row>
       </div>
       <div class="main__page-potential">
-        <a-row :justify="{ xs: 'center' }">
+        <a-row :gutter="[150, 0]" :justify="{ xs: 'center' }">
           <a-col :xs="24" :lg="12">
             <div class="potential">
               <div class="potential__title">{{ t('main.potential') }}</div>
@@ -87,8 +87,8 @@
             </div>
           </a-col>
 
-          <a-col :xs="0" :lg="8">
-            <img height="530" width="510" src="@images/crypto-planet.png" />
+          <a-col :xs="0" :lg="12">
+            <img height="400" src="@images/coins.png" />
           </a-col>
         </a-row>
       </div>

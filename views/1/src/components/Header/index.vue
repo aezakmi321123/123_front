@@ -2,7 +2,9 @@
   <div class="main-header">
     <div class="header__mobile">
       <div class="header__mobile-image">
-        <a @click="goToMainPage"><img src="@images/mainLogo.svg" /></a>
+        <a @click="goToMainPage"
+          ><img :style="{ width: '200px' }" src="@images/logo.svg"
+        /></a>
       </div>
       <div class="header__mobile-menu">
         <MenuOutlined :style="{ fontSize: '30px' }" @click="drawer = true" />
@@ -11,7 +13,10 @@
     <div>
       <div :class="['header container show-desktop', { open: openMobile }]">
         <a class="header__logo"
-          ><img src="@images/mainLogo.svg" @click="goToMainPage"
+          ><img
+            src="@images/logo.svg"
+            :style="{ width: '200px' }"
+            @click="goToMainPage"
         /></a>
         <div mode="horizontal" class="header__list">
           <a key="1" class="header__list-item" @click="goToMainPage"

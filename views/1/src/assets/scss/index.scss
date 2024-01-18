@@ -102,6 +102,7 @@ body {
   width: 100% !important;
   position: relative;
   background: var(--bg-base);
+  overflow-x: clip;
 }
 h1 {
   font-family: 'Inter';

@@ -4,10 +4,18 @@
     <router-view />
   </main>
   <CFooter />
+  <CLoader v-if="loading" />
 </template>
 <script>
 import { Modal } from 'ant-design-vue';
-import { onBeforeUnmount, onMounted, watch } from 'vue';
+import {
+  onBeforeUnmount,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  watch,
+} from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -15,32 +23,57 @@ import CFooter from './components/Footer/index.vue';
 import CHeader from './components/Header/index.vue';
 import { cMessage } from './heplers/message.js';
 import { useAuthStore } from './modules/auth.js';
-import { useDomainStore } from "./modules/domaines.js";
+import { useDomainStore } from './modules/domaines.js';
 import { useExchangeStore } from './modules/exchange.js';
 import { useWalletStore } from './modules/wallet.js';
+import CLoader from './ui/CLoader.vue';
+function watchPageRendering(callback) {
+  let frameId;
 
-// import rest from './rest/index.js';
+  function checkRendering() {
+    if (document.hidden) {
+      cancelAnimationFrame(frameId);
+    } else {
+      callback();
+      frameId = requestAnimationFrame(checkRendering);
+    }
+  }
+  frameId = requestAnimationFrame(checkRendering);
+  return frameId;
+}
 export default {
   components: {
     CHeader,
     CFooter,
+    CLoader,
   },
   setup() {
     const wallet = useWalletStore();
-    const domain = useDomainStore()
+    const domain = useDomainStore();
     const exchange = useExchangeStore();
     const auth = useAuthStore();
     const { t } = useI18n();
+    const loading = ref(true);
     const { push } = useRouter();
+    const state = reactive({ frameId: 0 });
 
     onMounted(async () => {
-      await wallet.getCoins();
-      await domain.getDomain()
-
-      wallet.setRates(domain.domain?.rates)
-
-      await wallet.getRubble()
-      wallet.bindEvents();
+      try {
+        await wallet.getCoins();
+        await domain.getDomain();
+        wallet.setRates(domain.domain?.rates);
+        await wallet.getRubble();
+        wallet.bindEvents();
+      } catch (e) {
+        console.log(e);
+      } finally {
+        state.frameId = watchPageRendering(() => {
+          setTimeout(() => (loading.value = false), 1000);
+        });
+      }
+    });
+    onUnmounted(() => {
+      cancelAnimationFrame(state.frameId);
     });
     onBeforeUnmount(() => {
       wallet.disconnect();
@@ -91,6 +124,7 @@ export default {
 
     return {
       t,
+      loading,
     };
   },
 };
@@ -100,7 +134,6 @@ main {
   margin-top: 50px;
   width: 100%;
 }
-
 .exchangeConfirm {
   .ant-modal-content {
     background: radial-gradient(100% 100% at 0% 0%, #21213d 0%, #101024 100%);
