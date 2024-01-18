@@ -370,7 +370,7 @@ export default {
     display: flex;
   }
   &__logo {
-    margin-right: 90px;
+    margin-right: 40px;
   }
   &__logo img {
     width: 180px;
@@ -387,9 +387,6 @@ export default {
     font-size: 14px;
     @include mq(1642px, max-width) {
       font-size: 12px !important;
-    }
-    @include mq(1502px, max-width) {
-      font-size: 10px !important;
     }
     cursor: pointer;
     text-decoration: none;
