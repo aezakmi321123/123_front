@@ -5,6 +5,7 @@
   </main>
   <CFooter />
   <CLoader v-if="loading" />
+  <CCockie />
 </template>
 <script>
 import { Modal } from 'ant-design-vue';
@@ -26,6 +27,7 @@ import { useAuthStore } from './modules/auth.js';
 import { useDomainStore } from './modules/domaines.js';
 import { useExchangeStore } from './modules/exchange.js';
 import { useWalletStore } from './modules/wallet.js';
+import CCockie from './ui/CCockie.vue';
 import CLoader from './ui/CLoader.vue';
 function watchPageRendering(callback) {
   let frameId;
@@ -46,6 +48,7 @@ export default {
     CHeader,
     CFooter,
     CLoader,
+    CCockie,
   },
   setup() {
     const wallet = useWalletStore();

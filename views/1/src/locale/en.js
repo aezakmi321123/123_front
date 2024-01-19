@@ -588,4 +588,14 @@ export default {
     quantityFrom: 'quantity From',
     quantityTo: 'quantity To',
   },
+  cockie: {
+    text1:
+      'This website uses cookies to ensure you have the best experience. By continuing to use this site, you consent to our ',
+    text2:
+      ' You can disable cookies at any time, by changing your browser settings.',
+    accept: 'Accept',
+  },
+  errors: {
+    min_dep_error: 'The minimum deposit is $100 or equivalent in any currency.',
+  },
 };
