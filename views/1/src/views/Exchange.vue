@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <a-row :gutter="[{ xl: 40, lg: 20 }, 20]" justify="center">
-      <a-col :lg="{ span: 11, offset: 2 }" span="24">
+    <a-row :gutter="[{ md: 20, lg: 40 }, 40]" justify="center">
+      <a-col :xs="24" :md="10" :lg="{ span: 12 }">
         <a-flex class="exchange-main-card">
           <ExchangeCard :selected-card="selectedCard" is-wallet />
         </a-flex>
       </a-col>
-      <a-col :lg="9" span="24">
+      <a-col :xs="24" :md="14" :lg="12">
         <a-flex vertical gap="15">
           <Card
             v-for="(coin, i) in userCoins"

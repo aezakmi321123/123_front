@@ -117,13 +117,17 @@
           <SettingOutlined />
           <span>{{ t('header.settings') }}</span>
         </div>
+        <div class="drawer__item show-mobile">
+          <HomeOutlined />
+          <span @click="goTo('')">{{ t('header.homepage') }}</span>
+        </div>
         <div v-if="authStore.isLoggedIn" class="drawer__item">
           <HistoryOutlined />
           <span @click="goTo('history')">{{ t('header.history') }}</span>
         </div>
         <div class="drawer__item show-mobile">
-          <HomeOutlined />
-          <span @click="goTo('')">{{ t('header.homepage') }}</span>
+          <InteractionOutlined />
+          <span @click="goTo('exchange')">{{ t('header.exchange') }}</span>
         </div>
         <div class="drawer__item show-mobile">
           <FileSearchOutlined />
@@ -136,10 +140,6 @@
         <div class="drawer__item show-mobile">
           <TeamOutlined />
           <span @click="goTo('about')">{{ t('header.about_us') }}</span>
-        </div>
-        <div class="drawer__item show-mobile">
-          <InteractionOutlined />
-          <span @click="goTo('exchange')">{{ t('header.exchange') }}</span>
         </div>
         <div
           v-if="authStore.isLoggedIn"

@@ -52,7 +52,7 @@
               <a :href="`mailto:${supportMail}`"> {{ supportMail }}</a>
             </a-col>
             <a-col>
-              <div class="centered">
+              <div class="centered-tg">
                 <img :style="{ width: '20px' }" src="@images/telegram.png" />
                 <a :href="supportTelegram" target="_blank">
                   {{ t('footer.telegram') }}
@@ -97,7 +97,7 @@ export default {
   padding-bottom: 20px;
   text-align: center;
 }
-.centered {
+.centered-tg {
   display: flex;
   gap: 10px;
   align-items: center;

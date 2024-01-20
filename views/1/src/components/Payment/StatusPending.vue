@@ -1,6 +1,8 @@
 <template>
   <div :key="payment.currencyTo" class="payment">
-    <div class="payment__number">Оплата заявки: {{ payment.id }}</div>
+    <div class="payment__number">
+      {{ t('payment.main_pay') }}{{ payment.id }}
+    </div>
     <div class="payment__currency">
       <h3>
         {{ t('payment.pay') }} {{ payment.currencyFrom }} =

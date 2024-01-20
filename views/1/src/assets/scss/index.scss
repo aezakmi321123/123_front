@@ -30,6 +30,12 @@
 .ant-timeline-item-tail {
   border-inline-start: 2px solid var(--text-link) !important;
 }
+.ant-card .ant-card-body {
+  @include mq(500px, max-width) {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+}
 .ant-timeline-item-content {
   font-size: 16px;
 }
@@ -222,9 +228,14 @@ a {
 .fw-bold {
   font-weight: 700;
 }
-
+.align-right {
+  text-align: right;
+}
 .fs-16 {
   font-size: 16px;
+  @include mq(500px, max-width) {
+    font-size: 14px !important;
+  }
 }
 
 .w-fc {

@@ -108,6 +108,7 @@ export default {
     enter: 'Enter email',
   },
   payment: {
+    main_pay: 'Application payment: ',
     pay: 'Payment for the application at the rate: 1',
     make_pay: 'Make a payment using the details',
     take_pay: 'Receive the currency using the details below',
@@ -597,5 +598,6 @@ export default {
   },
   errors: {
     min_dep_error: 'The minimum deposit is $100 or equivalent in any currency.',
+    format: '0000 0000 0000 0000 format',
   },
 };

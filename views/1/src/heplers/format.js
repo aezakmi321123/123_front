@@ -1,3 +1,4 @@
+import { i18n } from '../main.js';
 export const cardInput = value => {
   // Remove non-numeric characters
   const numericOnly = value.replace(/\D/g, '');
@@ -41,7 +42,7 @@ export const validateInput = (rule, value, callback) => {
   ) {
     callback();
   } else {
-    callback(new Error('#### #### #### #### format'));
+    callback(new Error(i18n.t('errors.format')));
   }
 };
 

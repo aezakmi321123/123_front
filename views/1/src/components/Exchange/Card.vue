@@ -45,7 +45,7 @@
           >
         </a-flex>
         <a-flex vertical gap="5" align="end">
-          <a-typography-text class="text-grey fw-semi-bold">{{
+          <a-typography-text class="text-grey fw-semi-bold align-right">{{
             t('exchange.card.volume')
           }}</a-typography-text>
           <a-typography-text class="text-primary fs-16">{{
