@@ -56,6 +56,7 @@ export default {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 100;
   width: 100%;
   background: radial-gradient(100% 100% at 0% 0%, #21213d 0%, #101024 100%);
   padding: 40px 10px;
