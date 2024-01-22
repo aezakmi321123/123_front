@@ -38,8 +38,8 @@
     "vue-i18n": "9",
     "vue-router": "4",
     "vue3-click-away": "^1.2.4",
-    "vue3-marquee": "^4.1.0"
-    
+    "vue3-marquee": "^4.1.0",
+    "rollup-plugin-javascript-obfuscator": "^1.0.4"
   },
   "devDependencies": {
     "add": "^2.0.6",
