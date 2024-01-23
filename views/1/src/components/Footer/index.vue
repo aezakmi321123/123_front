@@ -63,7 +63,9 @@
         </a-col>
       </a-row>
     </div>
-    <div class="reserved">Copyright 2017-2024 © Zalupa All Rights Reserved</div>
+    <div class="reserved">
+      {{ `Copyright 2017-2024 © ${exchangeName} All Rights Reserved` }}
+    </div>
   </div>
 </template>
 <script>
@@ -79,11 +81,13 @@ export default {
     };
     const supportMail = import.meta.env.VITE_BASE_SUPPORT_MAIL;
     const supportTelegram = import.meta.env.VITE_BASE_TELEGRAM_SUPPORT;
+    const exchangeName = import.meta.env.VITE_BASE_EXCHANGE_NAME;
     return {
       goTo,
       supportMail,
       t,
       supportTelegram,
+      exchangeName,
     };
   },
 };
