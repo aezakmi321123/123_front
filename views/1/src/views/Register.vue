@@ -36,7 +36,7 @@
             <a-row>
               <a-col :xs="24" :md="10" :lg="8">
                 <a-form-item
-                  label="Country Code"
+                  :label="t('sign_up.country_code')"
                   name="countryCode"
                   :rules="[
                     {
@@ -58,7 +58,7 @@
               </a-col>
               <a-col :xs="24" :md="14" :lg="16">
                 <a-form-item
-                  label="Phone"
+                  :label="t('sign_up.phone')"
                   :name="['signup', 'phone']"
                   :rules="[
                     {
@@ -98,7 +98,7 @@
                 type="password"
               ></CInput>
             </a-form-item>
-            <a-form-item label="Captcha">
+            <a-form-item :label="t('sign_up.captcha')">
               <a-row
                 :gutter="[
                   { xs: 20, sm: 50 },
@@ -138,7 +138,7 @@
                   >
                     <CInput
                       v-model:value="formState.captcha"
-                      placeholder="Enter Captcha"
+                      :placeholder="t('sign_up.enter_captcha')"
                     ></CInput>
                   </a-form-item>
                 </a-col>

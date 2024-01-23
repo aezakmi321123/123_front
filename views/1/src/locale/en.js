@@ -91,6 +91,10 @@ export default {
     full_name: 'Full name',
     sign_up: 'Sign up',
     password: 'Password',
+    country_code: 'Country code',
+    captcha: 'Captcha',
+    enter_captcha: 'Enter captcha',
+    phone: 'Phone',
   },
   settings: {
     title: 'User Settings',

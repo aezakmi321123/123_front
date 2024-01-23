@@ -45,7 +45,7 @@
                 type="password"
               ></CInput>
             </a-form-item>
-            <a-form-item label="Captcha">
+            <a-form-item :label="t('sign_up.captcha')">
               <a-row
                 :gutter="[
                   { xs: 20, sm: 50 },
@@ -85,7 +85,7 @@
                   >
                     <CInput
                       v-model:value="formState.captcha"
-                      placeholder="Enter Captcha"
+                      :placeholder="t('sign_up.enter_captcha')"
                     ></CInput>
                   </a-form-item>
                 </a-col>

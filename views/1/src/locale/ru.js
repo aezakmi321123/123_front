@@ -90,6 +90,10 @@ export default {
     full_name: 'Полное имя',
     sign_up: 'Зарегистрироваться',
     password: 'Пароль',
+    country_code: 'Код страны',
+    captcha: 'Капча',
+    enter_captcha: 'Введите капчу',
+    phone: 'Телефон',
   },
   reset: {
     remember: 'Забыли пароль?',
