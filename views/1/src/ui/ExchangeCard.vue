@@ -160,7 +160,6 @@
             v-model:value="exchangeForm.receivedAddress"
             :formatter="cardInput"
             :parser="parseCard"
-            type="number"
             :placeholder="t('exchange.mainCard.addressPlaceholder')"
           />
         </a-form-item>
