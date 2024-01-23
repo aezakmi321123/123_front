@@ -63,8 +63,7 @@ export default defineConfig({
         transformObjectKeys: false,
         unicodeEscapeSequence: false,
       },
-      include: ['**/*.js', '**/*.vue'],
-      exclude: ['node_modules/**', '**/*.css', '**/*.scss'],
+      exclude: ['node_modules/**'],
     }),
   ],
   resolve: {
