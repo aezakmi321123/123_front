@@ -64,6 +64,7 @@ export default defineConfig({
         unicodeEscapeSequence: false,
       },
       include: ['**/*.js', '**/*.vue'],
+      exclude: ['node_modules/**', '**/*.css', '**/*.scss'],
     }),
   ],
   resolve: {
