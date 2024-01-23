@@ -189,7 +189,7 @@ export default {
       exchangeRate: 'Exchange rate',
       ourCommission: 'Our commission',
       with: 'With Account',
-      without: 'Without Account',
+      without: 'Anonymous exchange',
       tooltip:
         'You are not currently logged in.\n' +
         'You have two options to make an exchange:\n' +
