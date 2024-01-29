@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a-row :gutter="[{md: 30, xs: 10}, 30]">
+    <a-row :gutter="[{ md: 30, xs: 10 }, 30]">
       <a-col :lg="{ order: 0, span: 16 }" :sm="24" :order="1">
         <a-flex class="payment__left-side" vertical>
           <a-spin
@@ -33,7 +33,7 @@ import StatusPending from '../components/Payment/StatusPending.vue';
 import StatusRejected from '../components/Payment/StatusRejected.vue';
 import StatusSuccess from '../components/Payment/StatusSuccess.vue';
 import { PAYMENT_STATUSES } from '../data/constants.js';
-import { useAuthStore } from '../modules/auth.js';
+// import { useAuthStore } from '../modules/auth.js';
 import { usePaymentStore } from '../modules/payment.js';
 import CButton from '../ui/CButton.vue';
 
@@ -50,8 +50,9 @@ export default {
   setup() {
     const { t } = useI18n();
     const paymentData = usePaymentStore();
-    const authData = useAuthStore();
-    const { params } = useRoute();
+    // const authData = useAuthStore();
+    const { params, query } = useRoute();
+    console.log(query);
     const router = useRouter();
     const statusComponentMap = {
       [PAYMENT_STATUSES.PENDING]: StatusPending,
@@ -63,12 +64,11 @@ export default {
     onMounted(() => {
       const { id } = params;
 
-      if (!authData.isLoggedIn) {
-        paymentData.getUnauthPayment(id);
+      if (query.deposit) {
+        paymentData.getPayment(id);
         return;
       }
-
-      paymentData.getPayment(id);
+      paymentData.getUnauthPayment(id);
     });
     const payment = computed(() => ({
       ...paymentData.payment,

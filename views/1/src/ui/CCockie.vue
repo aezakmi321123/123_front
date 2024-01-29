@@ -36,14 +36,14 @@ export default {
     CButton,
   },
   setup() {
-    const accepted = ref(sessionStorage.getItem('cookiesAccepted') === 'true');
+    const accepted = ref(localStorage.getItem('cookiesAccepted') === 'true');
     const { t } = useI18n();
     const router = useRouter();
     const goToTerms = () => router.push({ path: '/terms' });
     const exchangeName = import.meta.env.VITE_BASE_EXCHANGE_NAME;
     const acceptCookies = () => {
       accepted.value = true;
-      sessionStorage.setItem('cookiesAccepted', 'true');
+      localStorage.setItem('cookiesAccepted', 'true');
     };
 
     return { accepted, acceptCookies, t, exchangeName, goToTerms };

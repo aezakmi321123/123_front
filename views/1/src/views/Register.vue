@@ -33,54 +33,6 @@
                 :style="{ style: '20%' }"
               ></CInput>
             </a-form-item>
-            <a-row>
-              <a-col :xs="24" :md="10" :lg="8">
-                <a-form-item
-                  :label="t('sign_up.country_code')"
-                  name="countryCode"
-                  :rules="[
-                    {
-                      required: true,
-                      type: 'string',
-                      trigger: 'change',
-                      message: t('required'),
-                    },
-                  ]"
-                >
-                  <CAutocomplete
-                    v-model:value="formState.countryCode"
-                    country
-                    default-active-first-option
-                    :filter-option="filterOption"
-                    :options="newCodes"
-                  ></CAutocomplete>
-                </a-form-item>
-              </a-col>
-              <a-col :xs="24" :md="14" :lg="16">
-                <a-form-item
-                  :label="t('sign_up.phone')"
-                  :name="['signup', 'phone']"
-                  :rules="[
-                    {
-                      type: 'string',
-                      required: true,
-                      message: t('required'),
-                    },
-                    {
-                      type: 'string',
-                      min: 6,
-                      max: 10,
-                      message: t('from 6 to 10 digits'),
-                    },
-                  ]"
-                >
-                  <CInput
-                    v-model:value="formState.signup.phone"
-                    type="number"
-                  ></CInput>
-                </a-form-item>
-              </a-col>
-            </a-row>
             <a-form-item
               :name="['signup', 'password']"
               :label="t('sign_up.password')"
@@ -168,7 +120,6 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '../modules/auth.js';
-import CAutocomplete from '../ui/CAutocomplete.vue';
 import CButton from '../ui/CButton.vue';
 import CInput from '../ui/CInput.vue';
 export default {
@@ -177,7 +128,6 @@ export default {
     CButton,
     ReloadOutlined,
     VueClientRecaptcha,
-    CAutocomplete,
   },
   directives: { maska: vMaska },
   setup() {

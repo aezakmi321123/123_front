@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <a-row :gutter="[{md: 50, sm: 20}, 20]">
+    <a-row :gutter="[{ md: 50, sm: 20 }, 20]">
       <a-col
         :lg="{ order: 0, span: 16 }"
         :md="{ span: 24, justify: 'center' }"

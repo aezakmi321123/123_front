@@ -11,6 +11,11 @@
         </CInput>
       </a-col>
       <a-col class="wallet-table__switch">
+        <CButton type="secondary" @click="convertModal = !convertModal">{{
+          t('wallets.convert')
+        }}</CButton>
+      </a-col>
+      <a-col class="wallet-table__switch">
         <div>{{ t('wallets.hide_zero') }}</div>
         <CSwitch v-model:checked="hideBalances" />
       </a-col>
@@ -70,6 +75,11 @@
         </template>
       </template>
     </a-table>
+    <ModalExchange
+      v-model:open="convertModal"
+      :selected-card="coin"
+      @close-modal="convertModal = false"
+    />
   </div>
 </template>
 <script>
@@ -86,15 +96,19 @@ import { useAuthStore } from '../modules/auth.js';
 import { useWalletStore } from '../modules/wallet.js';
 import CInput from '../ui/CInput.vue';
 import CSwitch from '../ui/CSwitch.vue';
+import ModalExchange from '../ui/ModalExchange.vue';
+import CButton from './CButton.vue';
 import CoinInfo from './CoinInfo.vue';
 export default {
   components: {
     CoinInfo,
     CInput,
     CSwitch,
+    ModalExchange,
     SearchOutlined,
     ArrowUpOutlined,
     ArrowDownOutlined,
+    CButton,
   },
   props: {
     coin: {
@@ -107,6 +121,7 @@ export default {
     const { t } = useI18n();
     const authStore = useAuthStore();
     const walletsStore = useWalletStore();
+    const convertModal = ref(false);
     const hideBalances = ref(false);
     const search = ref('');
     const dataSource = computed(() => authStore.user.coins);
@@ -217,6 +232,7 @@ export default {
       isUserLoading,
       socketCoinsData,
       getCoinData,
+      convertModal,
     };
   },
 };

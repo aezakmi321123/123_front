@@ -30,6 +30,11 @@
 .ant-timeline-item-tail {
   border-inline-start: 2px solid var(--text-link) !important;
 }
+.ant-modal-content {
+  @include mq(500px, max-width) {
+    padding: 0px !important;
+  }
+}
 .ant-card .ant-card-body {
   @include mq(500px, max-width) {
     padding-left: 0px !important;

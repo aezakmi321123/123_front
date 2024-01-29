@@ -177,6 +177,7 @@ export default {
     withdrawSuccess:
       "Congratulations! Your withdrawal order has been successfully attached. We understand the importance of your request, and we're working diligently to process it promptly.  If you encounter any unexpected challenges or have questions, our dedicated support team is here to assist you.",
     incorrectAddress: 'Incorrect address',
+    convert: 'Convert',
   },
   exchange: {
     success: 'Successfully exchanged',
@@ -199,7 +200,8 @@ export default {
         'You have two options to make an exchange:\n' +
         '1. You can create an account or sign in existing and in this case the money will be credited to your account\n' +
         '2. You can make an exchange without an account by indicating the details of where you want to receive your money',
-      addressPlaceholder: 'Receiving Address or card',
+      addressPlaceholder: 'Enter receiving address',
+      cardPlaceholder: 'Enter receiving card',
     },
   },
   privacy: `

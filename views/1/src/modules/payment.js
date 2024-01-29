@@ -34,7 +34,10 @@ export const usePaymentStore = defineStore('payment', {
 
         const { data } = await rest.payment.generatePayment(params);
 
-        this.$router.push(`/payment/${data.id}`);
+        this.$router.push({
+          path: `/payment/${data.id}`,
+          query: { deposit: true },
+        });
       } catch (e) {
         handleAxiosError(e);
       } finally {

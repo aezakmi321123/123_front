@@ -209,9 +209,8 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
     const route = useRoute();
-
     const openMobile = ref(false);
-    const lang = ref(defaultLang || 'en');
+    const lang = ref(localStorage.getItem('lang') || defaultLang || 'en');
     const drawer = ref(false);
     const shortName = name => {
       if (name.length > 10) {
@@ -263,6 +262,7 @@ export default {
     const changeLang = el => {
       lang.value = el;
       locale.value = el;
+      localStorage.setItem('lang', el);
     };
     const goToMainPage = () => {
       router.push({ path: '/' });

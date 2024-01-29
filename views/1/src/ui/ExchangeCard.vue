@@ -10,15 +10,19 @@
       <a-flex vertical class="exchange__card-title">
         <a-flex align="center">
           <a-typography-title class="mb-0">
-            {{ t('exchange.mainCard.makeExchange') }}
+            {{
+              convert
+                ? t('wallets.convert')
+                : t('exchange.mainCard.makeExchange')
+            }}
           </a-typography-title>
-          <a-tooltip v-if="!isUserAuthed">
+          <!-- <a-tooltip v-if="!isUserAuthed">
             <template #title>{{ t('exchange.mainCard.tooltip') }}</template>
             <InfoCircleOutlined class="exchange__card-info" fill="white" />
-          </a-tooltip>
+          </a-tooltip> -->
         </a-flex>
-        <a-form-item
-          v-if="!isUserAuthed"
+        <!-- <a-form-item
+          v-if="isWallet"
           class="exchange__card-unauth"
           name="withAccount"
         >
@@ -32,7 +36,7 @@
               {{ t(`exchange.mainCard.${radio}`) }}
             </CRadioButton>
           </CRadioGroup>
-        </a-form-item>
+        </a-form-item> -->
       </a-flex>
       <div class="exchange__card-send" name="valueSend">
         <div class="title">{{ t('main.send') }}</div>
@@ -46,11 +50,7 @@
             />
           </a-form-item>
           <a-form-item
-            v-if="
-              exchangeForm.sendNetworks.length &&
-              !isWallet &&
-              exchangeForm.withAccount !== 'with'
-            "
+            v-if="exchangeForm.sendNetworks.length && !convert"
             class="exchange__card-networks"
             name="valueSendNetwork"
           >
@@ -99,11 +99,7 @@
             />
           </a-form-item>
           <a-form-item
-            v-if="
-              exchangeForm.receiveNetworks.length &&
-              !isWallet &&
-              exchangeForm.withAccount !== 'with'
-            "
+            v-if="exchangeForm.receiveNetworks.length && !convert"
             class="exchange__card-networks"
             name="valueReceiveNetwork"
           >
@@ -136,7 +132,7 @@
           </a-form-item>
         </a-spin>
       </div>
-      <div v-if="exchangeForm.withAccount === unauthOptions[1]">
+      <div v-if="!convert">
         <a-form-item
           v-if="exchangeForm.valueReceive.type === 'crypto'"
           name="receivedAddress"
@@ -160,7 +156,7 @@
             v-model:value="exchangeForm.receivedAddress"
             :formatter="cardInput"
             :parser="parseCard"
-            :placeholder="t('exchange.mainCard.addressPlaceholder')"
+            :placeholder="t('exchange.mainCard.cardPlaceholder')"
           />
         </a-form-item>
       </div>
@@ -202,11 +198,11 @@
   </div>
 </template>
 <script>
-import { InfoCircleOutlined } from '@ant-design/icons-vue';
+// import { InfoCircleOutlined } from '@ant-design/icons-vue';
 import { computed, h, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
+// import { useRouter } from 'vue-router';
 import { useCurrentRate } from '../composables/useCurrentRate.js';
 import {
   cardInput,
@@ -236,7 +232,7 @@ export default {
     CInputNumber,
     CBankAutoComplete,
     CButton,
-    InfoCircleOutlined,
+    // InfoCircleOutlined,
   },
   props: {
     isWallet: {
@@ -247,13 +243,18 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    convert: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
+  emits: ['closeModal'],
+  setup(props, { emit }) {
     const walletStore = useWalletStore();
     const authStore = useAuthStore();
     const exchangeStore = useExchangeStore();
     const paymentStore = usePaymentStore();
-    const router = useRouter();
+    // const router = useRouter();
     const pendingExchange = { ...exchangeStore.pendingExchange };
     const percent = ref(100);
     let currentRate = ref(null);
@@ -363,23 +364,23 @@ export default {
     };
 
     const exchange = async values => {
-      if (!authStore.isLoggedIn && values.withAccount === unauthOptions[0]) {
-        exchangeStore.setPendingExchange({
-          ...values,
-          coinFrom: {
-            ...values.valueSend,
-            abbr: values.valueSend.value,
-            name: values.valueSend.label,
-          },
-          coinTo: {
-            ...values.valueReceive,
-            abbr: values.valueReceive.value,
-            name: values.valueReceive.label,
-          },
-        });
-        router.push('register');
-        return;
-      }
+      // if (!authStore.isLoggedIn && values.withAccount === unauthOptions[0]) {
+      //   exchangeStore.setPendingExchange({
+      //     ...values,
+      //     coinFrom: {
+      //       ...values.valueSend,
+      //       abbr: values.valueSend.value,
+      //       name: values.valueSend.label,
+      //     },
+      //     coinTo: {
+      //       ...values.valueReceive,
+      //       abbr: values.valueReceive.value,
+      //       name: values.valueReceive.label,
+      //     },
+      //   });
+      //   router.push('register');
+      //   return;
+      // }
 
       isExchanging.value = true;
 
@@ -392,7 +393,7 @@ export default {
       }
 
       try {
-        if (!authStore.isLoggedIn && values.withAccount === unauthOptions[1]) {
+        if (!props.convert) {
           await paymentStore.generateUnauthPayment({
             currencyFrom: values.valueSend.value,
             networkFrom: values.valueSendNetwork,
@@ -409,9 +410,9 @@ export default {
             quantity: values.valueNumberSend.toString(),
             commission,
           });
+          emit('closeModal');
+          await authStore.getUser();
         }
-
-        await authStore.getUser();
       } finally {
         isExchanging.value = false;
       }

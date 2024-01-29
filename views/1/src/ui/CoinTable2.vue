@@ -71,6 +71,12 @@ export default {
     ArrowUpOutlined,
     ArrowDownOutlined,
   },
+  props: {
+    limit: {
+      type: Number,
+      default: 5,
+    },
+  },
   emits: ['pushCoin'],
   setup(props, { emit }) {
     const { t } = useI18n();
@@ -78,7 +84,7 @@ export default {
     const walletsStore = useWalletStore();
     const hideBalances = ref(false);
     const search = ref('');
-    const dataSource = computed(() => walletsStore.coins.slice(0, 5));
+    const dataSource = computed(() => walletsStore.coins.slice(0, props.limit));
     const source = computed(() => {
       const dataWithNoZeroBalances = hideBalances.value
         ? dataSource.value.filter(({ coinQuantity }) => +coinQuantity > 0)
@@ -107,7 +113,7 @@ export default {
         className: 'column-change',
       },
       {
-        title: 'exchange',
+        title: t('wallets.convert'),
         customRender() {
           return h(
             CButton,
@@ -115,7 +121,7 @@ export default {
               type: 'secondary',
               onClick: () => router.push({ path: '/wallets' }),
             },
-            'exchange',
+            t('wallets.convert'),
           );
         },
       },
