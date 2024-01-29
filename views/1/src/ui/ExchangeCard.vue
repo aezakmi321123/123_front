@@ -201,6 +201,7 @@
 // import { InfoCircleOutlined } from '@ant-design/icons-vue';
 import { computed, h, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from "vue-router";
 
 // import { useRouter } from 'vue-router';
 import { useCurrentRate } from '../composables/useCurrentRate.js';
@@ -254,7 +255,7 @@ export default {
     const authStore = useAuthStore();
     const exchangeStore = useExchangeStore();
     const paymentStore = usePaymentStore();
-    // const router = useRouter();
+    const router = useRouter();
     const pendingExchange = { ...exchangeStore.pendingExchange };
     const percent = ref(100);
     let currentRate = ref(null);
@@ -402,6 +403,10 @@ export default {
             fullAmount: values.valueNumberSend.toString(),
             receivedAddress: values.receivedAddress.toString(),
             commission,
+          });
+          router.push({
+            path: `/payment/${data.id}`,
+            query: { deposit: true },
           });
         } else {
           await exchangeStore.exchange({
