@@ -68,8 +68,10 @@ export const usePaymentStore = defineStore('payment', {
         this.isLoading = true;
 
         const { data } = await rest.payment.generateUnauthPayment(params);
-
-        this.$router.push(`/payment/${data.id}`);
+        this.$router.push({
+          path: `/payment/${data.id}`,
+          query: { deposit: params.deposit },
+        });
       } catch (e) {
         if (e.response.data.message === 'min_dep_error') {
           return handleAxiosError(e, 'min_dep_error');
