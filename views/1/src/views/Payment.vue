@@ -52,7 +52,6 @@ export default {
     const paymentData = usePaymentStore();
     // const authData = useAuthStore();
     const { params, query } = useRoute();
-    console.log(query);
     const router = useRouter();
     const statusComponentMap = {
       [PAYMENT_STATUSES.PENDING]: StatusPending,

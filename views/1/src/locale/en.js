@@ -575,7 +575,7 @@ export default {
   history: {
     deposits: 'Deposits',
     withdraws: 'Withdraws',
-    exchanges: 'Exchanges',
+    exchanges: 'Conversions',
     currency: 'currency',
     currencyFrom: 'currency from',
     currencyTo: 'currency to',

@@ -67,7 +67,6 @@
 
   import { usePayment } from "../../composables/usePayment.js";
   import { PAYMENT_STATUSES } from "../../data/constants.js";
-  import { useAuthStore } from "../../modules/auth.js";
   import { usePaymentStore } from "../../modules/payment.js";
   import BackButton from "./BackButton.vue";
 
@@ -80,10 +79,10 @@
       const appName = import.meta.env.VITE_BASE_EXCHANGE_NAME
       const commission = import.meta.env.VITE_BASE_COMMISSION
       const paymentData = usePaymentStore()
-      const authData = useAuthStore()
       const timer = ref(null);
       const time = ref('00:00')
       const requestCounter  = ref(0)
+      const route  = useRoute()
 
       const payment = computed(usePayment)
 
@@ -103,7 +102,7 @@
         if(requestCounter.value === 10){
           const { id } = params
 
-          if(!authData.isLoggedIn){
+          if(!route.query.deposit){
             await paymentData.getUnauthPayment(id)
           }else {
             await paymentData.getPayment(id)

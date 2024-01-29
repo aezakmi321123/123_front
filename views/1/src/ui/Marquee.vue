@@ -1,7 +1,7 @@
 <template>
   <a-spin :spinning="coinsLoading">
     <Vue3Marquee
-      :duration="40"
+      :duration="60"
       :style="{ background: 'var(--button-primary)' }"
     >
       <div class="coin__wrap">

@@ -413,7 +413,7 @@ export default {
   history: {
     deposits: 'Депозиты',
     withdraws: 'Выводы',
-    exchanges: 'Обмены',
+    exchanges: 'Конвартации',
     currency: 'валюта',
     currencyFrom: 'валюта от',
     currencyTo: 'валюта до',
