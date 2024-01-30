@@ -70,7 +70,6 @@ export const usePaymentStore = defineStore('payment', {
         const { data } = await rest.payment.generateUnauthPayment(params);
         this.$router.push({
           path: `/payment/${data.id}`,
-          query: { deposit: params.deposit },
         });
       } catch (e) {
         if (e.response.data.message === 'min_dep_error') {
