@@ -598,6 +598,10 @@ export default {
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  @include mq(575px, max-width) {
+    gap: 8px !important;
+    padding: 10px;
+  }
   &-title {
     gap: 15px;
   }
@@ -619,6 +623,11 @@ export default {
       border-radius: 50%;
       height: 40px;
       width: 40px;
+
+      @include mq(575px, max-width) {
+        height: 25px;
+        width: 25px;
+      }
       cursor: pointer;
       background-color: var(--bg-input);
       &:hover {
@@ -638,13 +647,16 @@ export default {
       gap: 10px;
       font-size: 12px;
       color: var(--text-quaternary);
+      @include mq(575px, max-width) {
+        gap: 4px;
+      }
     }
   }
   &-send,
   &-receive {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    // gap: 20px;
   }
   .title {
     font-size: 16px;

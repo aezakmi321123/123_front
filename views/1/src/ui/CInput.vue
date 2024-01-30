@@ -36,6 +36,9 @@
   background-color: var(--bg-input) !important;
   color: var(--text-primary) !important;
   border-radius: 4px !important;
+  @include mq(575px, max-width) {
+    height: 40px !important;
+  }
 
   & .ant-input {
     background-color: var(--bg-input) !important;

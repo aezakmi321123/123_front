@@ -7,7 +7,11 @@
           {{ t('about.paragraph') }}
         </div>
       </div>
-      <a-row class="about__history" justify="center" :gutter="[{md: 40, xs: 10}, 40]">
+      <a-row
+        class="about__history"
+        justify="center"
+        :gutter="[{ md: 40, xs: 10 }, 40]"
+      >
         <a-col :sm="24" :md="12">
           <div class="about__history__text">
             <h2>{{ t('about.history') }}</h2>
@@ -75,7 +79,7 @@
           </div>
         </div>
       </div>
-      <a-row :gutter="[{md: 40, xs: 10}, 40]">
+      <a-row :gutter="[{ md: 40, xs: 10 }, 40]">
         <a-col :md="8" :sm="12" :xs="24">
           <div class="card">
             <img :width="100" src="@images/support.svg" />
@@ -154,18 +158,30 @@ export default {
     flex-direction: column;
     gap: 20px;
     text-align: left;
+    @include mq(575px, max-width) {
+      gap: 14px;
+    }
   }
   &__text {
     font-size: 20px;
+    @include mq(575px, max-width) {
+      font-size: 16px;
+    }
   }
   &__history {
     margin-top: 100px;
     font-size: 20px;
+    @include mq(575px, max-width) {
+      font-size: 16px;
+    }
     display: flex;
     align-items: center;
   }
   &__history__text {
     font-size: 22px;
+    @include mq(575px, max-width) {
+      font-size: 18px;
+    }
   }
 }
 .card {
@@ -176,14 +192,24 @@ export default {
   padding: 20px;
   border-radius: 10px;
   background: radial-gradient(100% 100% at 0% 0%, #21213d 0%, #101024 100%);
+  @include mq(575px, max-width) {
+    padding: 14px;
+    gap: 14px;
+  }
   &__label {
     font-size: 20px;
+    @include mq(575px, max-width) {
+      font-size: 14px;
+    }
     color: var(--text-link);
     font-weight: bold;
   }
   &__p {
     font-size: 16px;
     line-height: 30px;
+    @include mq(575px, max-width) {
+      font-size: 12px;
+    }
   }
 }
 .time {
@@ -193,6 +219,9 @@ export default {
     font-size: 22px;
     color: var(--text-link);
     font-weight: bold;
+    @include mq(575px, max-width) {
+      font-size: 16px;
+    }
   }
   &_p {
     color: var(--text-primary);

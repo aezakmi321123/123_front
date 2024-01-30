@@ -81,10 +81,7 @@ export default {
     height: 50px !important;
   }
 }
-:where(.css-dev-only-do-not-override-1qb1s0s).ant-select:not(
-    .ant-select-customize-input
-  )
-  .ant-select-selector {
+.ant-select-selector {
   border: unset !important;
 }
 .ant-select-selection-item {

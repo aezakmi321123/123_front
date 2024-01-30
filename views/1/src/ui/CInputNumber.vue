@@ -25,8 +25,10 @@
   height: 50px !important;
   font-size: 20px !important;
   font-weight: 700 !important;
+
   @include mq(575px, max-width) {
     font-size: 14px !important;
+    height: 40px !important;
   }
   background-color: var(--bg-input) !important;
   color: var(--text-primary) !important;

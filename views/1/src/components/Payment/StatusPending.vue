@@ -239,6 +239,9 @@ export default defineComponent({
   }
   &__text {
     font-size: 22px;
+    @include mq(575px, max-width) {
+      font-size: 16px;
+    }
   }
 }
 .payment {
@@ -262,6 +265,9 @@ export default defineComponent({
     gap: 10px;
     font-size: 20px;
     font-weight: 500;
+    @include mq(575px, max-width) {
+      font-size: 14px;
+    }
     color: var(--text-link);
     &.end {
       align-items: flex-end;
@@ -271,6 +277,9 @@ export default defineComponent({
     display: flex;
     align-items: center;
     gap: 20px;
+    @include mq(575px, max-width) {
+      gap: 12px;
+    }
   }
   &__switch {
     font-size: 40px;
@@ -282,6 +291,9 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     gap: 20px;
+    @include mq(575px, max-width) {
+      gap: 12px;
+    }
     margin-top: 20px;
   }
   &__qr-code {

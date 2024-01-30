@@ -116,5 +116,8 @@ export default {
 }
 .auth__card-registered {
   font-size: 18px;
+  @include mq(575px, max-width) {
+    font-size: 14px;
+  }
 }
 </style>

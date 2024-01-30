@@ -65,158 +65,165 @@ export default {
         const { data } = await requestObj(val).finally(
           () => (loading.value = false),
         );
-        arr.value = cloneDeep(data.map(coin => ({
-          ...coin,
-          fullAmountInUsdt: isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt ? 0 : coin?.fullAmountInUsdt,
-          networkTo: coin.coinTo || coin.networkTo,
-          networkFrom: coin.coinFrom || coin.networkFrom || coin.currency,
-        })));
+        arr.value = cloneDeep(
+          data.map(coin => ({
+            ...coin,
+            fullAmountInUsdt:
+              isNaN(coin?.fullAmountInUsdt) || !coin?.fullAmountInUsdt
+                ? 0
+                : coin?.fullAmountInUsdt,
+            networkTo: coin.coinTo || coin.networkTo,
+            networkFrom: coin.coinFrom || coin.networkFrom || coin.currency,
+          })),
+        );
       },
       { immediate: true },
     );
-    const cols = {
-      1: [
-        {
-          title: 'id',
-          dataIndex: 'id',
-        },
-        {
-          title: t('history.currencyFrom'),
-          dataIndex: 'currencyFrom',
-        },
-        {
-          title: t('history.currencyTo'),
-          dataIndex: 'currencyTo',
-        },
-        {
-          title: t('history.networkFrom'),
-          dataIndex: 'networkFrom',
-        },
-        {
-          title: t('history.networkTo'),
-          dataIndex: 'networkTo',
-        },
-        {
-          title: t('history.status'),
-          dataIndex: 'status',
-        },
-        {
-          title: t('history.depositAddress'),
-          dataIndex: 'address',
-        },
-        {
-          title: t('history.fullAmount'),
-          dataIndex: 'fullAmount',
-        },
-        {
-          title: t('history.receivedAmount'),
-          dataIndex: 'receivedAmount',
-        },
-        {
-          title: t('history.usdtAmount'),
-          dataIndex: 'fullAmountInUsdt',
-        },
-        {
-          title: t('history.created'),
-          dataIndex: 'dataCreated',
-          customRender(el) {
-            return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+    const cols = computed(() => {
+      return {
+        1: [
+          {
+            title: 'id',
+            dataIndex: 'id',
           },
-        },
-        {
-          title: t('history.updated'),
-          dataIndex: 'dataUpdated',
-          customRender(el) {
-            return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+          {
+            title: t('history.currencyFrom'),
+            dataIndex: 'currencyFrom',
           },
-        },
-      ],
-      2: [
-        {
-          title: 'id',
-          dataIndex: 'id',
-        },
-        {
-          title: t('history.currency'),
-          dataIndex: 'currency',
-        },
-        {
-          title: t('history.networkFrom'),
-          dataIndex: 'networkFrom',
-        },
-        {
-          title: t('history.status'),
-          dataIndex: 'status',
-        },
-        {
-          title: t('history.address'),
-          dataIndex: 'address',
-        },
-        {
-          title: t('history.fullAmount'),
-          dataIndex: 'amount',
-        },
-        {
-          title: t('history.created'),
-          dataIndex: 'dataCreated',
-          customRender(el) {
-            return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+          {
+            title: t('history.currencyTo'),
+            dataIndex: 'currencyTo',
           },
-        },
-        {
-          title: t('history.updated'),
-          dataIndex: 'dataUpdated',
-          customRender(el) {
-            return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+          {
+            title: t('history.networkFrom'),
+            dataIndex: 'networkFrom',
           },
-        },
-      ],
-      3: [
-        {
-          title: 'id',
-          dataIndex: 'id',
-        },
-        {
-          title: t('history.coinFrom'),
-          dataIndex: 'coinFrom',
-        },
-        {
-          title: t('history.coinTo'),
-          dataIndex: 'coinTo',
-        },
-        {
-          title: t('history.networkTo'),
-          dataIndex: 'networkTo',
-        },
-        {
-          title: t('history.networkFrom'),
-          dataIndex: 'networkFrom',
-        },
-        {
-          title: t('history.quantityFrom'),
-          dataIndex: 'quantityFrom',
-        },
-        {
-          title: t('history.quantityTo'),
-          dataIndex: 'quantityTo',
-        },
-        {
-          title: t('history.created'),
-          dataIndex: 'dataCreated',
-          customRender(el) {
-            return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+          {
+            title: t('history.networkTo'),
+            dataIndex: 'networkTo',
           },
-        },
-        {
-          title: t('history.updated'),
-          dataIndex: 'dataUpdated',
-          customRender(el) {
-            return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+          {
+            title: t('history.status'),
+            dataIndex: 'status',
           },
-        },
-      ],
-    };
-    const reactiveCols = computed(() => cols[activeKey.value]);
+          {
+            title: t('history.depositAddress'),
+            dataIndex: 'address',
+          },
+          {
+            title: t('history.fullAmount'),
+            dataIndex: 'fullAmount',
+          },
+          {
+            title: t('history.receivedAmount'),
+            dataIndex: 'receivedAmount',
+          },
+          {
+            title: t('history.usdtAmount'),
+            dataIndex: 'fullAmountInUsdt',
+          },
+          {
+            title: t('history.created'),
+            dataIndex: 'dataCreated',
+            customRender(el) {
+              return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+            },
+          },
+          {
+            title: t('history.updated'),
+            dataIndex: 'dataUpdated',
+            customRender(el) {
+              return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+            },
+          },
+        ],
+        2: [
+          {
+            title: 'id',
+            dataIndex: 'id',
+          },
+          {
+            title: t('history.currency'),
+            dataIndex: 'currency',
+          },
+          {
+            title: t('history.networkFrom'),
+            dataIndex: 'networkFrom',
+          },
+          {
+            title: t('history.status'),
+            dataIndex: 'status',
+          },
+          {
+            title: t('history.address'),
+            dataIndex: 'address',
+          },
+          {
+            title: t('history.fullAmount'),
+            dataIndex: 'amount',
+          },
+          {
+            title: t('history.created'),
+            dataIndex: 'dataCreated',
+            customRender(el) {
+              return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+            },
+          },
+          {
+            title: t('history.updated'),
+            dataIndex: 'dataUpdated',
+            customRender(el) {
+              return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+            },
+          },
+        ],
+        3: [
+          {
+            title: 'id',
+            dataIndex: 'id',
+          },
+          {
+            title: t('history.coinFrom'),
+            dataIndex: 'coinFrom',
+          },
+          {
+            title: t('history.coinTo'),
+            dataIndex: 'coinTo',
+          },
+          {
+            title: t('history.networkTo'),
+            dataIndex: 'networkTo',
+          },
+          {
+            title: t('history.networkFrom'),
+            dataIndex: 'networkFrom',
+          },
+          {
+            title: t('history.quantityFrom'),
+            dataIndex: 'quantityFrom',
+          },
+          {
+            title: t('history.quantityTo'),
+            dataIndex: 'quantityTo',
+          },
+          {
+            title: t('history.created'),
+            dataIndex: 'dataCreated',
+            customRender(el) {
+              return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+            },
+          },
+          {
+            title: t('history.updated'),
+            dataIndex: 'dataUpdated',
+            customRender(el) {
+              return h('div', moment(el.value).format('YYYY-MM-DD HH:mm:ss'));
+            },
+          },
+        ],
+      };
+    });
+    const reactiveCols = computed(() => cols.value[activeKey.value]);
     return {
       t,
       reactiveCols,
@@ -298,5 +305,48 @@ export default {
       background: transparent !important;
     }
   }
+}
+.ant-table-cell::before {
+  background-color: var(--bg-base) !important;
+}
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr:last-child > td {
+  border-bottom: 1px solid var(--bg-base) !important;
+}
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
+  background: var(--bg-select) !important;
+}
+.ant-table-thead > tr > th {
+  background: var(--button-primary) !important;
+  color: var(--text-link) !important;
+}
+.ant-table-tbody > tr > td {
+  cursor: pointer;
+  color: var(--text-primary);
+  border-top: 1px solid var(--bg-base) !important;
+}
+.ant-table {
+  background: var(--bg-input) !important;
+}
+.ant-table-row.ant-table-row-level-0.active {
+  background: var(--bg-select) !important;
+}
+.ant-table-wrapper
+  .ant-table-tbody
+  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+  > td {
+  background: var(--bg-select) !important;
+}
+.ant-table-cell {
+  background: var(--bg-input) !important;
+}
+:where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
+  .ant-table-tbody
+  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+  > td {
+  background: var(--bg-select);
+}
+.ant-empty-normal {
+  color: var(--text-link);
 }
 </style>

@@ -60,7 +60,7 @@ export default {
   width: 100%;
   background: radial-gradient(100% 100% at 0% 0%, #21213d 0%, #101024 100%);
   padding: 40px 10px;
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     padding: 20px;
   }
   &__text {
@@ -69,7 +69,7 @@ export default {
     line-height: 2;
     display: flex;
     align-items: center;
-    @include mq(500px, max-width) {
+    @include mq(575px, max-width) {
       font-size: 12px;
     }
   }

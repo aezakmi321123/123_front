@@ -15,8 +15,14 @@ export default {
 .privacy {
   white-space: pre-line;
   line-height: 30px;
+  @include mq(575px, max-width) {
+    line-height: 24px;
+  }
   p {
     font-size: 18px;
+    @include mq(575px, max-width) {
+      font-size: 16px;
+    }
   }
   h2 {
     color: var(--text-link);

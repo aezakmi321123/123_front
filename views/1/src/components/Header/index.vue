@@ -74,6 +74,15 @@
     <MarqueeC />
   </div>
   <CDrawer v-model:open="drawer">
+    <template #extra>
+      <CSelect
+        class="show-mobile select__change-lang"
+        :value="lang"
+        :options="languages"
+        option-label-prop="title"
+        @change="changeLang"
+      ></CSelect
+    ></template>
     <div class="drawer__body">
       <div v-if="authStore.isLoggedIn" class="drawer__user">
         <UserOutlined :style="{ fontSize: '100px' }" />
@@ -93,10 +102,6 @@
         </a-tag>
       </div>
       <div class="drawer__list">
-        <div v-if="authStore.isLoggedIn" class="drawer__item">
-          <WalletOutlined />
-          <span @click="goTo('wallets')">{{ t('header.wallet') }}</span>
-        </div>
         <div v-if="!authStore.isLoggedIn" class="header__buttons">
           <router-link to="/login"
             ><CButton type="primary">{{
@@ -109,6 +114,18 @@
             }}</CButton></router-link
           >
         </div>
+        <div class="drawer__item show-mobile">
+          <HomeOutlined />
+          <span @click="goTo('')">{{ t('header.homepage') }}</span>
+        </div>
+        <div class="drawer__item show-mobile">
+          <InteractionOutlined />
+          <span @click="goTo('exchange')">{{ t('header.exchange') }}</span>
+        </div>
+        <div v-if="authStore.isLoggedIn" class="drawer__item">
+          <WalletOutlined />
+          <span @click="goTo('wallets')">{{ t('header.wallet') }}</span>
+        </div>
         <div
           v-if="authStore.isLoggedIn"
           class="drawer__item"
@@ -117,17 +134,9 @@
           <SettingOutlined />
           <span>{{ t('header.settings') }}</span>
         </div>
-        <div class="drawer__item show-mobile">
-          <HomeOutlined />
-          <span @click="goTo('')">{{ t('header.homepage') }}</span>
-        </div>
         <div v-if="authStore.isLoggedIn" class="drawer__item">
           <HistoryOutlined />
           <span @click="goTo('history')">{{ t('header.history') }}</span>
-        </div>
-        <div class="drawer__item show-mobile">
-          <InteractionOutlined />
-          <span @click="goTo('exchange')">{{ t('header.exchange') }}</span>
         </div>
         <div class="drawer__item show-mobile">
           <FileSearchOutlined />
@@ -149,13 +158,6 @@
           <LogoutOutlined />
           <span>{{ t('header.logout') }}</span>
         </div>
-        <CSelect
-          class="show-mobile select__change-lang"
-          :value="lang"
-          :options="languages"
-          option-label-prop="title"
-          @change="changeLang"
-        ></CSelect>
       </div>
     </div>
   </CDrawer>
@@ -305,12 +307,18 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    @include mq(575px, max-width) {
+      gap: 20px;
+    }
   }
   &__user {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    @include mq(575px, max-width) {
+      gap: 14px;
+    }
     span {
       font-size: 20px;
       color: var(--text-link);
@@ -328,11 +336,20 @@ export default {
     font-weight: 700;
     flex-direction: column;
     gap: 30px;
+    @include mq(575px, max-width) {
+      gap: 14px;
+      font-weight: 500;
+      gap: 20px;
+    }
   }
   &__item {
     display: flex;
     align-items: center;
     gap: 20px;
+    @include mq(575px, max-width) {
+      gap: 14px;
+      font-size: 16px;
+    }
     cursor: pointer;
     &:hover {
       opacity: 0.8;
@@ -345,6 +362,10 @@ export default {
 .header__mobile {
   display: none;
   height: 100px;
+  @include mq(575px, max-width) {
+    height: 60px;
+    padding: 0 3% !important;
+  }
   @include mq(992px, max-width) {
     display: block;
     display: flex;

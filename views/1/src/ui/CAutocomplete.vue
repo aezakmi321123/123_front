@@ -51,12 +51,16 @@ export default {
 .ant-select-arrow .anticon:not(.ant-select-suffix) {
   pointer-events: none !important;
 }
-.ant-select-selection-item {
+.ant-select-selector .ant-select-selection-item {
   font-size: 20px !important;
   color: var(--text-primary) !important;
   font-weight: 700 !important;
   display: flex;
   align-items: center;
+  @include mq(575px, max-width) {
+    height: 40px !important;
+    font-size: 14px !important;
+  }
 }
 .c-autocomplete {
   .ant-input {
@@ -64,11 +68,19 @@ export default {
     color: var(--text-primary) !important;
     font-weight: 700 !important;
     height: 50px !important;
+
+    @include mq(575px, max-width) {
+      height: 40px !important;
+      font-size: 14px !important;
+    }
   }
   .ant-select-selector {
     background-color: transparent !important;
     border: 0px;
     height: 50px !important;
+    @include mq(575px, max-width) {
+      height: 40px !important;
+    }
   }
 }
 .ant-select:not(.ant-select-customize-input) .ant-select-selector {
@@ -79,12 +91,18 @@ export default {
   color: var(--text-primary) !important;
   font-weight: 700 !important;
   height: 50px !important;
+  @include mq(575px, max-width) {
+    height: 40px !important;
+  }
 }
 .ant-select-dropdown {
   background: var(--bg-select-options) !important;
   .ant-select-item {
     color: var(--text-tertiary) !important;
     font-size: 16px;
+    @include mq(575px, max-width) {
+      font-size: 12px !important;
+    }
   }
 }
 .ant-select-open {

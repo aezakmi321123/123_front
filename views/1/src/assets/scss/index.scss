@@ -30,13 +30,18 @@
 .ant-timeline-item-tail {
   border-inline-start: 2px solid var(--text-link) !important;
 }
+.ant-form-item {
+  @include mq(575px, max-width) {
+    margin-bottom: 6px !important;
+  }
+}
 .ant-modal-content {
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     padding: 0px !important;
   }
 }
 .ant-card .ant-card-body {
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
@@ -73,6 +78,9 @@
   background-color: var(--bg-input) !important;
   border: unset !important;
   border-radius: 4px !important;
+  @include mq(575px, max-width) {
+    height: 40px !important;
+  }
 }
 .ant-notification-notice {
   box-shadow: 0px 3px 20px rgba(64, 64, 242, 0.48);
@@ -96,7 +104,7 @@
   @include mq(1200px, max-width) {
     padding: 0 6%;
   }
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     padding: 0 2%;
   }
   @include mq(320px, max-width) {
@@ -122,7 +130,7 @@ h1 {
   font-size: 46px;
   line-height: 120%;
   color: var(--text-primary);
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     font-size: 36px;
   }
   @include mq(360px, max-width) {
@@ -134,7 +142,7 @@ h2 {
   font-size: 34px;
   line-height: 160%;
   font-weight: 500;
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     font-size: 26px;
   }
   @include mq(360px, max-width) {
@@ -238,7 +246,7 @@ a {
 }
 .fs-16 {
   font-size: 16px;
-  @include mq(500px, max-width) {
+  @include mq(575px, max-width) {
     font-size: 14px !important;
   }
 }
