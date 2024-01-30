@@ -358,7 +358,7 @@ export default {
     const calculateReceiveCoinQuantity = (quantity = 1, commission) => {
       const fullSum = parseFloat(quantity) / parseFloat(currentRate.value);
       if (commission) {
-        return (fullSum - (fullSum * parseFloat(commission)) / 100).toFixed(10);
+        return (fullSum + (fullSum * parseFloat(commission)) / 100).toFixed(10);
       }
 
       return fullSum.toFixed(10);
