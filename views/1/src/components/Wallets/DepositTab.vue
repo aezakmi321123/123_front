@@ -220,6 +220,7 @@ export default {
         currencyTo: depositCurrencyReceive.abbr,
         fullAmount: depositAmountSend.toString(),
         commission: import.meta.env.VITE_BASE_COMMISSION,
+        fullAmountReceive: depositForm.value.depositCurrencyReceive.toString(),
       });
     };
 
