@@ -79,7 +79,7 @@ const routes = [
     name: 'Exchange',
     component: Exchange,
     meta: {
-      requiresAuth: true,
+      requiresAuth: false,
     },
   },
   {

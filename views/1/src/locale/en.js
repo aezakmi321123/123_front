@@ -178,6 +178,7 @@ export default {
       "Congratulations! Your withdrawal order has been successfully attached. We understand the importance of your request, and we're working diligently to process it promptly.  If you encounter any unexpected challenges or have questions, our dedicated support team is here to assist you.",
     incorrectAddress: 'Incorrect address',
     convert: 'Convert',
+    goToWallet: 'go to wallet',
   },
   exchange: {
     success: 'Successfully exchanged',

@@ -404,6 +404,7 @@ export default {
             receivedAddress: values.receivedAddress.toString(),
             commission,
             deposit: authStore.isLoggedIn,
+            fullAmountReceive: values.valueNumberReceive.toString(),
           });
         } else {
           await exchangeStore.exchange({
@@ -411,6 +412,7 @@ export default {
             coinTo: values.valueReceive.value,
             quantity: values.valueNumberSend.toString(),
             commission,
+            fullAmountReceive: values.valueNumberReceive.toString(),
           });
           emit('closeModal');
           await authStore.getUser();

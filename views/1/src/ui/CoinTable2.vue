@@ -113,7 +113,7 @@ export default {
         className: 'column-change',
       },
       {
-        title: t('wallets.convert'),
+        title: '',
         customRender() {
           return h(
             CButton,
@@ -121,7 +121,7 @@ export default {
               type: 'secondary',
               onClick: () => router.push({ path: '/wallets' }),
             },
-            t('wallets.convert'),
+            t('wallets.goToWallet'),
           );
         },
       },
