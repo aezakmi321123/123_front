@@ -113,7 +113,7 @@ export const useWalletStore = defineStore('wallet', {
       socket.addEventListener('message', event => {
         const data = JSON.parse(event.data);
         const symbol = data.s?.replace('USDT', '');
-        const c = parseFloat(data?.c);
+        const c = parseFloat(data?.c) * this.rates[symbol];
 
         if (data.e === '24hrTicker') {
           this.wsData.coins = {
