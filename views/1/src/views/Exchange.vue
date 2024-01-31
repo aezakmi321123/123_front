@@ -3,7 +3,7 @@
     <a-row :gutter="[{ md: 20, lg: 40 }, 40]" justify="center">
       <a-col :xs="24" :md="10" :lg="{ span: 12 }">
         <a-flex class="exchange-main-card">
-          <ExchangeCard :selected-card="selectedCard" />
+          <ExchangeCard :selected-card="walletsStore.coins[0]" />
         </a-flex>
       </a-col>
       <a-col :xs="24" :md="14" :lg="12">
@@ -61,6 +61,7 @@ export default {
       userCoins,
       socketCoinsData,
       onCardClick,
+      walletsStore,
     };
   },
 };
