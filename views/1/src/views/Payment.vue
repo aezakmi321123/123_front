@@ -36,7 +36,6 @@ import { PAYMENT_STATUSES } from '../data/constants.js';
 // import { useAuthStore } from '../modules/auth.js';
 import { usePaymentStore } from '../modules/payment.js';
 import CButton from '../ui/CButton.vue';
-
 export default {
   name: 'Payment',
   components: {
