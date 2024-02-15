@@ -337,6 +337,8 @@ export default {
     );
     const isWalletLoading = computed(() => walletStore.isLoading);
     const isUserAuthed = computed(() => authStore.isLoggedIn);
+    const currentUser = computed(() => authStore.user);
+
     const getCurrentRate = () => {
       currentRate.value = useCurrentRate(
         exchangeForm.value.valueSend?.value,
@@ -344,7 +346,7 @@ export default {
       );
     };
 
-    const commission = import.meta.env.VITE_BASE_COMMISSION;
+    const commission = currentUser.value?.exchangesWithoutCommission > 0 ? 0 : import.meta.env.VITE_BASE_COMMISSION
 
     const calculateSendCoinQuantity = (quantity = 1, commission) => {
       const fullSum = parseFloat(currentRate.value) * parseFloat(quantity);
