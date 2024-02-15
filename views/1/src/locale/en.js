@@ -42,21 +42,19 @@ export default {
     notEnoughError: 'Not enough coins, please deposit!',
   },
   main: {
-    label: `${import.meta.env.VITE_BASE_EXCHANGE_NAME} Cryptocurrency Exchange`,
+    label: `Change cryptocurrency at favorable rates without KYC and AM`,
     features: `Features of ${import.meta.env.VITE_BASE_EXCHANGE_NAME}`,
     label_p: `${
       import.meta.env.VITE_BASE_EXCHANGE_NAME
     } is a reliable and secure cryptocurrency exchange for everyone`,
     optimal_exchange: 'Optimal exchange',
-    best_offers: 'Best offers on the market.',
-    time_tested: 'Time-tested reliability',
-    confidence: 'Make your exchanges with confidence.',
-    save_money: `${
-      import.meta.env.VITE_BASE_EXCHANGE_NAME
-    } - saving money, easy`,
-    improve: 'Improve the performance of your investments.',
-    delay: 'Exchange without delay',
-    prompt: 'Prompt processing of your orders.',
+    best_offers: 'RUB/USDT exchange without commission',
+    time_tested: 'Operating since 2017',
+    confidence: 'Make exchanges with confidence.',
+    save_money: 'Anonymously and simply',
+    improve: 'No card verification required',
+    delay: 'Exchange without delays',
+    prompt: 'Order processing within 15 minutes',
     potential: 'Unlimited potential',
     potential_p: `The crypto industry has come a long way and has become a
     significant global economic segment. From the very beginning of

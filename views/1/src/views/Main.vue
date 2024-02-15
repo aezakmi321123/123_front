@@ -87,7 +87,11 @@
             </div>
           </a-col>
 
-          <a-col :xs="0" :lg="12">
+          <a-col
+            :style="{ display: 'flex', 'justify-content': 'flex-end' }"
+            :xs="0"
+            :lg="12"
+          >
             <img height="400" src="@images/coins.png" />
           </a-col>
         </a-row>
@@ -100,7 +104,7 @@
               <img src="@images/Bestchange.svg" />
             </a-col>
             <a-col :xs="24" :sm="12" :md="8">
-              <img src="@images/AMLBot.svg" />
+              <img src="@images/blockchair.svg" />
             </a-col>
             <a-col :xs="24" :sm="12" :md="8">
               <img src="@images/PerfectMoney.svg" />
@@ -222,6 +226,7 @@ export default {
       }
     }
     .image {
+      display: flex;
       margin-top: -45px;
     }
   }
