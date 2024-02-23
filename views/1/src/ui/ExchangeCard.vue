@@ -404,7 +404,7 @@ export default {
             networkTo: values.valueReceiveNetwork,
             fullAmount: values.valueNumberSend.toString(),
             receivedAddress: values.receivedAddress.toString(),
-            commission,
+            commission: commission.toString(),
             deposit: authStore.isLoggedIn,
             fullAmountReceive: values.valueNumberReceive.toString(),
           });
