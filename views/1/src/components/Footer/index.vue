@@ -20,13 +20,12 @@
         </a-col>
         <a-col :xs="12" :sm="12" :lg="6">
           <a-flex vertical gap="large">
-            <!-- <a-col>
-              <a-badge status="success" title="Success"
-                ><span>{{ t('footer.stacking') }}</span></a-badge
-              >
-            </a-col> -->
             <a-col>
-              <span @click="goTo('about')">{{ t('footer.about_us') }}</span>
+              <a-badge status="success" title="Success"
+                ><span @click="goTo('referral')"
+                  >Refferal program</span
+                ></a-badge
+              >
             </a-col>
             <a-col>
               <span @click="goTo('exchange')">{{ t('footer.exchange') }}</span>
@@ -38,6 +37,9 @@
         </a-col>
         <a-col :xs="24" :sm="12" :lg="6">
           <a-flex vertical gap="large">
+            <a-col>
+              <span @click="goTo('about')">{{ t('footer.about_us') }}</span>
+            </a-col>
             <a-col>
               <span @click="goTo('terms')">{{ t('footer.terms') }}</span>
             </a-col>

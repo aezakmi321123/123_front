@@ -18,7 +18,7 @@ import {
   watch,
 } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import CFooter from './components/Footer/index.vue';
 import CHeader from './components/Header/index.vue';
@@ -55,11 +55,23 @@ export default {
     const domain = useDomainStore();
     const exchange = useExchangeStore();
     const auth = useAuthStore();
+    const route = useRoute();
     const { t } = useI18n();
     const loading = ref(true);
     const { push } = useRouter();
     const state = reactive({ frameId: 0 });
+    const activateRef = () => {
+      if (route.path.includes('ref')) {
+        const refCode = route.path.replace('/ref:', '');
 
+        if (!auth.isLoggedIn) {
+          push({ path: '/register' });
+          localStorage.setItem('refCode', refCode);
+        } else {
+          push({ path: '/wallets' });
+        }
+      }
+    };
     onMounted(async () => {
       try {
         await wallet.getCoins();
@@ -73,6 +85,7 @@ export default {
         state.frameId = watchPageRendering(() => {
           setTimeout(() => (loading.value = false), 1000);
         });
+        activateRef();
       }
     });
     onUnmounted(() => {

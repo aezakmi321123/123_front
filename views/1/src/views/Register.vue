@@ -50,6 +50,15 @@
                 type="password"
               ></CInput>
             </a-form-item>
+            <a-form-item
+              :name="['signup', 'referralCode']"
+              label="Referral Code"
+            >
+              <CInput
+                v-model:value="formState.signup.referralCode"
+                type="string"
+              ></CInput>
+            </a-form-item>
             <a-form-item :label="t('sign_up.captcha')">
               <a-row
                 :gutter="[
@@ -114,7 +123,7 @@
 import { ReloadOutlined } from '@ant-design/icons-vue';
 import codes from 'country-calling-code';
 import { vMaska } from 'maska';
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import VueClientRecaptcha from 'vue-client-recaptcha';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -138,12 +147,17 @@ export default {
         fullName: '',
         email: '',
         password: '',
+        referralCode: '',
         phone: '',
       },
       captcha: '',
       countryCode: import.meta.env.VITE_BASE_DEFAULT_COUNTRY_CODE,
     });
-
+    onMounted(() => {
+      if (localStorage.getItem('refCode')) {
+        formState.signup.referralCode = localStorage.getItem('refCode');
+      }
+    });
     const router = useRouter();
     let currentCaptcha = ref('');
     const mapValue = el => ({
@@ -155,14 +169,8 @@ export default {
       return codes.map(mapValue);
     });
     const onFinish = async ({ signup }) => {
-      const data = {
-        ...signup,
-        phone: `(${formState.countryCode})${signup.phone}`,
-        country: newCodes.value.find(
-          el => formState.countryCode === el.countryCodes[0],
-        ).country,
-      };
-      authStore.signUp(data).then(() => router.push({ path: '/wallets' }));
+      console.log(signup);
+      authStore.signUp(signup).then(() => router.push({ path: '/wallets' }));
     };
     const routeToLogin = () => {
       router.push({ path: '/login' });

@@ -14,6 +14,7 @@ const Privacy = () => import('../views/Privacy.vue');
 const Terms = () => import('../views/Terms.vue');
 const About = () => import('../views/About.vue');
 const History = () => import('../views/History.vue');
+const Referral = () => import('../views/Referral.vue');
 const routes = [
   {
     path: '/',
@@ -120,6 +121,14 @@ const routes = [
     component: History,
     meta: {
       requiresAuth: true,
+    },
+  },
+  {
+    path: '/referral',
+    name: 'referral',
+    component: Referral,
+    meta: {
+      requiresAuth: false,
     },
   },
 ];
