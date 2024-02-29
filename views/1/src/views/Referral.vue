@@ -2,21 +2,20 @@
   <div class="container">
     <div class="referral">
       <div class="referral__info">
-        <h1 class="referral__title">Referral program</h1>
+        <h1 class="referral__title">{{ t('referral.program') }}</h1>
       </div>
       <a-row>
         <a-col :span="14">
           <div class="referral__card">
             <div class="referral__card-title">
-              Invite Friends. Earn Crypto Together
+              {{ t('referral.invite') }}
             </div>
             <div class="referral__card-desc">
-              Earn up to 40% commission every time your friends make a trade on
-              Exfoxbit. Climb the rankings and receive cool gifts
+              {{ t('referral.earn') }}
             </div>
             <div>
               <CCopyableInput
-                prefix="Referral ID"
+                :prefix="t('referral.id')"
                 :value="user.referralCode"
                 readonly
                 @copy="() => onCopy(user.referralCode)"
@@ -24,7 +23,7 @@
             </div>
             <div>
               <CCopyableInput
-                prefix="Referral Link"
+                :prefix="t('referral.link')"
                 :value="refferalLink"
                 @copy="() => onCopy(refferalLink)"
               />
@@ -32,14 +31,14 @@
             <a-row class="referral__card-receive">
               <a-col :span="12">
                 <div class="referral__card-status">
-                  <div>You Receive:</div>
+                  <div>{{ t('referral.receive') }}</div>
                   <div>50%</div>
                 </div>
               </a-col>
               <a-col :span="12">
                 <div class="referral__card-status">
-                  <div>Friends Receive:</div>
-                  <div>10%</div>
+                  <div>{{ t('referral.friends_receive') }}</div>
+                  <div>{{ t('referral.exchanges') }}</div>
                 </div>
               </a-col>
             </a-row>
@@ -51,72 +50,22 @@
       </a-row>
       <div class="referral__sec">
         <div class="referral__info">
-          <h1 class="referral__title">Invited Users</h1>
-          <div class="referral__text">
-            {{ t('referral.choose_p') }}
-          </div>
+          <h1 class="referral__title">{{ t('referral.invited') }}</h1>
         </div>
       </div>
-      <a-row :gutter="[{ md: 40, xs: 10 }, 40]">
-        <a-col :md="8" :sm="12" :xs="24">
-          <div class="card">
-            <img :width="100" src="@images/support.svg" />
-            <div class="card__label">{{ t('referral.card1_l') }}</div>
-            <div class="card__p">
-              {{ t('referral.card1_p') }}
-            </div>
-          </div>
-        </a-col>
-        <a-col :md="8" :sm="12" :xs="24">
-          <div class="card">
-            <img :width="100" src="@images/secure.svg" />
-            <div class="card__label">{{ t('referral.card2_l') }}</div>
-            <div class="card__p">
-              {{ t('referral.card2_p') }}
-            </div>
-          </div>
-        </a-col>
-        <a-col :md="8" :sm="12" :xs="24">
-          <div class="card">
-            <img :width="100" src="@images/use.svg" />
-            <div class="card__label">{{ t('referral.card3_l') }}</div>
-            <div class="card__p">
-              {{ t('referral.card3_p') }}
-            </div>
-          </div>
-        </a-col>
-        <a-col :md="8" :sm="12" :xs="24">
-          <div class="card">
-            <img :width="100" src="@images/fees.svg" />
-            <div class="card__label">{{ t('referral.card4_l') }}</div>
-            <div class="card__p">
-              {{ t('referral.card4_p') }}
-            </div>
-          </div>
-        </a-col>
-        <a-col :md="8" :sm="12" :xs="24">
-          <div class="card">
-            <img :width="100" src="@images/trusted.svg" />
-            <div class="card__label">{{ t('referral.card5_l') }}</div>
-            <div class="card__p">
-              {{ t('referral.card5_p') }}
-            </div>
-          </div>
-        </a-col>
-        <a-col :md="8" :sm="12" :xs="24">
-          <div class="card">
-            <img :width="100" src="@images/privacy.svg" />
-            <div class="card__label">{{ t('referral.card6_l') }}</div>
-            <div class="card__p">
-              {{ t('referral.card6_p') }}
-            </div>
-          </div>
-        </a-col>
-      </a-row>
+      <a-table
+        :data-source="user.referrals"
+        :columns="columns"
+        :pagination="false"
+        row-key="id"
+        :scroll="{ x: true }"
+      >
+      </a-table>
     </div>
   </div>
 </template>
 <script>
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { cMessage } from '../heplers/message.js';
@@ -129,7 +78,7 @@ export default {
   setup() {
     const { t } = useI18n();
     const { user } = useAuthStore();
-    const refferalLink = `${window.location.host}/ref:${user.referralCode}`;
+    const refferalLink = `${window.location.host}/?ref=${user.referralCode}`;
     const onCopy = async value => {
       try {
         await navigator.clipboard.writeText(value);
@@ -140,11 +89,32 @@ export default {
         console.error('Unable to copy to clipboard', e);
       }
     };
+    const columns = computed(() => {
+      return [
+        {
+          title: 'id',
+          dataIndex: 'id',
+        },
+        {
+          title: 'email',
+          dataIndex: 'email',
+        },
+        {
+          title: t('referral.fullName'),
+          dataIndex: 'fullName',
+        },
+        {
+          title: t('referral.amount'),
+          dataIndex: 'amount',
+        },
+      ];
+    });
     return {
       t,
       user,
       refferalLink,
       onCopy,
+      columns,
     };
   },
 };
@@ -249,5 +219,48 @@ export default {
     color: var(--text-primary);
     font-size: 16px;
   }
+}
+.ant-table-cell::before {
+  background-color: var(--bg-base) !important;
+}
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr:last-child > td {
+  border-bottom: 1px solid var(--bg-base) !important;
+}
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
+  background: var(--bg-select) !important;
+}
+.ant-table-thead > tr > th {
+  background: var(--button-primary) !important;
+  color: var(--text-link) !important;
+}
+.ant-table-tbody > tr > td {
+  cursor: pointer;
+  color: var(--text-primary);
+  border-top: 1px solid var(--bg-base) !important;
+}
+.ant-table {
+  background: var(--bg-input) !important;
+}
+.ant-table-row.ant-table-row-level-0.active {
+  background: var(--bg-select) !important;
+}
+.ant-table-wrapper
+  .ant-table-tbody
+  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+  > td {
+  background: var(--bg-select) !important;
+}
+.ant-table-cell {
+  background: var(--bg-input) !important;
+}
+:where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
+  .ant-table-tbody
+  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+  > td {
+  background: var(--bg-select);
+}
+.ant-empty-normal {
+  color: var(--text-link);
 }
 </style>

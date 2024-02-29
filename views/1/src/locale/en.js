@@ -201,6 +201,7 @@ export default {
         '2. You can make an exchange without an account by indicating the details of where you want to receive your money',
       addressPlaceholder: 'Enter receiving address',
       cardPlaceholder: 'Enter receiving card',
+      free: 'You have {num} exchanges  without commission',
     },
   },
   privacy: `
@@ -604,5 +605,18 @@ export default {
   errors: {
     min_dep_error: 'The minimum deposit is $100 or equivalent in any currency.',
     format: '0000 0000 0000 0000 format',
+  },
+  referral: {
+    program: 'Referral program',
+    invite: 'Invite Friends. Earn Crypto Together',
+    earn: 'Earn up to 50% commission every time your friends make a trade. Climb the rankings and receive cool gifts',
+    id: 'Referral ID',
+    link: 'Referral Link',
+    receive: 'You Receive:',
+    friends_receive: 'Friends Receive:',
+    exchanges: '3 exchanges without commission',
+    invited: 'Invited Users',
+    fullName: 'Full name',
+    amount: 'Amount',
   },
 };

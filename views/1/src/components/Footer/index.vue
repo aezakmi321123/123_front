@@ -22,9 +22,9 @@
           <a-flex vertical gap="large">
             <a-col>
               <a-badge status="success" title="Success"
-                ><span @click="goTo('referral')"
-                  >Refferal program</span
-                ></a-badge
+                ><span @click="goTo('referral')">{{
+                  t('referral.program')
+                }}</span></a-badge
               >
             </a-col>
             <a-col>

@@ -61,12 +61,10 @@ export default {
     const { push } = useRouter();
     const state = reactive({ frameId: 0 });
     const activateRef = () => {
-      if (route.path.includes('ref')) {
-        const refCode = route.path.replace('/ref:', '');
-
+      if (route.query.ref) {
         if (!auth.isLoggedIn) {
+          localStorage.setItem('refCode', route.query.ref);
           push({ path: '/register' });
-          localStorage.setItem('refCode', refCode);
         } else {
           push({ path: '/wallets' });
         }

@@ -169,7 +169,7 @@ export default {
       return codes.map(mapValue);
     });
     const onFinish = async ({ signup }) => {
-      console.log(signup);
+      if (!signup.referralCode) delete signup.referralCode;
       authStore.signUp(signup).then(() => router.push({ path: '/wallets' }));
     };
     const routeToLogin = () => {

@@ -169,7 +169,19 @@
             {{ exchangeForm.valueReceive.value }}
           </div>
           <div>
-            {{ t('exchange.mainCard.ourCommission') }}: {{ commission }}%
+            <div
+              v-if="isUserAuthed && currentUser.exchangesWithoutCommission > 0"
+              class="text-green"
+            >
+              {{
+                t('exchange.mainCard.free', {
+                  num: currentUser.exchangesWithoutCommission,
+                })
+              }}
+            </div>
+            <div v-else>
+              {{ t('exchange.mainCard.ourCommission') }}: {{ commission }}%
+            </div>
           </div>
         </div>
         <a-progress
@@ -346,7 +358,10 @@ export default {
       );
     };
 
-    const commission = currentUser.value?.exchangesWithoutCommission > 0 ? 0 : import.meta.env.VITE_BASE_COMMISSION
+    const commission =
+      currentUser.value?.exchangesWithoutCommission > 0
+        ? 0
+        : import.meta.env.VITE_BASE_COMMISSION;
 
     const calculateSendCoinQuantity = (quantity = 1, commission) => {
       const fullSum = parseFloat(currentRate.value) * parseFloat(quantity);
@@ -562,7 +577,6 @@ export default {
       },
       { immediate: true },
     );
-
     return {
       options,
       t,
@@ -589,6 +603,7 @@ export default {
       parseCard,
       validateInput,
       validateCryptoAddress,
+      currentUser,
     };
   },
 };
@@ -640,6 +655,9 @@ export default {
         }
       }
     }
+  }
+  &-free {
+    color: green;
   }
   &-rate {
     display: flex;

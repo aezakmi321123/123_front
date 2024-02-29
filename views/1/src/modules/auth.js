@@ -16,9 +16,9 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { data } = await rest.auth.refreshTokens();
         if (!data) {
-          return await this.logOut()
+          return await this.logOut();
         }
-        this.isLoggedIn = true
+        this.isLoggedIn = true;
       } catch (e) {
         await this.logOut();
         handleAxiosError(e);
@@ -27,6 +27,7 @@ export const useAuthStore = defineStore('auth', {
     async signUp(params) {
       try {
         const { data } = await rest.auth.register(params);
+        localStorage.removeItem('refCode');
         cMessage('success', i18n.t('success'));
         this.user = data;
         this.isLoggedIn = true;
@@ -69,7 +70,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         const { data } = await rest.auth.getUser(this.user.id);
         this.user = data;
-        this.user.coins = orderBy(this.user.coins, 'type', 'desc')
+        this.user.coins = orderBy(this.user.coins, 'type', 'desc');
       } catch (e) {
         handleAxiosError(e);
       } finally {

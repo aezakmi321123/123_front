@@ -96,10 +96,8 @@ export default {
     const { t } = useI18n();
     const sendLoading = ref(false);
     const formState = ref(cloneDeep(authStore.user));
-    // console.log(formState.value);
     const onFinish = async () => {
       try {
-        // console.log(formState.value);
         await authStore.updateUser(formState.value);
       } catch (e) {
         console.log(e);
