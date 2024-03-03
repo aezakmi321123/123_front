@@ -412,7 +412,7 @@ export default {
 
       try {
         if (!props.convert) {
-          await paymentStore.generateUnauthPayment({
+          await paymentStore[authStore.isLoggedIn ? 'generatePayment' : 'generateUnauthPayment'] ({
             currencyFrom: values.valueSend.value,
             networkFrom: values.valueSendNetwork,
             currencyTo: values.valueReceive.value,
