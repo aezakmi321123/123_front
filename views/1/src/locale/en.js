@@ -618,5 +618,11 @@ export default {
     invited: 'Invited Users',
     fullName: 'Full name',
     amount: 'Amount',
+    payemntId: 'Payment id',
+    pair: 'Pair',
+    reward: 'Reward',
+    dateCreated: 'Date Created',
+    email: 'Email',
+    status: 'Status',
   },
 };

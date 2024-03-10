@@ -7,6 +7,7 @@ export const usePaymentStore = defineStore('payment', {
   state: () => ({
     isLoading: false,
     payment: {},
+    successPayments: [],
   }),
   actions: {
     async getPayment(id) {
@@ -80,5 +81,16 @@ export const usePaymentStore = defineStore('payment', {
         this.isLoading = false;
       }
     },
+    async getSuccesPaymentsByUserId(id){
+        try {
+            this.isLoading = true;
+            const { data } = await rest.payment.getSuccesPaymentsByUserId(id);
+            this.successPayments = data
+        } catch (e) {
+            handleAxiosError(e);
+        } finally {
+            this.isLoading = false;
+        }
+    }
   },
 });

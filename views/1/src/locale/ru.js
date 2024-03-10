@@ -615,5 +615,11 @@ export default {
     invited: 'Приглашенные пользователи',
     fullName: 'Полное имя',
     amount: 'Сумма',
+    payemntId: 'Id платежа',
+    pair: 'Пара',
+    reward: 'Награда',
+    dateCreated: 'Дата создания',
+    email: 'Эмейл',
+    status: 'Статус',
   },
 };

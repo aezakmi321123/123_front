@@ -110,6 +110,9 @@ export default {
     generateUnauthPayment(params) {
       return call('POST', '/payments/unauth/generatePayment', params);
     },
+    getSuccesPaymentsByUserId(id){
+      return call('GET', `/payments/${id}/successPayments/`);
+    }
   },
   withdraw: {
     generateWithdraw(params) {

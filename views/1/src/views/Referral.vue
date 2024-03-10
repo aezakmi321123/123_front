@@ -15,17 +15,17 @@
             </div>
             <div>
               <CCopyableInput
-                :prefix="t('referral.id')"
-                :value="user.referralCode"
-                readonly
-                @copy="() => onCopy(user.referralCode)"
+                  :prefix="t('referral.id')"
+                  :value="user.referralCode"
+                  readonly
+                  @copy="() => onCopy(user.referralCode)"
               />
             </div>
             <div>
               <CCopyableInput
-                :prefix="t('referral.link')"
-                :value="refferalLink"
-                @copy="() => onCopy(refferalLink)"
+                  :prefix="t('referral.link')"
+                  :value="refferalLink"
+                  @copy="() => onCopy(refferalLink)"
               />
             </div>
             <a-row class="referral__card-receive">
@@ -45,7 +45,7 @@
           </div>
         </a-col>
         <a-col :span="10">
-          <img :style="{ width: '100%' }" src="@images/referral.svg" />
+          <img :style="{ width: '100%' }" src="@images/referral.svg"/>
         </a-col>
       </a-row>
       <div class="referral__sec">
@@ -54,12 +54,24 @@
         </div>
       </div>
       <a-table
-        :data-source="user.referrals"
-        :columns="columns"
-        :pagination="false"
-        row-key="id"
-        :scroll="{ x: true }"
+          :data-source="user.referrals"
+          :columns="columns"
+          :pagination="false"
+          row-key="id"
+          :scroll="{ x: true }"
+          @expand="handleExpandRow"
       >
+        <template #expandedRowRender>
+          <a-table
+              :columns="nestedColumns"
+              :data-source="nestedDataSource"
+              :pagination="false"
+              :loading="paymentsStore.loading"
+              row-key="id"
+              :scroll="{ x: true }"
+          >
+          </a-table>
+        </template>
       </a-table>
     </div>
   </div>
@@ -68,9 +80,13 @@
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import { useCurrentRate } from "@/composables/useCurrentRate.js";
+
 import { cMessage } from '../heplers/message.js';
 import { useAuthStore } from '../modules/auth.js';
+import { usePaymentStore } from '../modules/payment.js';
 import CCopyableInput from '../ui/CCopyableInput.vue';
+
 export default {
   components: {
     CCopyableInput,
@@ -78,7 +94,24 @@ export default {
   setup() {
     const { t } = useI18n();
     const { user } = useAuthStore();
+    const paymentsStore = usePaymentStore();
+    const reward = '50'
     const refferalLink = `${window.location.host}/?ref=${user.referralCode}`;
+    const nestedDataSource = computed(() => paymentsStore.successPayments.map(item => {
+      const rate = useCurrentRate(item.currencyFrom)
+      const calculatedReward =  item.fullAmount * (reward / 100)
+
+      return ({
+        ...item,
+        reward: `${calculatedReward} ${item.currencyFrom}(${rate * calculatedReward} USDT)`,
+        rewardPercents: `${reward}%`,
+        email: item.user.email,
+        pair: `${item.currencyFrom}/${item.currencyTo}`,
+        fullAmount: `${item.fullAmount} ${item.currencyFrom}(${rate * item.fullAmount} USDT)`,
+        dataCreated: new Date(item.dataCreated).toLocaleString()
+      })
+    }))
+
     const onCopy = async value => {
       try {
         await navigator.clipboard.writeText(value);
@@ -102,19 +135,56 @@ export default {
         {
           title: t('referral.fullName'),
           dataIndex: 'fullName',
+        }
+      ];
+    });
+    const nestedColumns = computed(() => {
+      return [
+        {
+          title: t('referral.payemntId'),
+          dataIndex: 'id',
+        },
+        {
+          title: t('referral.email'),
+          dataIndex: 'email',
+        },
+        {
+          title: t('referral.pair'),
+          dataIndex: 'pair',
         },
         {
           title: t('referral.amount'),
-          dataIndex: 'amount',
+          dataIndex: 'fullAmount',
         },
-      ];
-    });
+        {
+          title: t('referral.reward'),
+          dataIndex: 'reward',
+        },
+        {
+          title: t('referral.dateCreated'),
+          dataIndex: 'dataCreated',
+        },
+        {
+          title: t('referral.status'),
+          dataIndex: 'referralPaidStatus',
+        },
+      ]
+    })
+
+    const handleExpandRow = (_, { id }) => {
+      paymentsStore.getSuccesPaymentsByUserId(id)
+    }
+
     return {
       t,
       user,
       refferalLink,
       onCopy,
       columns,
+      nestedColumns,
+      nestedDataSource,
+      paymentsStore,
+      handleExpandRow
     };
   },
 };
@@ -122,6 +192,7 @@ export default {
 <style lang="scss">
 .referral {
   margin-top: 30px;
+
   &__card {
     padding: 20px;
     display: flex;
@@ -130,13 +201,16 @@ export default {
     font-size: 16px;
     border-radius: 10px;
     background: radial-gradient(100% 100% at 0% 0%, #21213d 0%, #101024 100%);
+
     &-title {
       font-size: 30px;
       font-weight: 700;
     }
+
     &-receive {
       font-size: 30px;
     }
+
     &-status {
       display: flex;
       font-size: 16px;
@@ -144,6 +218,7 @@ export default {
       gap: 10px;
     }
   }
+
   &__info {
     padding: 20px 0;
     display: flex;
@@ -154,12 +229,14 @@ export default {
       gap: 14px;
     }
   }
+
   &__text {
     font-size: 20px;
     @include mq(575px, max-width) {
       font-size: 16px;
     }
   }
+
   &__history {
     margin-top: 100px;
     font-size: 20px;
@@ -169,6 +246,7 @@ export default {
     display: flex;
     align-items: center;
   }
+
   &__history__text {
     font-size: 22px;
     @include mq(575px, max-width) {
@@ -176,6 +254,7 @@ export default {
     }
   }
 }
+
 .card {
   display: flex;
   flex-direction: column;
@@ -188,6 +267,7 @@ export default {
     padding: 14px;
     gap: 14px;
   }
+
   &__label {
     font-size: 20px;
     @include mq(575px, max-width) {
@@ -196,6 +276,7 @@ export default {
     color: var(--text-link);
     font-weight: bold;
   }
+
   &__p {
     font-size: 16px;
     line-height: 30px;
@@ -204,9 +285,11 @@ export default {
     }
   }
 }
+
 .time {
   display: flex;
   flex-direction: column;
+
   &_l {
     font-size: 22px;
     color: var(--text-link);
@@ -215,51 +298,63 @@ export default {
       font-size: 16px;
     }
   }
+
   &_p {
     color: var(--text-primary);
     font-size: 16px;
   }
 }
+
 .ant-table-cell::before {
   background-color: var(--bg-base) !important;
 }
+
 .ant-table-thead > tr > th,
 .ant-table-tbody > tr:last-child > td {
   border-bottom: 1px solid var(--bg-base) !important;
 }
+
 .ant-table-wrapper .ant-table-tbody > tr.ant-table-row:hover > td {
   background: var(--bg-select) !important;
 }
+
 .ant-table-thead > tr > th {
   background: var(--button-primary) !important;
   color: var(--text-link) !important;
 }
+
 .ant-table-tbody > tr > td {
   cursor: pointer;
   color: var(--text-primary);
   border-top: 1px solid var(--bg-base) !important;
 }
+
 .ant-table {
   background: var(--bg-input) !important;
 }
+
 .ant-table-row.ant-table-row-level-0.active {
   background: var(--bg-select) !important;
 }
+
 .ant-table-wrapper
-  .ant-table-tbody
-  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
-  > td {
+.ant-table-tbody
+> :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+> td {
   background: var(--bg-select) !important;
 }
+
 .ant-table-cell {
   background: var(--bg-input) !important;
 }
+
 :where(.css-dev-only-do-not-override-1qb1s0s).ant-table-wrapper
-  .ant-table-tbody
-  > :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
-  > td {
+.ant-table-tbody
+> :is(tr.ant-table-placeholder:hover, tr.ant-table-row.active)
+> td {
   background: var(--bg-select);
 }
+
 .ant-empty-normal {
   color: var(--text-link);
 }
